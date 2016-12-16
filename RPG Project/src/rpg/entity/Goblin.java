@@ -4,7 +4,7 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
-public class Goblin extends Character {
+public class Goblin extends PlayerCharacter {
 
 	@Override
 	public void move(int direction) {

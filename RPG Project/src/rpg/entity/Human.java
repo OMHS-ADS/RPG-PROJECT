@@ -3,7 +3,7 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
-public class Human extends Character {
+public class Human extends PlayerCharacter {
 
 	@Override
 	public void move(int direction) {
