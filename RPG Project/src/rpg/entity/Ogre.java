@@ -1,3 +1,4 @@
+//Cameron Nikiel
 package rpg.entity;
 
 import rpg.item.Shield;
