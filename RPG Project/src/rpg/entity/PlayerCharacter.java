@@ -1,4 +1,5 @@
 package rpg.entity;
+import rpg.container.Bag;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 import rpg.util.Direction;
@@ -9,6 +10,7 @@ public abstract class PlayerCharacter {
 	protected int HP; //current health points a character has
 	protected String name;  //the name of the character
 	protected int xPos, yPos; //location of the character
+	protected Bag inventory;
 	
     public void move(Direction direction) {   //  			(move in a direction multiple space(s)
     	switch (direction) {
@@ -27,9 +29,11 @@ public abstract class PlayerCharacter {
     }
     public abstract void defend();				//(defend an attack)
     public abstract void defend(Shield s);	//		(defend an attack with an item)
-    public abstract String getBagContents();			//(return all the contents in the character’s person)
+    public String getBagContents() {			//(return all the contents in the character’s person)
+    	return inventory.toString();
+    }
     public String getLocation() {			//	(return’s the current character’s room location as X, Y)
-    	return "(" + xPos + "," + yPos + ")";
+    	return xPos + "," + yPos;
     }
     public void changeMAP(int c) {
     	MAP += c;
