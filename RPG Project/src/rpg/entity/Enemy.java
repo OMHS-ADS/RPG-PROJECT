@@ -19,5 +19,4 @@ public abstract class Enemy {
 	    public abstract void defend();				//(defend an attack)
 	    public abstract void defend(Shield s);	//		(defend an attack with an item)
 	    public abstract String getLocation();			//	(return’s the current character’s room location as X, Y)
-	}
 }
