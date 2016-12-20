@@ -4,8 +4,8 @@ import rpg.entity.PlayerCharacter;
 
 public class HealingSpell extends Spell{
 	protected double heal;
-	public HealingSpell(double vx, double vy, double heal) {
-		super(vx, vy);
+	public HealingSpell(int x, int y, double vx, double vy, double heal) {
+		super(x,y,vx,vy);
 		this.heal=heal;
 		
 	}

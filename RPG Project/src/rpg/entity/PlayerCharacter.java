@@ -2,9 +2,10 @@ package rpg.entity;
 import rpg.container.Bag;
 import rpg.item.Shield;
 import rpg.item.Weapon;
+import rpg.util.Coordinatable;
 import rpg.util.Direction;
 
-public abstract class PlayerCharacter {
+public abstract class PlayerCharacter implements Coordinatable {
     protected int MAP; //maximum attack points of the character excluding other items
 	protected int MDP; //maximum defense points of the character excluding other items
 	protected int HP; //current health points a character has
@@ -40,5 +41,11 @@ public abstract class PlayerCharacter {
     }
     public void changeMDP(int c){
     	MDP += c;
+    }
+    public int getX() {
+    	return xPos;
+    }
+    public int getY() {
+    	return yPos;
     }
 }
