@@ -6,11 +6,6 @@ import rpg.item.Weapon;
 
 public class Ogre extends PlayerCharacter {
 
-	@Override
-	public void move(int direction) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void pickup(String item) {
