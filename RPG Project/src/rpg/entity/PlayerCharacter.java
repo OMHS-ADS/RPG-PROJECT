@@ -28,7 +28,9 @@ public abstract class PlayerCharacter {
     public abstract void defend();				//(defend an attack)
     public abstract void defend(Shield s);	//		(defend an attack with an item)
     public abstract String getBagContents();			//(return all the contents in the character’s person)
-    public abstract String getLocation();			//	(return’s the current character’s room location as X, Y)
+    public String getLocation() {			//	(return’s the current character’s room location as X, Y)
+    	return "(" + xPos + "," + yPos + ")";
+    }
     public void changeMAP(int c) {
     	MAP += c;
     }
