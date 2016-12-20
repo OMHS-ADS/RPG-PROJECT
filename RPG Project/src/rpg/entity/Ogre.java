@@ -6,27 +6,14 @@ import rpg.item.Weapon;
 
 public class Ogre extends PlayerCharacter {
 
-
 	@Override
-	public void pickup(String item) {
+	public void attack(PlayerCharacter name) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void drop(String item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name, Weapon w) {
+	public void attack(PlayerCharacter name, Weapon w) {
 		// TODO Auto-generated method stub
 
 	}
