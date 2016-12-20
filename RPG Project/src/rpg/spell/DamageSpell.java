@@ -1,4 +1,4 @@
-package spell;
+package rpg.spell;
 
 import rpg.entity.PlayerCharacter;
 public class DamageSpell extends Spell {

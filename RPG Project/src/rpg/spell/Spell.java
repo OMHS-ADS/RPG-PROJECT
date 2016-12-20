@@ -1,4 +1,4 @@
-package spell;
+package rpg.spell;
 
 import rpg.entity.PlayerCharacter;
 public abstract class Spell {
