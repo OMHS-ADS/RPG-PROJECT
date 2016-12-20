@@ -35,4 +35,5 @@ public abstract class PlayerCharacter {
     public void changeMDP(int c){
     	MDP += c;
     }
+	public abstract void move(int direction);
 }
