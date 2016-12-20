@@ -4,7 +4,7 @@ import rpg.entity.PlayerCharacter;
 
 public class DamageOutputSpell extends Spell {
 	protected int ap;
-	public DamageOutputSpell(double vx, double vy, int dmg) {
+	public DamageOutputSpell(double vx, double vy, int ap) {
 		super(vx, vy);
 		this.ap=ap;
 	}
