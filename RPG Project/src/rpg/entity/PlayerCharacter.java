@@ -1,9 +1,10 @@
 package rpg.entity;
+import java.awt.Graphics;
+
 import rpg.container.Bag;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
-import rpg.util.Coordinatable;
 import rpg.util.Direction;
 
 public abstract class PlayerCharacter extends Entity {
@@ -70,5 +71,9 @@ public abstract class PlayerCharacter extends Entity {
     }
     public Weapon getWeapon() {
     	return weapon;
+    }
+    
+    public void render(Graphics g, int xo, int  yo) {
+    	
     }
 }

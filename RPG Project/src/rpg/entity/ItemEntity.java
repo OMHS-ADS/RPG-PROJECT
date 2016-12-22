@@ -1,5 +1,7 @@
 package rpg.entity;
 
+import java.awt.Graphics;
+
 import rpg.item.Item;
 import rpg.util.Coordinatable;
 /**
@@ -23,5 +25,10 @@ public class ItemEntity extends Entity {
 	}
 	public Item getItem() {
 		return rep;
+	}
+	@Override
+	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }
