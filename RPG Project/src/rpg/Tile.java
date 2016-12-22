@@ -6,6 +6,9 @@ public class Tile {
 
 	private Entity tilesEntity;
 	
+	//Tile width: 60
+	//Tile height: 60
+	
 	public Tile(Entity e) {
 		tilesEntity = e;
 	}
