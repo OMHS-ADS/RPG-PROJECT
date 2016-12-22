@@ -7,9 +7,11 @@ import rpg.World;
 public class GameFrame extends JFrame {
 	
 	public GameFrame() {
-		setSize(16*80, 9*80);
+		super("World of Datacraft");
+		setSize(16*60, 9*60);
 		setVisible(true);
 		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	
