@@ -10,6 +10,7 @@ public abstract class Enemy {
 		protected int HP; //current health points a character has
 		protected String name;  //the name of the character
 		protected int xPos, yPos; //location of the character
+		protected boolean boss;
 		
 	    public abstract void move(int direction);   //  			(move in a direction multiple space(s)
 	    //public abstract void pickup(String item);	//		(pickup a visible item)
