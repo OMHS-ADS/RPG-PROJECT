@@ -4,27 +4,15 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Elf extends PlayerCharacter {
-
+	
 	@Override
-	public void pickup(String item) {
+	public void attack(PlayerCharacter name) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void drop(String item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name, Weapon w) {
+	public void attack(PlayerCharacter name, Weapon w) {
 		// TODO Auto-generated method stub
 
 	}
@@ -39,18 +27,6 @@ public class Elf extends PlayerCharacter {
 	public void defend(Shield s) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getBagContents() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getLocation() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

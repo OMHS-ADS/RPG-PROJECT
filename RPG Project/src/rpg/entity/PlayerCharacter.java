@@ -1,5 +1,6 @@
 package rpg.entity;
 import rpg.container.Bag;
+import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 import rpg.util.Coordinatable;
@@ -21,10 +22,14 @@ public abstract class PlayerCharacter implements Coordinatable {
     	case LEFT:xPos--;break;
     	}
     }
-    public abstract void pickup(String item);	//		(pickup a visible item)
-    public abstract void drop(String item);			//(drop an item at your current location)
-    public abstract void attack(String name);		//	(attack another character)
-    public abstract void attack(String name, Weapon w);	//(attack a character with an item)
+    public void pickup(Item item) {			//		(pickup a visible item)
+    	inventory.addItem(item);
+    }
+    public void drop(Item item) {			//(drop an item at your current location)
+    	inventory.removeItem(item);
+    }
+    public abstract void attack(PlayerCharacter name);		//	(attack another character)
+    public abstract void attack(PlayerCharacter name, Weapon w);	//(attack a character with an item)
     public  void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
     }

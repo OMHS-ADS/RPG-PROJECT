@@ -8,51 +8,35 @@ import rpg.item.Weapon;
 public class Dwarf extends PlayerCharacter {
 
 	@Override
-	public void pickup(String item) {
+	public void attack(PlayerCharacter name) {
 		// TODO Auto-generated method stub
-
+		//do 1 dmg default
+		//default attack value, dmg = attack * modifier
+		// if hits(true){
+		// name.defend(dmg * defend multiplier (smaller than with shield))
+		//}
+		//name.defend(name.getShield()){
+		//}
 	}
 
 	@Override
-	public void drop(String item) {
+	public void attack(PlayerCharacter name, Weapon w) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name, Weapon w) {
-		// TODO Auto-generated method stub
-
+		//do 1 dmg default
+		//default attack value, dmg = attack * modifier
+		//do more dmgs based on modifier
 	}
 
 	@Override
 	public void defend() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void defend(Shield s) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getBagContents() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getLocation() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
