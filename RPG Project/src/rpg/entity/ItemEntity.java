@@ -7,7 +7,7 @@ import rpg.util.Coordinatable;
  * @author Morgan
  *
  */
-public class ItemEntity implements Coordinatable {
+public class ItemEntity extends Entity {
 	protected Item rep; //The item represented by the ItemEntity
 	protected int x,y; //The position of the ItemEntity
 	public ItemEntity(Item rep, int x,int y) {

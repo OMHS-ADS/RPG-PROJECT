@@ -6,7 +6,7 @@ import rpg.item.Weapon;
 import rpg.util.Coordinatable;
 import rpg.util.Direction;
 
-public abstract class PlayerCharacter implements Coordinatable {
+public abstract class PlayerCharacter extends Entity {
     protected int MAP; //maximum attack points of the character excluding other items
 	protected int MDP; //maximum defense points of the character excluding other items
 	protected int HP; //current health points a character has
