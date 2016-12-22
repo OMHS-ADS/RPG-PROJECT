@@ -66,9 +66,9 @@ public abstract class PlayerCharacter extends Entity {
     	return yPos;
     }
     public Shield getShield() {
-    	return shield;
+    	return shield; //Will return null if no weapon
     }
     public Weapon getWeapon() {
-    	return weapon;
+    	return weapon; //Will return null if no weapon
     }
 }
