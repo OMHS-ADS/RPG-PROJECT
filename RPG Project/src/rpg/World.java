@@ -14,5 +14,4 @@ public class World {
 	public void setFGTile(Tile t, int r, int c){
 		foreground[r][c] = t;
 	}
-	public 
 }
