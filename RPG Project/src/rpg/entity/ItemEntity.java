@@ -7,6 +7,7 @@ import rpg.util.Coordinatable;
  * @author Morgan
  *
  */
+//TestCommit	
 public class ItemEntity extends Entity {
 	protected Item rep; //The item represented by the ItemEntity
 	protected int x,y; //The position of the ItemEntity
