@@ -3,7 +3,6 @@ import rpg.container.Bag;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
-import rpg.util.Coordinatable;
 import rpg.util.Direction;
 
 public abstract class PlayerCharacter extends Entity {
@@ -18,9 +17,10 @@ public abstract class PlayerCharacter extends Entity {
 	protected float hitChance = (float) 0.75;
 	protected float baseDefend = (float) 0.1;
 	
-	public PlayerCharacter() {
-		this.MAP=1;
+	public PlayerCharacter(String name) {
+		this.MAP=2;
 		this.hitChance=(float) 0.75;
+		this.name = name;
 	}
 	public PlayerCharacter(int dmg, float hitChance) {
 		this.MAP=dmg;
@@ -43,6 +43,14 @@ public abstract class PlayerCharacter extends Entity {
     }
     public void attack(PlayerCharacter name) {
 
+		//do 1 dmg default
+		//default attack value, dmg = attack * modifier
+		// if hits(true){
+		// name.defend(dmg * defend multiplier (smaller than with shield))
+		//}
+		//name.defend(name.getShield()){
+		//}
+    	
 		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
 			if(name.getShield()==null){
 				name.defend(MAP);
@@ -53,6 +61,10 @@ public abstract class PlayerCharacter extends Entity {
     }		//	(attack another character)
     public void attack(PlayerCharacter name, Weapon w) {
 
+		//do 1 dmg default
+		//default attack value, dmg = attack * modifier
+		//do more dmgs based on modifier
+    	
 		if (Math.random()<hitChance){
 			if(name.getShield()==null){
 				name.defend(MAP*(w.getMAP()));
@@ -65,11 +77,7 @@ public abstract class PlayerCharacter extends Entity {
     	HP += dmg;
     }
     public void defend(int dmg) {				//(defend an attack)
-    	if (getShield() == null) {
-    		this.changeHealth((double)(dmg * (1 - baseDefend)));
-    	} else {
-    		defend(dmg,shield);
-    	}
+    	this.changeHealth((double)(dmg * (1 - baseDefend)));
     }
     public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
     	this.changeHealth((double)(dmg * (1 - s.getMAP())));

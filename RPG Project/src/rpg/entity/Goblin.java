@@ -5,29 +5,9 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Goblin extends PlayerCharacter {
-
-	@Override
-	public void attack(PlayerCharacter name) {
-		// TODO Auto-generated method stub
-
+	public Goblin(String name) {
+		super(name);
+		this.MAP=1;
+		this.hitChance=(float) .85;
 	}
-
-	@Override
-	public void attack(PlayerCharacter name, Weapon w) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend(Shield s) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
