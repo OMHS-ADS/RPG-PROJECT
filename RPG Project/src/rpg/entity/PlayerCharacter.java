@@ -13,6 +13,18 @@ public abstract class PlayerCharacter implements Coordinatable {
 	protected String name;  //the name of the character
 	protected int xPos, yPos; //location of the character
 	protected Bag inventory;
+	protected Weapon weapon;
+	protected Shield shield;
+	protected float hitChance = (float) 0.75;
+	
+	public PlayerCharacter() {
+		this.MAP=1;
+		this.hitChance=(float) 0.75;
+	}
+	public PlayerCharacter(int dmg, float hitChance) {
+		this.MAP=dmg;
+		this.hitChance=hitChance;
+	}
 	
     public void move(Direction direction) {   //  			(move in a direction multiple space(s)
     	switch (direction) {
@@ -26,7 +38,7 @@ public abstract class PlayerCharacter implements Coordinatable {
     	inventory.addItem(item);
     }
     public void drop(Item item) {			//(drop an item at your current location)
-    	inventory.removeItem(item);
+    	new ItemEntity(inventory.removeItem(item),xPos,yPos); //Needs a world to put it in
     }
     public abstract void attack(PlayerCharacter name);		//	(attack another character)
     public abstract void attack(PlayerCharacter name, Weapon w);	//(attack a character with an item)
@@ -35,8 +47,8 @@ public abstract class PlayerCharacter implements Coordinatable {
     }
     public abstract void defend();				//(defend an attack)
     public abstract void defend(Shield s);	//		(defend an attack with an item)
-    public String getBagContents() {			//(return all the contents in the character’s person)
-    	return inventory.toString();
+    public Bag getBagContents() {			//(return all the contents in the character’s person)
+    	return inventory;
     }
     public String getLocation() {			//	(return’s the current character’s room location as X, Y)
     	return xPos + "," + yPos;
@@ -52,5 +64,11 @@ public abstract class PlayerCharacter implements Coordinatable {
     }
     public int getY() {
     	return yPos;
+    }
+    public Shield getShield() {
+    	return shield;
+    }
+    public Weapon getWeapon() {
+    	return weapon;
     }
 }
