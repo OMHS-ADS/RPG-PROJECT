@@ -13,6 +13,7 @@ public class GameFrame extends JFrame {
 	
 	public void updateFrame() {
 		//Do update frame
+		
 	}
 
 }
