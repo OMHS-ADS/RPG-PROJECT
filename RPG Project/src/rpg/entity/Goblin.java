@@ -30,16 +30,4 @@ public class Goblin extends PlayerCharacter {
 
 	}
 
-	@Override
-	public String getBagContents() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
