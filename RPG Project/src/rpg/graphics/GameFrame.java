@@ -8,7 +8,7 @@ public class GameFrame extends JFrame {
 	
 	public GameFrame() {
 		super("World of Datacraft");
-		setSize(16*60, 9*60);
+		setSize(16*60, 9*60 + 20);
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
