@@ -6,26 +6,28 @@ import rpg.item.Weapon;
 
 public class Elf extends PlayerCharacter {
 	public Elf(){
-		//define HITCHANCE
+		//define hitChance
 	}
 	@Override
 	public void attack(PlayerCharacter name) {
-		//if (Math.random() < HITCHANCE){
-		//	name.defend(MAP);
-		//}
-		// if hits(true){
-		// name.defend(dmg * defend multiplier (smaller than with shield))
-		//}
-		//name.defend(name.getShield()){
+		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+			if(name.getShield()==null){
+				name.defend(MAP);
+			} else{
+				name.defend(MAP,name.getShield());
+			}
+		}
 	}
 
 	@Override
 	public void attack(PlayerCharacter name, Weapon w) {
-		//if (Math.random()<HITCHANCE){
-		//	name.defend(MAP*modifier);
-		//}
-		//name.defend(name.getShield()){
-		//}
+		if (Math.random()<hitChance){
+			if(name.getShield()==null){
+				name.defend(MAP*(w.getMAP()));
+			} else{
+				name.defend(MAP*(w.getMAP()),name.getShield());
+			}
+		}
 	}
 
 	@Override

@@ -45,8 +45,8 @@ public abstract class PlayerCharacter implements Coordinatable {
     public  void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
     }
-    public abstract void defend();				//(defend an attack)
-    public abstract void defend(Shield s);	//		(defend an attack with an item)
+    public abstract void defend(int dmg);				//(defend an attack)
+    public abstract void defend(int dmg, Shield s);	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character’s person)
     	return inventory;
     }

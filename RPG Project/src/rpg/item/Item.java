@@ -56,4 +56,7 @@ abstract public class Item {
     public boolean getEq(){
         return equipped;
     }
+    public int getMAP(){
+    	return MAP;
+    }
 }
