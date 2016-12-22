@@ -1,4 +1,5 @@
 package rpg.item;
+import java.util.Random;
 abstract public class Item {
     protected int MAP; //maximum attack points the item can increase a character's attack by
     protected int DHP; //maximum defense points the item can increase a character's defense
@@ -55,5 +56,16 @@ abstract public class Item {
     
     public boolean getEq(){
         return equipped;
+    }
+    public static Item getRandomItem(){
+    	Item[] itemTypes = new Item[3];
+    	itemTypes[0] = new Sword();
+    	itemTypes[1] = new Axe();
+    	itemTypes[2] = new LargeShield();
+    	itemTypes[3] = new SmallShield();
+    	Random r = new Random();
+    	int index = r.nextInt(6);
+    	Item wep = itemTypes[index];
+    	return wep;
     }
 }
