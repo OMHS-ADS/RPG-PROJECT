@@ -16,6 +16,7 @@ public abstract class PlayerCharacter extends Entity {
 	protected Weapon weapon;
 	protected Shield shield;
 	protected float hitChance = (float) 0.75;
+	protected float baseDefend = (float) 0.1;
 	
 	public PlayerCharacter() {
 		this.MAP=1;
@@ -63,12 +64,16 @@ public abstract class PlayerCharacter extends Entity {
     public  void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
     }
-    public void defend(int dmg) {
-    	
-    }				//(defend an attack)
-    public void defend(int dmg, Shield s) {
-    	
-    }	//		(defend an attack with an item)
+    public void defend(int dmg) {				//(defend an attack)
+    	if (getShield() == null) {
+    		this.changeHealth((double)(dmg * (1 - baseDefend)));
+    	} else {
+    		defend(dmg,shield);
+    	}
+    }
+    public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
+    	this.changeHealth((double)(dmg * (1 - s.getMAP())));
+    }
     public Bag getBagContents() {			//(return all the contents in the character’s person)
     	return inventory;
     }
