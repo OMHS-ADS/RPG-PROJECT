@@ -2,6 +2,8 @@ package rpg.graphics;
 
 import javax.swing.JFrame;
 
+import rpg.World;
+
 public class GameFrame extends JFrame {
 	
 	public GameFrame() {
@@ -13,8 +15,9 @@ public class GameFrame extends JFrame {
 	
 	
 	
-	public void updateFrame() {
+	public void updateFrame(World w) {
 		//Do update frame
+		
 		
 	}
 
