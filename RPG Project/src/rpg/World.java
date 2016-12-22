@@ -14,4 +14,10 @@ public class World {
 	public void setFGTile(Tile t, int r, int c){
 		foreground[r][c] = t;
 	}
+	public Tile[][] getFG(){
+		return foreground;
+	}
+	public Tile[][] getBG(){
+		return background;
+	}
 }

@@ -5,7 +5,9 @@ import javax.swing.JFrame;
 public class GameFrame extends JFrame {
 	
 	public GameFrame() {
-		
+		setSize(16*80, 9*80);
+		setVisible(true);
+		setResizable(false);
 	}
 	
 	
