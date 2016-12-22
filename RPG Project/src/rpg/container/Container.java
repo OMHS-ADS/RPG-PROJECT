@@ -32,6 +32,10 @@ public abstract class Container {
 	public Item removeItem(Item i) {
 		return items.remove(items.indexOf(i));
 	}
+	public Item moveItem(int i, Container c){
+		c.addItem(items.get(i));
+		return items.remove(i);
+	}
 	public String toString() {
 		return items.toString();
 	}
