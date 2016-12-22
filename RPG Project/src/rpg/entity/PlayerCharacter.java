@@ -40,13 +40,35 @@ public abstract class PlayerCharacter extends Entity {
     public void drop(Item item) {			//(drop an item at your current location)
     	new ItemEntity(inventory.removeItem(item),xPos,yPos); //Needs a world to put it in
     }
-    public abstract void attack(PlayerCharacter name);		//	(attack another character)
-    public abstract void attack(PlayerCharacter name, Weapon w);	//(attack a character with an item)
+    public void attack(PlayerCharacter name) {
+
+		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+			if(name.getShield()==null){
+				name.defend(MAP);
+			} else{
+				name.defend(MAP,name.getShield());
+			}
+		}
+    }		//	(attack another character)
+    public void attack(PlayerCharacter name, Weapon w) {
+
+		if (Math.random()<hitChance){
+			if(name.getShield()==null){
+				name.defend(MAP*(w.getMAP()));
+			} else{
+				name.defend(MAP*(w.getMAP()),name.getShield());
+			}
+		}
+    }	//(attack a character with an item)
     public  void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
     }
-    public abstract void defend();				//(defend an attack)
-    public abstract void defend(Shield s);	//		(defend an attack with an item)
+    public void defend(int dmg) {
+    	
+    }				//(defend an attack)
+    public void defend(int dmg, Shield s) {
+    	
+    }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character’s person)
     	return inventory;
     }
