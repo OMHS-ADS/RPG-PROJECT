@@ -6,8 +6,8 @@ public class SmallShield extends Shield {
 		super.setDefense(10);
 	}
 	
-	public SmallShield(String name, int x, int y){
-		super(name, x, y);
+	public SmallShield(String name){
+		super(name);
 		super.setDefense(10);
 	}
 }

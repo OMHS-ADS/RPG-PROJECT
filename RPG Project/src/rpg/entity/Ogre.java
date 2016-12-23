@@ -5,29 +5,9 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Ogre extends PlayerCharacter {
-
-	@Override
-	public void attack(PlayerCharacter name) {
-		// TODO Auto-generated method stub
-
+	public Ogre(int x, int y, String name) {
+		super(x,y,name);
+		this.MAP=5;
+		this.hitChance=(float) .6;
 	}
-
-	@Override
-	public void attack(PlayerCharacter name, Weapon w) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend(Shield s) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
