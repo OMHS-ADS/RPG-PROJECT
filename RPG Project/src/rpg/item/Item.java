@@ -1,6 +1,6 @@
 //equipped & state are covered by PlayerCharacter
 //xPos/yPos are covered by ItemEntity
-package rpg.item;
+package rpg.item; 
 abstract public class Item {
     protected int MAP; //maximum attack points the item can increase a character's attack by
     protected int DHP; //maximum defense points the item can increase a character's defense
