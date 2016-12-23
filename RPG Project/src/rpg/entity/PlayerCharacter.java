@@ -40,8 +40,8 @@ public abstract class PlayerCharacter extends Entity {
     public void pickup(Item item) {			//		(pickup a visible item)
     	inventory.addItem(item);
     }
-    public void drop(Item item) {			//(drop an item at your current location)
-    	new ItemEntity(inventory.removeItem(item),x,y); //Needs a world to put it in
+    public ItemEntity drop(Item item) {			//(drop an item at your current location)
+    	return new ItemEntity(inventory.removeItem(item),x,y); //Needs a world to put it in
     }
     public void attack(PlayerCharacter name) {
 
