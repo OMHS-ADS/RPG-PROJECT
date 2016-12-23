@@ -10,36 +10,38 @@ public abstract class PlayerCharacter extends Entity {
 	protected int MDP; //maximum defense points of the character excluding other items
 	protected int HP; //current health points a character has
 	protected String name;  //the name of the character
-	protected int xPos, yPos; //location of the character
 	protected Bag inventory;
 	protected Weapon weapon;
 	protected Shield shield;
 	protected float hitChance = (float) 0.75;
 	protected float baseDefend = (float) 0.1;
 	
-	public PlayerCharacter(String name) {
+	public PlayerCharacter(int x, int y, String name) {
+		super(x,y);
 		this.MAP=2;
 		this.hitChance=(float) 0.75;
 		this.name = name;
 	}
-	public PlayerCharacter(int dmg, float hitChance) {
+	public PlayerCharacter(int x, int y, String name, int dmg, float hitChance) {
+		super(x,y);
+		this.name=name;
 		this.MAP=dmg;
 		this.hitChance=hitChance;
 	}
 	
     public void move(Direction direction) {   //  			(move in a direction multiple space(s)
     	switch (direction) {
-    	case UP:yPos++;break;
-    	case RIGHT:xPos++;break;
-    	case DOWN:yPos--;break;
-    	case LEFT:xPos--;break;
+    	case UP:y++;break;
+    	case RIGHT:x++;break;
+    	case DOWN:y--;break;
+    	case LEFT:x--;break;
     	}
     }
     public void pickup(Item item) {			//		(pickup a visible item)
     	inventory.addItem(item);
     }
     public void drop(Item item) {			//(drop an item at your current location)
-    	new ItemEntity(inventory.removeItem(item),xPos,yPos); //Needs a world to put it in
+    	new ItemEntity(inventory.removeItem(item),x,y); //Needs a world to put it in
     }
     public void attack(PlayerCharacter name) {
 
@@ -86,19 +88,13 @@ public abstract class PlayerCharacter extends Entity {
     	return inventory;
     }
     public String getLocation() {			//	(return’s the current character’s room location as X, Y)
-    	return xPos + "," + yPos;
+    	return x + "," + y;
     }
     public void changeMAP(int c) {
     	MAP += c;
     }
     public void changeMDP(int c){
     	MDP += c;
-    }
-    public int getX() {
-    	return xPos;
-    }
-    public int getY() {
-    	return yPos;
     }
     public Shield getShield() {
     	return shield; //Will return null if no weapon
