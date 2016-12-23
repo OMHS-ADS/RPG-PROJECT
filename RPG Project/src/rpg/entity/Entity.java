@@ -14,4 +14,5 @@ public abstract class Entity implements Coordinatable {
 	public int getY() {
 		return y;
 	}
+	//public abstract void tick(); //To be placed with a proper parameter when world classes are implemented
 }
