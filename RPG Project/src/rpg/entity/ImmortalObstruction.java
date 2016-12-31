@@ -8,12 +8,14 @@ import java.awt.Graphics;
  */
 
 //This is basically an unbreakable wall
-public class ImmortalObstruction extends Entity {
+public class ImmortalObstruction extends StaticEntity {
 
-	@Override
-	public void render(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
-		
+	
+	
+	public ImmortalObstruction() {
+		super("immortal_obstruction");
 	}
+
+	
 
 }
