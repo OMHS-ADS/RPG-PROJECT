@@ -1,13 +1,13 @@
 package rpg.entity;
-import java.awt.Graphics;
-
 import rpg.container.Bag;
+import rpg.graphics.Animation;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
+import rpg.util.Damageable;
 import rpg.util.Direction;
 
-public abstract class PlayerCharacter extends Entity {
+public abstract class PlayerCharacter extends AnimatedEntity implements Damageable {
     protected int MAP; //maximum attack points of the character excluding other items
 	protected int MDP; //maximum defense points of the character excluding other items
 	protected int HP; //current health points a character has
@@ -17,11 +17,14 @@ public abstract class PlayerCharacter extends Entity {
 	protected Shield shield;
 	protected float hitChance = (float) 0.75;
 	
-	public PlayerCharacter() {
+	public PlayerCharacter(String name) {
+		super(Animation.getAnimation(name));
 		this.MAP=1;
 		this.hitChance=(float) 0.75;
+		
 	}
-	public PlayerCharacter(int dmg, float hitChance) {
+	public PlayerCharacter(String name, int dmg, float hitChance) {
+		super(Animation.getAnimation(name));
 		this.MAP=dmg;
 		this.hitChance=hitChance;
 	}
@@ -43,8 +46,11 @@ public abstract class PlayerCharacter extends Entity {
     }
     public abstract void attack(PlayerCharacter name);		//	(attack another character)
     public abstract void attack(PlayerCharacter name, Weapon w);	//(attack a character with an item)
-    public  void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
+    public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
+    }
+    public double getHP() {
+    	return HP;
     }
     public abstract void defend();				//(defend an attack)
     public abstract void defend(Shield s);	//		(defend an attack with an item)
@@ -68,7 +74,5 @@ public abstract class PlayerCharacter extends Entity {
     	return weapon;
     }
     
-    public void render(Graphics g, int xo, int  yo) {
-    	
-    }
+    
 }

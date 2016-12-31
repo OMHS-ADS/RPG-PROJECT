@@ -5,7 +5,7 @@ import rpg.entity.Entity;
 public class Tile {
 
 	private Entity tilesEntity;
-	
+	public static final int TILE_SIZE = 60;
 	//Tile width: 60
 	//Tile height: 60
 	

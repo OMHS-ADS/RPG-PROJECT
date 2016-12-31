@@ -6,6 +6,10 @@ import rpg.item.Weapon;
 
 public class Goblin extends PlayerCharacter {
 
+	public Goblin() {
+		super("goblin");
+	}
+	
 	@Override
 	public void attack(PlayerCharacter name) {
 		// TODO Auto-generated method stub

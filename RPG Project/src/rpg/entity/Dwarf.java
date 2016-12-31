@@ -7,6 +7,10 @@ import rpg.item.Weapon;
 
 public class Dwarf extends PlayerCharacter {
 
+	public Dwarf() {
+		super("dwarf");
+	}
+	
 	@Override
 	public void attack(PlayerCharacter name) {
 		// TODO Auto-generated method stub

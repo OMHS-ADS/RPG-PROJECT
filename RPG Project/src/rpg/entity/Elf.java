@@ -6,6 +6,7 @@ import rpg.item.Weapon;
 
 public class Elf extends PlayerCharacter {
 	public Elf(){
+		super("elf");
 		//define HITCHANCE
 	}
 	@Override

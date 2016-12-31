@@ -5,6 +5,10 @@ import rpg.item.Weapon;
 
 public class Human extends PlayerCharacter {
 
+	public Human() {
+		super("human");
+	}
+	
 	@Override
 	public void attack(PlayerCharacter name) {
 		// TODO Auto-generated method stub

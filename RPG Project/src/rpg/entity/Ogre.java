@@ -6,6 +6,10 @@ import rpg.item.Weapon;
 
 public class Ogre extends PlayerCharacter {
 
+	public Ogre() {
+		super("ogre");
+	}
+	
 	@Override
 	public void attack(PlayerCharacter name) {
 		// TODO Auto-generated method stub
