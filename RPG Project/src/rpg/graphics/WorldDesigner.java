@@ -3,13 +3,16 @@ package rpg.graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 import rpg.Tile;
+import rpg.entity.EntityEnum;
 
 public class WorldDesigner extends JFrame {
 
 	private Location currentTile;
+	private JComboBox<EntityEnum> possibleTypes;
 	private Tile[][] bg;
 	private Tile[][] fg;
 	
@@ -17,7 +20,7 @@ public class WorldDesigner extends JFrame {
 		currentTile = new Location(0,0);
 		bg = new Tile[16][9];
 		fg = new Tile[16][9];
-		
+		possibleTypes = new JComboBox<EntityEnum>(EntityEnum.values());
 	}
 	
 	
@@ -51,12 +54,14 @@ public class WorldDesigner extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			int xPos = e.getPoint().x/Tile.TILE_SIZE;
 			int yPos = (e.getPoint().y+yoff)/Tile.TILE_SIZE;
-			gui.setCurrentLocation(new Location(xPos,yPos));
+			if((xPos < 16 && xPos >= 0) && (yPos < 9 && yPos >= 0))
+				gui.setCurrentLocation(new Location(xPos,yPos));
+			
 		}
 		
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			
+			//Switch tiles?
 		}
 		
 		
