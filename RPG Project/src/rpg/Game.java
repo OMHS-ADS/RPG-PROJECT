@@ -1,16 +1,33 @@
 package rpg;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
+import javax.swing.JOptionPane;
+
+import rpg.entity.Dwarf;
+import rpg.entity.Elf;
+import rpg.entity.Goblin;
+import rpg.entity.Human;
+import rpg.entity.Ogre;
+import rpg.entity.PlayerCharacter;
 import rpg.graphics.GameFrame;
 
 public class Game {
 
 	private World currentWorld;
-	
+	private static final String[] classList = new String[] {"HUMAN","ELF","DWARF","GOBLIN","OGRE"};
+	public static final String playerDir = System.getProperty("user.home") + "/ADS/RPG/PlayerFiles/";
+	private PlayerCharacter localPlayer;
 	//Nice steady 16 fps
 	public static void main(String[] args) {
 		Game g = new Game();
+		g.createPlayer();
 		g.start();
 	}
 	
@@ -19,7 +36,98 @@ public class Game {
 	
 	
 	public Game() {
-		currentWorld = World.getWorld(0);
+		//currentWorld = World.getWorld(0);
+	}
+	
+	public PlayerCharacter loadPlayer(File f) throws Exception {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+		PlayerCharacter ret = (PlayerCharacter)ois.readObject();
+		ois.close();
+		return ret;
+	}
+	
+	public void createPlayer() {
+		localPlayer = null;
+		String playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
+		File f = new File(Game.playerDir + playerName + ".rplr");
+		boolean loadedSave = false;
+		if(f.exists()) {
+			try {
+				localPlayer = loadPlayer(f);
+				loadedSave = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				localPlayer = null;
+				loadedSave = false;
+			}
+		} else {
+			File path = new File(f.getParentFile().getPath());
+			path.mkdirs();
+			//System.out.println("aa");
+		}
+		if(!loadedSave) {
+			String playerClass = "";
+			do { 
+				playerClass = JOptionPane.showInputDialog("Choose your class | " + getClassString());
+			} while (!isValidClass(playerClass));
+			playerClass = playerClass.toLowerCase();
+			switch(playerClass) {
+				case "ogre":
+					localPlayer = new Ogre(playerName);
+					break;
+				case "human":
+					localPlayer = new Human(playerName);
+					break;
+				case "elf":
+					localPlayer = new Elf(playerName);
+					break;
+				case "goblin":
+					localPlayer = new Goblin(playerName);
+					break;
+				case "dwarf":
+					localPlayer = new Dwarf(playerName);
+					break;
+				default:
+					localPlayer = new Human(playerName);
+			}
+			savePlayer(localPlayer);
+		}
+		JOptionPane.showMessageDialog(null, localPlayer.toString());
+	}
+	
+	/**
+	 * 
+	 * @param p
+	 * @return Success
+	 */
+	public boolean savePlayer(PlayerCharacter p) {
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(Game.playerDir + p.getPlayerName() + ".rplr")));
+			oos.writeObject(p);
+			oos.flush();
+			oos.close();
+			System.out.println("Player " + p.getPlayerName() + " saved.");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public String getClassString() {
+		String r = "";
+		for (String s : classList) {
+			r+= "  " + s + "  ";
+		}
+		return r;
+	}
+	
+	public boolean isValidClass(String s) {
+		for(String str : classList) {
+			if(str.equalsIgnoreCase(s))
+				return true;
+		}
+		return false;
 	}
 	
 	public void start() {

@@ -7,7 +7,7 @@ import rpg.graphics.Animation;
 
 public abstract class AnimatedEntity extends Entity {
 
-	protected Animation a;
+	protected transient Animation a;
 	
 	public AnimatedEntity(Animation a) {
 		this.a = a;

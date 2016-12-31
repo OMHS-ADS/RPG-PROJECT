@@ -5,8 +5,13 @@ import rpg.item.Weapon;
 
 public class Mage extends PlayerCharacter {
 
-	public Mage() {
-		super("mage");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2425212210795088379L;
+
+	public Mage(String playerName) {
+		super("mage", playerName);
 	}
 	
 	@Override

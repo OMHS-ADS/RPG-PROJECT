@@ -6,8 +6,13 @@ import rpg.item.Weapon;
 
 public class Goblin extends PlayerCharacter {
 
-	public Goblin() {
-		super("goblin");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5766885321118782895L;
+
+	public Goblin(String playerName) {
+		super("goblin", playerName);
 	}
 	
 	@Override

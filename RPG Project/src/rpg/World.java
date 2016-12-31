@@ -1,8 +1,8 @@
 package rpg;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,8 +11,12 @@ import rpg.entity.NullEntity;
 import rpg.entity.decorative.Grass;
 import rpg.util.ArrayValue2D;
 
-public class World {
+public class World implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4729725033189824197L;
 	private Tile[][] foreground;
 	private Tile[][] background;
 	//This is so we can getLocation without having to search every value of the foreground. Anything to do with adding or removing an

@@ -1,32 +1,51 @@
 package rpg.entity;
+import java.awt.Graphics;
+import java.io.Serializable;
+
 import rpg.container.Bag;
 import rpg.graphics.Animation;
+import rpg.item.Arm;
+import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 import rpg.util.Damageable;
 import rpg.util.Direction;
 
-public abstract class PlayerCharacter extends AnimatedEntity implements Damageable {
-    protected int MAP; //maximum attack points of the character excluding other items
+public abstract class PlayerCharacter extends AnimatedEntity implements Damageable, Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7971927940316969269L;
+	protected int MAP; //maximum attack points of the character excluding other items
 	protected int MDP; //maximum defense points of the character excluding other items
 	protected int HP; //current health points a character has
-	protected String name;  //the name of the character
+	protected String name, className;  //the name of the character
 	protected Bag inventory;
 	protected Weapon weapon;
 	protected Shield shield;
 	protected float hitChance = (float) 0.75;
 	
-	public PlayerCharacter(String name) {
-		super(Animation.getAnimation(name));
+	public PlayerCharacter(String className, String playerName) {
+		super(Animation.getAnimation(className));
+		this.name = playerName;
+		this.className = className;
 		this.MAP=1;
 		this.hitChance=(float) 0.75;
+		shield = new Arm();
+		weapon = new Fist();
 		
 	}
-	public PlayerCharacter(String name, int dmg, float hitChance) {
-		super(Animation.getAnimation(name));
+	
+	
+	public PlayerCharacter(String className, String playerName, int dmg, float hitChance) {
+		super(Animation.getAnimation(className));
+		this.name = playerName;
+		this.className = className;
 		this.MAP=dmg;
 		this.hitChance=hitChance;
+		shield = new Arm();
+		weapon = new Fist();
 	}
 	
     public void move(Direction direction) {   //  			(move in a direction multiple space(s)
@@ -72,6 +91,25 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     }
     public Weapon getWeapon() {
     	return weapon;
+    }
+    
+    public String getClassName() {
+    	return this.className;
+    }
+    
+    public String getPlayerName() {
+    	return this.name;
+    }
+    
+    public String toString() {
+    	return name + "| CLASS: " + className + " | HP: " + HP + " | MAP: " + MAP + " | MDP: " + MDP + " | WEAPON: " + weapon.toString() + " | SHIELD: " + shield.toString();
+    }
+    
+    public void render(Graphics g, int xo, int yo) {
+    	if(this.a == null)
+    		a = Animation.getAnimation(className);
+    	//This is because the animation is lost in serialization
+    	super.render(g, xo, yo);
     }
     
     

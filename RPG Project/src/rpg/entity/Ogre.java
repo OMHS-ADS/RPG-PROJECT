@@ -6,8 +6,17 @@ import rpg.item.Weapon;
 
 public class Ogre extends PlayerCharacter {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2042968389912079193L;
+
+	public Ogre(String playerName) {
+		super("ogre", playerName);
+	}
+	
 	public Ogre() {
-		super("ogre");
+		super("ogre","player");
 	}
 	
 	@Override

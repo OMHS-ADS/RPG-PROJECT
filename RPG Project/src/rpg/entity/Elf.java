@@ -5,8 +5,12 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Elf extends PlayerCharacter {
-	public Elf(){
-		super("elf");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3363161397212705536L;
+	public Elf(String playerName){
+		super("elf",playerName);
 		//define HITCHANCE
 	}
 	@Override
