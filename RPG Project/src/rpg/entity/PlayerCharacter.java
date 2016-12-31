@@ -24,7 +24,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	protected Bag inventory;
 	protected Weapon weapon;
 	protected Shield shield;
-	protected float hitChance = (float) 0.75;
+	protected float hitChance = (float) 0.75, baseDefend = 0.1f;
 	
 	public PlayerCharacter(String className, String playerName) {
 		super(Animation.getAnimation(className));
@@ -60,19 +60,53 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public void pickup(Item item) {			//		(pickup a visible item)
     	inventory.addItem(item);
     }
-    public void drop(Item item) {			//(drop an item at your current location)
-    	new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
+    public ItemEntity drop(Item item) {			//(drop an item at your current location)
+    	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
     }
-    public abstract void attack(PlayerCharacter name);		//	(attack another character)
-    public abstract void attack(PlayerCharacter name, Weapon w);	//(attack a character with an item)
+    public void attack(PlayerCharacter name) {
+
+		//do 1 dmg default
+		//default attack value, dmg = attack * modifier
+		// if hits(true){
+		// name.defend(dmg * defend multiplier (smaller than with shield))
+		//}
+		//name.defend(name.getShield()){
+		//}
+    	
+		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+			if(name.getShield()==null){
+				name.defend(MAP);
+			} else{
+				name.defend(MAP,name.getShield());
+			}
+		}
+    }
+    public void attack(PlayerCharacter name, Weapon w) {
+
+		//do 1 dmg default
+		//default attack value, dmg = attack * modifier
+		//do more dmgs based on modifier
+    	
+		if (Math.random()<hitChance){
+			if(name.getShield()==null){
+				name.defend(MAP*(w.getMAP()));
+			} else{
+				name.defend(MAP*(w.getMAP()),name.getShield());
+			}
+		}
+    }	//(attack a character with an item)
     public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
     }
     public double getHP() {
     	return HP;
     }
-    public abstract void defend();				//(defend an attack)
-    public abstract void defend(Shield s);	//		(defend an attack with an item)
+    public void defend(int dmg) {				//(defend an attack)
+    	this.changeHealth((double)(dmg * (1 - baseDefend)));
+    }			//(defend an attack)
+   	public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
+    	this.changeHealth((double)(dmg * (1 - s.getMAP())));
+    }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
     }

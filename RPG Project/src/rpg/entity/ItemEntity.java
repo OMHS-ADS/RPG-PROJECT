@@ -13,6 +13,7 @@ public class ItemEntity extends Entity {
 	protected Item rep; //The item represented by the ItemEntity
 
 	public ItemEntity(Item rep) {
+		this.rep = rep;
 	}
 
 	public Item getItem() {

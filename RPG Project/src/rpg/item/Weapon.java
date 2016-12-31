@@ -6,16 +6,16 @@ abstract public class Weapon extends Item{
 		super();
 	}
 	
-	public Weapon(String name, int x, int y){
-		super(name, x, y);
+	public Weapon(String name){
+		super(name);
 	}
 	
 	public String toString(){
 		String str = name + " : \n"
-				   + "Equipped = " + equipped + "\n"
-				   + "In somebody's inventory = " + state + "\n"
-				   + "Attack Points : " + MAP + "\n"
-				   + "(X,Y) position = (" + xPos + ", " + yPos + ")";
+				   //+ "Equipped = " + equipped + "\n"
+				   //+ "In somebody's inventory = " + state + "\n"
+				   + "Attack Points : " + MAP;// + "\n"
+				   //+ "(X,Y) position = (" + xPos + ", " + yPos + ")";
 		return str;
 	}		
 		

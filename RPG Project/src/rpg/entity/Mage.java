@@ -12,30 +12,10 @@ public class Mage extends PlayerCharacter {
 
 	public Mage(String playerName) {
 		super("mage", playerName);
+		this.MAP=3;
+		this.hitChance=(float) .8;
 	}
 	
-	@Override
-	public void attack(PlayerCharacter name) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void attack(PlayerCharacter name, Weapon w) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend(Shield s) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
