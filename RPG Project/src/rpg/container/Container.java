@@ -2,6 +2,7 @@ package rpg.container;
 
 import java.util.ArrayList;
 
+import rpg.entity.Entity;
 import rpg.item.Item;
 /**
  * Default class for a container.
@@ -10,7 +11,9 @@ import rpg.item.Item;
  * @author Morgan
  *
  */
-public abstract class Container {
+
+//Why extend entity? Because anything we want on a Tile has to be an entity
+public abstract class Container extends Entity {
 	protected ArrayList<Item> items;
 	public Container(ArrayList<Item> items) {
 		this.items=items;

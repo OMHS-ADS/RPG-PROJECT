@@ -28,14 +28,16 @@ public class Elf extends PlayerCharacter {
 		//}
 	}
 
-	@Override
-	public void defend(int dmg) {
 
+	@Override
+	public void defend() {
+		// TODO Auto-generated method stub
+		
 	}
-
 	@Override
-	public void defend(int dmg,Shield s) {
-
+	public void defend(Shield s) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
