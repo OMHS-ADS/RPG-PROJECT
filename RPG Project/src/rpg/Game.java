@@ -163,10 +163,58 @@ public class Game {
 		GameFrame title = new GameFrame();
 		title.setVisible(true);
 		startRenderThread(title, this);
-		
+		boolean alive = true;
+		boolean notwon = true;
+		while(alive && notwon){
+			if(localPlayer.getCurrentHP() <= 0){
+				alive = false;
+			}
+			else{
+				doPlayerTurn();
+			}
+			
+		}
+		if(alive == false){
+			//Losing stuff here, close game maybe
+		}
+		else{
+			//Winning stuff here
+		}
 	}
 	// ArrayList<World> worlds = new ArrayList<World>();
 	// worlds.add(new World());
+	
+	public void doPlayerTurn(){
+		String action = getAction();
+		String direction = "";
+		if(action.toUpperCase().equals("ATTACK")){
+			direction = getDir();
+		}
+		else if(action.toUpperCase().equals("ITEM")){
+			
+		}
+		else if(action.toUpperCase().equals("MOVE")){
+			direction = getDir();
+		}
+	}
+	public void doEnemyTurn(){
+		
+	}
+	
+	public String getDir(){
+		String dir = "";
+		while(!dir.equals("UP") && !dir.equals("DOWN" + !dir.equals("LEFT") + !dir.equals("RIGHT"))){
+			dir = JOptionPane.showInputDialog("Enter a direction(UP, DOWN, LEFT, RIGHT):").toUpperCase();
+		}
+		return dir;
+	}
+	public String getAction(){
+		String action = ""; 
+		while (!action.equals("ATTACK") && !action.equals("ITEM") && !action.equals("MOVE")){
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, ITEM):").toUpperCase();
+		}
+		return action;
+	}
 	
 	public World getCurrentWorld() {
 		return currentWorld;

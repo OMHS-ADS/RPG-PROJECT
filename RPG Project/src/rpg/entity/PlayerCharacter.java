@@ -2,6 +2,7 @@ package rpg.entity;
 import java.awt.Graphics;
 import java.io.Serializable;
 
+import rpg.Tile;
 import rpg.container.Bag;
 import rpg.graphics.Animation;
 import rpg.item.Arm;
@@ -81,7 +82,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 			}
 		}
     }
-    public void attack(PlayerCharacter name, Weapon w) {
+    public void attack(PlayerCharacter name, Weapon w, Tile t) {
 
 		//do 1 dmg default
 		//default attack value, dmg = attack * modifier
@@ -133,6 +134,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     
     public String getPlayerName() {
     	return this.name;
+    }
+    
+    public int getCurrentHP(){
+    	return HP;
     }
     
     public String toString() {
