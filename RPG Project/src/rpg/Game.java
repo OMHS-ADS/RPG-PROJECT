@@ -163,7 +163,6 @@ public class Game {
 		GameFrame title = new GameFrame();
 		title.setVisible(true);
 		startRenderThread(title, this);
-		System.out.println("party");
 		
 	}
 	// ArrayList<World> worlds = new ArrayList<World>();
