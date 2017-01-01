@@ -130,29 +130,41 @@ public class Game {
 		return false;
 	}
 	
+	private void startRenderThread(GameFrame title, Game g) {
+		Thread t = new Thread() { 
+			@Override
+			public void run() {
+				int TICK = 16;
+				final int nsPerTick = (int) 1e9 / TICK;
+				double timePassed = 0;
+				double currentTime = System.nanoTime();
+				double lastTime = System.nanoTime();
+
+				double nsPassed = 0;
+				while (title.isVisible()) {
+					currentTime = System.nanoTime();
+					nsPassed += currentTime - lastTime;
+					timePassed += (currentTime - lastTime) / nsPerTick;
+
+					if (timePassed >= 1) {
+						// Tick!!!
+						title.renderWorld(g);
+						timePassed -= 1;
+					}
+
+					lastTime = currentTime;
+				}
+			}
+		};
+		t.start();
+	}
+	
 	public void start() {
 		GameFrame title = new GameFrame();
 		title.setVisible(true);
-		int TICK = 16;
-		final int nsPerTick = (int) 1e9 / TICK;
-		double timePassed = 0;
-		double currentTime = System.nanoTime();
-		double lastTime = System.nanoTime();
-
-		double nsPassed = 0;
-		while (title.isVisible()) {
-			currentTime = System.nanoTime();
-			nsPassed += currentTime - lastTime;
-			timePassed += (currentTime - lastTime) / nsPerTick;
-
-			if (timePassed >= 1) {
-				// Tick!!!
-				title.renderWorld(this);
-				timePassed -= 1;
-			}
-
-			lastTime = currentTime;
-		}
+		startRenderThread(title, this);
+		System.out.println("party");
+		
 	}
 	// ArrayList<World> worlds = new ArrayList<World>();
 	// worlds.add(new World());
