@@ -1,9 +1,12 @@
-package rpg.item; 
-//equipped & state are covered by PlayerCharacter
-//xPos/yPos are covered by ItemEntity
+package rpg.item;
+import java.io.Serializable;
 import java.util.Random;
-abstract public class Item {
-    protected int MAP; //maximum attack points the item can increase a character's attack by
+abstract public class Item implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4228305767651958209L;
+	protected int MAP; //maximum attack points the item can increase a character's attack by
     protected int DHP; //maximum defense points the item can increase a character's defense
     protected String name;  //the name of the item
     //protected boolean state; // 0 if on the ground, 1 if in character's bag

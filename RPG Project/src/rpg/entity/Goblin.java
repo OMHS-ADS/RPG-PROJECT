@@ -5,9 +5,17 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Goblin extends PlayerCharacter {
-	public Goblin(int x, int y, String name) {
-		super(x,y,name);
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5766885321118782895L;
+
+	public Goblin(String playerName) {
+		super("goblin", playerName);
 		this.MAP=1;
 		this.hitChance=(float) .85;
 	}
+	
+
 }

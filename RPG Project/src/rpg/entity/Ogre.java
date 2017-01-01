@@ -5,9 +5,16 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Ogre extends PlayerCharacter {
-	public Ogre(int x, int y, String name) {
-		super(x,y,name);
-		this.MAP=5;
-		this.hitChance=(float) .6;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2042968389912079193L;
+
+	public Ogre(String playerName) {
+		super("ogre", playerName);
+		this.MAP = 5;
+		this.hitChance = 0.6f;
 	}
+	
 }

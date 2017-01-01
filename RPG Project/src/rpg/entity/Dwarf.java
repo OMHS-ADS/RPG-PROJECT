@@ -6,10 +6,18 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Dwarf extends PlayerCharacter {
-	public Dwarf(int x, int y, String name) {
-		super(x,y,name);
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9159142211430297499L;
+
+	public Dwarf(String playerName) {
+		super("dwarf",playerName);
 		this.MAP=4;
 		this.hitChance=(float) .65;
 	}
+	
+	
 
 }

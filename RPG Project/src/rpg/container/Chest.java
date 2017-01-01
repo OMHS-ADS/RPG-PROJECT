@@ -1,5 +1,6 @@
 package rpg.container;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 import rpg.item.Item;
@@ -10,16 +11,15 @@ import rpg.item.Item;
  *
  */
 public class Chest extends Container {
-	private int x,y;
-	public Chest(ArrayList<Item> items,int x,int y) {
+
+	public Chest(ArrayList<Item> items) {
 		super(items);
-		this.x=x;
-		this.y=y;
+
 	}
-	public int getX() {
-		return x;
-	}
-	public int getY() {
-		return y;
+
+	@Override
+	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }

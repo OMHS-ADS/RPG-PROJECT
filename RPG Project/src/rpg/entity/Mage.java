@@ -4,9 +4,18 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class Mage extends PlayerCharacter {
-	public Mage(int x, int y, String name) {
-		super(x,y,name);
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2425212210795088379L;
+
+	public Mage(String playerName) {
+		super("mage", playerName);
 		this.MAP=3;
 		this.hitChance=(float) .8;
 	}
+	
+
+
 }

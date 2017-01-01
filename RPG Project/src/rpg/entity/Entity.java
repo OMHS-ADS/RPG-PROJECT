@@ -1,18 +1,16 @@
 package rpg.entity;
 
-import rpg.util.Coordinatable;
+import java.awt.Graphics;
+import java.io.Serializable;
 
-public abstract class Entity implements Coordinatable {
-	protected int x,y;
-	public Entity(int x,int y) {
-		this.x=x;
-		this.y=y;
-	}
-	public int getX() {
-		return x;
-	}
-	public int getY() {
-		return y;
-	}
-	//public abstract void tick(); //To be placed with a proper parameter when world classes are implemented
+
+public abstract class Entity implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7365630204451292944L;
+
+	public abstract void render(Graphics g, int x, int y);
+
 }

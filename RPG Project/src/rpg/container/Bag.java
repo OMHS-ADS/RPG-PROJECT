@@ -1,5 +1,6 @@
 package rpg.container;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 import rpg.item.Item;
@@ -12,5 +13,11 @@ public class Bag extends Container {
 
 	public Bag(ArrayList<Item> items) {
 		super(items);
+	}
+
+	@Override
+	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,5 +1,7 @@
 package rpg.entity;
 
+import java.awt.Graphics;
+
 import rpg.item.Item;
 import rpg.util.Coordinatable;
 /**
@@ -9,12 +11,17 @@ import rpg.util.Coordinatable;
  */
 public class ItemEntity extends Entity {
 	protected Item rep; //The item represented by the ItemEntity
-	protected int x,y; //The position of the ItemEntity
-	public ItemEntity(Item rep, int x,int y) {
-		super(x,y);
-		this.rep=rep;
+
+	public ItemEntity(Item rep) {
+		this.rep = rep;
 	}
+
 	public Item getItem() {
 		return rep;
+	}
+	@Override
+	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }
