@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 import rpg.Tile;
+import rpg.World;
 import rpg.container.Bag;
 import rpg.graphics.Animation;
 import rpg.item.Arm;
@@ -53,14 +54,18 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		weapon = new Fist();
 	}
 	
-    public void move(Direction direction) {   //  			(move in a direction multiple space(s)
-    	//need to update
-    	/*switch (direction) {
+    public void move(Direction direction, World w) {   //  			(move in a direction multiple space(s)
+    	int oldX = xPos;
+    	int oldY = yPos;
+    	switch (direction) {
     	case UP:yPos++;break;
     	case RIGHT:xPos++;break;
     	case DOWN:yPos--;break;
     	case LEFT:xPos--;break;
-    	}*/
+    	}
+    	Tile oldTile = w.getFGTile(oldX, oldY);
+    	Tile newTile = w.getFGTile(xPos, yPos);
+    	//Finish this later
     }
     public void pickup(Item item) {			//		(pickup a visible item)
     	inventory.addItem(item);

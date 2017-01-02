@@ -38,7 +38,8 @@ public class Game {
 	
 	
 	public Game() {
-		//currentWorld = World.getWorld(0);
+		ArrayList<World> worlds = new ArrayList<World>();
+		worlds.add(new World());
 	}
 	
 	public PlayerCharacter loadPlayer(File f) throws Exception {
@@ -167,8 +168,7 @@ public class Game {
 		startRenderThread(title, this);
 		boolean alive = true;
 		boolean notwon = true;
-		ArrayList<World> worlds = new ArrayList<World>();
-		worlds.add(new World());
+		currentWorld = World.getWorld(0);
 		while(alive && notwon){
 			if(localPlayer.getCurrentHP() <= 0){
 				alive = false;
@@ -198,7 +198,7 @@ public class Game {
 		}
 		else if(action.toUpperCase().equals("MOVE")){
 			direction = getDir();
-			localPlayer.move(direction);
+			localPlayer.move(direction, currentWorld);
 			
 		}
 	}
