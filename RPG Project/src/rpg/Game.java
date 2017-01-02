@@ -204,6 +204,7 @@ public class Game {
 			Bag b = localPlayer.getBagContents();
 			for(Item i: b.getItems()){
 				allItems = allItems + i.toString() + "\n";
+				 JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
 			}
 			action = getAction2();
 		}
