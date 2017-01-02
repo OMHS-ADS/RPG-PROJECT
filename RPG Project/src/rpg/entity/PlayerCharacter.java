@@ -67,6 +67,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	Tile newTile = w.getFGTile(xPos, yPos);
     	w.setFGTile(newTile, oldX, oldY);
     	//yo i dont understand the tile set up at all, someone else fix this
+    	//also need to check to make sure that the tile youre moving to is available to move to(exists, not filled)
 
     }
     public void pickup(Item item) {			//		(pickup a visible item)
@@ -75,8 +76,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public ItemEntity drop(Item item) {			//(drop an item at your current location)
     	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
     }
-    public void attack(PlayerCharacter name) {
-
+    public void attack(PlayerCharacter name, World w, Direction d) {
+    	//needs to get the entity its attacking from world
+    	
+    	
 		//do 1 dmg default
 		//default attack value, dmg = attack * modifier
 		// if hits(true){

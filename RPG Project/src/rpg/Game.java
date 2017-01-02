@@ -198,9 +198,10 @@ public class Game {
 		Direction direction;
 		if(action.toUpperCase().equals("ATTACK")){
 			direction = getDir();
+			localPlayer.attack(localPlayer, currentWorld, direction);
 		}
 		else if(action.toUpperCase().equals("ITEM")){
-			
+			//How are we displaying the inventory?
 		}
 		else if(action.toUpperCase().equals("MOVE")){
 			direction = getDir();
