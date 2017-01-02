@@ -13,7 +13,7 @@ public class Dwarf extends PlayerCharacter {
 	private static final long serialVersionUID = 9159142211430297499L;
 
 	public Dwarf(String playerName) {
-		super("dwarf",playerName);
+		super("Dwarf",playerName);
 		this.MAP=4;
 		this.hitChance=(float) .65;
 	}
