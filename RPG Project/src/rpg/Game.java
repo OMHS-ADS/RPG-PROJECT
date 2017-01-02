@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -165,6 +166,8 @@ public class Game {
 		startRenderThread(title, this);
 		boolean alive = true;
 		boolean notwon = true;
+		ArrayList<World> worlds = new ArrayList<World>();
+		worlds.add(new World());
 		while(alive && notwon){
 			if(localPlayer.getCurrentHP() <= 0){
 				alive = false;
@@ -181,8 +184,7 @@ public class Game {
 			//Winning stuff here
 		}
 	}
-	// ArrayList<World> worlds = new ArrayList<World>();
-	// worlds.add(new World());
+
 	
 	public void doPlayerTurn(){
 		String action = getAction();
