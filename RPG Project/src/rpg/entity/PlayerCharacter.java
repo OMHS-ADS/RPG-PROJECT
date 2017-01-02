@@ -25,6 +25,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	protected Bag inventory;
 	protected Weapon weapon;
 	protected Shield shield;
+	protected int xPos, yPos;
 	protected float hitChance = (float) 0.75, baseDefend = 0.1f;
 	
 	public PlayerCharacter(String className, String playerName) {
@@ -51,12 +52,13 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	
     public void move(Direction direction) {   //  			(move in a direction multiple space(s)
     	//need to update
-    	/*switch (direction) {
+    	switch (direction) {
     	case UP:yPos++;break;
     	case RIGHT:xPos++;break;
     	case DOWN:yPos--;break;
     	case LEFT:xPos--;break;
-    	}*/
+    	
+    	}
     }
     public void pickup(Item item) {			//		(pickup a visible item)
     	inventory.addItem(item);
