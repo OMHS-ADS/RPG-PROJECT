@@ -4,60 +4,18 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
-public class Goblin extends Character {
+public class Goblin extends PlayerCharacter {
 
-	@Override
-	public void move(int direction) {
-		// TODO Auto-generated method stub
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5766885321118782895L;
 
+	public Goblin(String playerName) {
+		super("goblin", playerName);
+		this.MAP=1;
+		this.hitChance=(float) .85;
 	}
-
-	@Override
-	public void pickup(String item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void drop(String item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack(String name, Weapon w) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void defend(Shield s) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getBagContents() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

@@ -1,0 +1,25 @@
+package rpg.container;
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+
+import rpg.item.Item;
+
+/**
+ * A chest is a container with a location
+ * @author Morgan
+ *
+ */
+public class Chest extends Container {
+
+	public Chest(ArrayList<Item> items) {
+		super(items);
+
+	}
+
+	@Override
+	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+}

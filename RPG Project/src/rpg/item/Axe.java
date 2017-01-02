@@ -6,8 +6,8 @@ public class Axe extends Weapon{
 		super.setAttack(20);
 	}
 	
-	public Axe(String name, int x, int y){
-		super(name, x, y);
+	public Axe(String name){
+		super(name);
 		super.setAttack(20);
 	}
 	
