@@ -82,7 +82,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 			}
 		}
     }
-    public void attack(PlayerCharacter name, Weapon w, Tile t) {
+    public void attack(PlayerCharacter name, Weapon w) {
 
 		//do 1 dmg default
 		//default attack value, dmg = attack * modifier
