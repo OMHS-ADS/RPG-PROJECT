@@ -21,6 +21,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	private static final long serialVersionUID = 7971927940316969269L;
 	protected int MAP; //maximum attack points of the character excluding other items
 	protected int MDP; //maximum defense points of the character excluding other items
+	protected int MAXHP; //Total health points
 	protected int HP; //current health points a character has
 	protected String name, className;  //the name of the character
 	protected Bag inventory;
@@ -40,6 +41,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		weapon = new Fist();
 		xPos = 0;
 		yPos = 0;
+		MAXHP = 20;
+		HP = 20;
 		
 	}
 	
@@ -157,6 +160,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     
     public int getCurrentHP(){
     	return HP;
+    }
+    
+    public void restoreHP(){
+    	HP = MAXHP;
     }
     
     public String toString() {

@@ -177,6 +177,7 @@ public class Game {
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
 				worldNum++;
+				localPlayer.restoreHP();
 			}
 			if(localPlayer.getCurrentHP() <= 0){
 				alive = false;
