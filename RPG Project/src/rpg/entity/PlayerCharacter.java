@@ -65,7 +65,9 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	}
     	Tile oldTile = w.getFGTile(oldX, oldY);
     	Tile newTile = w.getFGTile(xPos, yPos);
-    	//Finish this later
+    	w.setFGTile(newTile, oldX, oldY);
+    	//yo i dont understand the tile set up at all, someone else fix this
+
     }
     public void pickup(Item item) {			//		(pickup a visible item)
     	inventory.addItem(item);

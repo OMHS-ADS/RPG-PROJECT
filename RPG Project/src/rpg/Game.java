@@ -168,8 +168,14 @@ public class Game {
 		startRenderThread(title, this);
 		boolean alive = true;
 		boolean notwon = true;
-		currentWorld = World.getWorld(0);
+		boolean worldWon = false;
+		int worldNum = 0;
+
 		while(alive && notwon){
+			currentWorld = World.getWorld(worldNum);
+			if(worldWon){
+				worldNum++;
+			}
 			if(localPlayer.getCurrentHP() <= 0){
 				alive = false;
 			}
