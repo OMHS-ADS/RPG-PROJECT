@@ -7,9 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import rpg.container.Bag;
 import rpg.entity.Dwarf;
 import rpg.entity.Elf;
 import rpg.entity.Goblin;
@@ -17,6 +19,8 @@ import rpg.entity.Human;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
 import rpg.graphics.GameFrame;
+import rpg.item.Item;
+import rpg.util.Direction;
 
 public class Game {
 
@@ -36,7 +40,8 @@ public class Game {
 	
 	
 	public Game() {
-		//currentWorld = World.getWorld(0);
+		ArrayList<World> worlds = new ArrayList<World>();
+		worlds.add(new World());
 	}
 	
 	public PlayerCharacter loadPlayer(File f) throws Exception {
@@ -165,7 +170,15 @@ public class Game {
 		startRenderThread(title, this);
 		boolean alive = true;
 		boolean notwon = true;
+		boolean worldWon = false;
+		int worldNum = 0;
+
 		while(alive && notwon){
+			currentWorld = World.getWorld(worldNum);
+			if(worldWon){
+				worldNum++;
+				localPlayer.restoreHP();
+			}
 			if(localPlayer.getCurrentHP() <= 0){
 				alive = false;
 			}
@@ -181,37 +194,73 @@ public class Game {
 			//Winning stuff here
 		}
 	}
-	// ArrayList<World> worlds = new ArrayList<World>();
-	// worlds.add(new World());
+
 	
 	public void doPlayerTurn(){
 		String action = getAction();
-		String direction = "";
-		if(action.toUpperCase().equals("ATTACK")){
-			direction = getDir();
+		Direction direction;
+		String allItems = "";
+		
+		if(action.equals("INVENTORY")){
+			Bag b = localPlayer.getBagContents();
+			for(Item i: b.getItems()){
+				allItems = allItems + i.toString() + "\n";
+				 JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
+			}
+			action = getAction2();
 		}
-		else if(action.toUpperCase().equals("ITEM")){
-			
-		}
-		else if(action.toUpperCase().equals("MOVE")){
+
+		if(action.equals("ATTACK")){
 			direction = getDir();
+			localPlayer.attack(localPlayer, currentWorld, direction);
+		}
+		else if(action.equals("MOVE")){
+			direction = getDir();
+			localPlayer.move(direction, currentWorld);
+		}
+		else if(action.equals("PICKUP")){
+			//needs to get the item entity on the same tile
+			//localPlayer.pickup();
+		}
+		else if(action.equals("DROP")){
+			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
+			//Needs to convert player input to item entity
+			//localPlayer.drop()
 		}
 	}
 	public void doEnemyTurn(){
 		
 	}
 	
-	public String getDir(){
+	public Direction getDir(){
 		String dir = "";
-		while(!dir.equals("UP") && !dir.equals("DOWN" + !dir.equals("LEFT") + !dir.equals("RIGHT"))){
+		while(!dir.equals("UP") && !dir.equals("DOWN") && !dir.equals("LEFT") && !dir.equals("RIGHT")){
 			dir = JOptionPane.showInputDialog("Enter a direction(UP, DOWN, LEFT, RIGHT):").toUpperCase();
 		}
-		return dir;
+		if (dir.equals("UP")){
+			return Direction.UP;
+		}
+		else if(dir.equals("RIGHT")){
+			return Direction.RIGHT;
+		}
+		else if(dir.equals("LEFT")){
+			return Direction.LEFT;
+		}
+		else{
+			return Direction.DOWN;
+		}
 	}
 	public String getAction(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("ITEM") && !action.equals("MOVE")){
-			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, ITEM):").toUpperCase();
+		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, PICKUP, DROP):").toUpperCase();
+		}
+		return action;
+	}
+	public String getAction2(){
+		String action = ""; 
+		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, PICKUP, DROP):").toUpperCase();
 		}
 		return action;
 	}

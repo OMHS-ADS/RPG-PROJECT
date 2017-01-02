@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 import rpg.Tile;
+import rpg.World;
 import rpg.container.Bag;
 import rpg.graphics.Animation;
 import rpg.item.Arm;
@@ -20,12 +21,15 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	private static final long serialVersionUID = 7971927940316969269L;
 	protected int MAP; //maximum attack points of the character excluding other items
 	protected int MDP; //maximum defense points of the character excluding other items
+	protected int MAXHP; //Total health points
 	protected int HP; //current health points a character has
 	protected String name, className;  //the name of the character
 	protected Bag inventory;
 	protected Weapon weapon;
 	protected Shield shield;
 	protected float hitChance = (float) 0.75, baseDefend = 0.1f;
+	protected int xPos, yPos;
+
 	
 	public PlayerCharacter(String className, String playerName) {
 		super(Animation.getAnimation(className));
@@ -35,6 +39,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		this.hitChance=(float) 0.75;
 		shield = new Arm();
 		weapon = new Fist();
+		xPos = 0;
+		yPos = 0;
+		MAXHP = 20;
+		HP = 20;
 		
 	}
 	
@@ -49,14 +57,21 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		weapon = new Fist();
 	}
 	
-    public void move(Direction direction) {   //  			(move in a direction multiple space(s)
-    	//need to update
-    	/*switch (direction) {
+    public void move(Direction direction, World w) {   //  			(move in a direction multiple space(s)
+    	int oldX = xPos;
+    	int oldY = yPos;
+    	switch (direction) {
     	case UP:yPos++;break;
     	case RIGHT:xPos++;break;
     	case DOWN:yPos--;break;
     	case LEFT:xPos--;break;
-    	}*/
+    	}
+    	Tile oldTile = w.getFGTile(oldX, oldY);
+    	Tile newTile = w.getFGTile(xPos, yPos);
+    	w.setFGTile(newTile, oldX, oldY);
+    	//yo i dont understand the tile set up at all, someone else fix this
+    	//also need to check to make sure that the tile youre moving to is available to move to(exists, not filled)
+
     }
     public void pickup(Item item) {			//		(pickup a visible item)
     	inventory.addItem(item);
@@ -64,8 +79,15 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public ItemEntity drop(Item item) {			//(drop an item at your current location)
     	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
     }
-    public void attack(PlayerCharacter name) {
-
+    public void attack(PlayerCharacter name, World w, Direction d) {
+    	//Tile t = Current Player Tile
+    	//Tile eT = tile 1 away from player, based on direction
+    	//Get the enemy(if there is one) from eT, and use it for damage calcs
+    	
+    	
+    	//needs to get the entity its attacking from world
+    	
+    	
 		//do 1 dmg default
 		//default attack value, dmg = attack * modifier
 		// if hits(true){
@@ -82,7 +104,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 			}
 		}
     }
-    public void attack(PlayerCharacter name, Weapon w, Tile t) {
+    public void attack(PlayerCharacter name, Weapon w) {
 
 		//do 1 dmg default
 		//default attack value, dmg = attack * modifier
@@ -138,6 +160,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     
     public int getCurrentHP(){
     	return HP;
+    }
+    
+    public void restoreHP(){
+    	HP = MAXHP;
     }
     
     public String toString() {
