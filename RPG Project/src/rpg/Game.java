@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import rpg.container.Bag;
 import rpg.entity.Dwarf;
 import rpg.entity.Elf;
 import rpg.entity.Goblin;
@@ -18,6 +19,7 @@ import rpg.entity.Human;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
 import rpg.graphics.GameFrame;
+import rpg.item.Item;
 import rpg.util.Direction;
 
 public class Game {
@@ -196,17 +198,32 @@ public class Game {
 	public void doPlayerTurn(){
 		String action = getAction();
 		Direction direction;
-		if(action.toUpperCase().equals("ATTACK")){
+		String allItems = "";
+		
+		if(action.equals("INVENTORY")){
+			Bag b = localPlayer.getBagContents();
+			for(Item i: b.getItems()){
+				allItems = allItems + i.toString() + "\n";
+			}
+			action = getAction2();
+		}
+
+		if(action.equals("ATTACK")){
 			direction = getDir();
 			localPlayer.attack(localPlayer, currentWorld, direction);
 		}
-		else if(action.toUpperCase().equals("ITEM")){
-			//How are we displaying the inventory?
-		}
-		else if(action.toUpperCase().equals("MOVE")){
+		else if(action.equals("MOVE")){
 			direction = getDir();
 			localPlayer.move(direction, currentWorld);
-			
+		}
+		else if(action.equals("PICKUP")){
+			//needs to get the item entity on the same tile
+			//localPlayer.pickup();
+		}
+		else if(action.equals("DROP")){
+			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
+			//Needs to convert player input to item entity
+			//localPlayer.drop()
 		}
 	}
 	public void doEnemyTurn(){
@@ -233,8 +250,15 @@ public class Game {
 	}
 	public String getAction(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("ITEM") && !action.equals("MOVE")){
+		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
 			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, ITEM):").toUpperCase();
+		}
+		return action;
+	}
+	public String getAction2(){
+		String action = ""; 
+		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK):").toUpperCase();
 		}
 		return action;
 	}
