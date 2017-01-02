@@ -26,6 +26,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	protected Weapon weapon;
 	protected Shield shield;
 	protected float hitChance = (float) 0.75, baseDefend = 0.1f;
+	protected int xPos, yPos;
+
 	
 	public PlayerCharacter(String className, String playerName) {
 		super(Animation.getAnimation(className));
@@ -35,6 +37,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		this.hitChance=(float) 0.75;
 		shield = new Arm();
 		weapon = new Fist();
+		xPos = 0;
+		yPos = 0;
 		
 	}
 	

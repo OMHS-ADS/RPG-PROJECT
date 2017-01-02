@@ -18,6 +18,7 @@ import rpg.entity.Human;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
 import rpg.graphics.GameFrame;
+import rpg.util.Direction;
 
 public class Game {
 
@@ -188,7 +189,7 @@ public class Game {
 	
 	public void doPlayerTurn(){
 		String action = getAction();
-		String direction = "";
+		Direction direction;
 		if(action.toUpperCase().equals("ATTACK")){
 			direction = getDir();
 		}
@@ -197,18 +198,31 @@ public class Game {
 		}
 		else if(action.toUpperCase().equals("MOVE")){
 			direction = getDir();
+			localPlayer.move(direction);
+			
 		}
 	}
 	public void doEnemyTurn(){
 		
 	}
 	
-	public String getDir(){
+	public Direction getDir(){
 		String dir = "";
-		while(!dir.equals("UP") && !dir.equals("DOWN" + !dir.equals("LEFT") + !dir.equals("RIGHT"))){
+		while(!dir.equals("UP") && !dir.equals("DOWN") && !dir.equals("LEFT") && !dir.equals("RIGHT")){
 			dir = JOptionPane.showInputDialog("Enter a direction(UP, DOWN, LEFT, RIGHT):").toUpperCase();
 		}
-		return dir;
+		if (dir.equals("UP")){
+			return Direction.UP;
+		}
+		else if(dir.equals("RIGHT")){
+			return Direction.RIGHT;
+		}
+		else if(dir.equals("LEFT")){
+			return Direction.LEFT;
+		}
+		else{
+			return Direction.DOWN;
+		}
 	}
 	public String getAction(){
 		String action = ""; 
