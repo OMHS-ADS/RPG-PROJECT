@@ -251,14 +251,14 @@ public class Game {
 	public String getAction(){
 		String action = ""; 
 		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
-			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, ITEM):").toUpperCase();
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, PICKUP, DROP):").toUpperCase();
 		}
 		return action;
 	}
 	public String getAction2(){
 		String action = ""; 
 		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
-			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK):").toUpperCase();
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, PICKUP, DROP):").toUpperCase();
 		}
 		return action;
 	}
