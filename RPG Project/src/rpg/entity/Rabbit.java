@@ -8,5 +8,5 @@ public class Rabbit {
 	public void attack(){
 		
 	}
-	}
 }
+
