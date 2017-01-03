@@ -89,6 +89,7 @@ public class World implements Serializable {
 	}
 	
 	public void swapTiles(int r1, int r2, int c1, int c2, boolean isBG1, boolean isBG2){
+		//Glitchy, dont use unless i fix it
 		Tile t1, t2;
 		if(isBG1){
 			t1 = background[r1][c1];
@@ -107,8 +108,10 @@ public class World implements Serializable {
 		Entity e1 = t1.getTileEntity();
 		Entity e2 = t2.getTileEntity();
 		
+
 		t1.setEntity(e2);
 		t2.setEntity(e1);
+		
 		
 		knownEntities.remove(e1);
 		knownEntities.remove(e2);

@@ -69,9 +69,14 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	case DOWN:yPos++;break;
     	case LEFT:xPos--;break;
     	}
+    	System.out.println(oldX + " " + oldY);
+    	System.out.println(xPos + " " + yPos);
+    	System.out.println("===================");
     	Tile newTile = w.getFGTile(xPos, yPos);
     	if(newTile.getTileEntity() instanceof NullEntity){
-    		w.swapTiles(oldX, oldY, xPos, yPos, false, false);
+    		w.removeEntity(this);
+    		w.setTile(xPos, yPos, false, this);
+    		w.setTile(oldX, oldY, false, new NullEntity());
     	}
     	else{
     		xPos = oldX;
