@@ -12,8 +12,8 @@ public class Mage extends PlayerCharacter {
 
 	public Mage(String playerName) {
 		super("mage", playerName);
-		this.MAP=3;
-		this.hitChance=(float) .8;
+		this.MAP=60;
+		this.hitChance=(float) 2.8;
 	}
 	
 
