@@ -44,19 +44,9 @@ public class Game {
 		ArrayList<World> worlds = new ArrayList<World>();
 		worlds.add(new World());
 		worlds.add(new World());
-		createWorld(worlds.get(0));
-		createWorld(worlds.get(1));
 		currentWorld = worlds.get(0);
 	}
 	
-	private void createWorld(World world) {
-		for(int r = 0; r < 16; r++){
-			for(int c = 0; c < 9; c++){
-				world.setTile(r, c, true, new Grass());
-			}
-		}
-		
-	}
 
 
 
