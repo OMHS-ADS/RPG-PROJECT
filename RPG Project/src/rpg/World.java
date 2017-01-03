@@ -11,6 +11,7 @@ import rpg.entity.NullEntity;
 import rpg.entity.decorative.Grass;
 import rpg.entity.decorative.Tree;
 import rpg.util.ArrayValue2D;
+import rpg.util.Constants;
 
 public class World implements Serializable {
 
@@ -26,8 +27,8 @@ public class World implements Serializable {
 
 	public World() {
 		knownEntities = new HashMap<Entity,ArrayValue2D>();
-		background = new Tile[16][9];
-		foreground = new Tile[16][9];
+		background = new Tile[Constants.WORLDMAX_X][Constants.WORLDMAX_Y];
+		foreground = new Tile[Constants.WORLDMAX_X][Constants.WORLDMAX_Y];
 		for (int r = 0; r < background.length; r++) {
 			for(int c = 0; c < background[c].length; c++) {
 				background[r][c] = new Tile(new Grass());

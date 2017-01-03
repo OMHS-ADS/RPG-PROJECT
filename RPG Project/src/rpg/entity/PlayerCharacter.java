@@ -12,6 +12,7 @@ import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
+import rpg.util.Constants;
 import rpg.util.Damageable;
 import rpg.util.Direction;
 
@@ -63,6 +64,14 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public void move(Direction direction, World w) {   //  			(move in a direction multiple space(s)
     	int oldX = xPos;
     	int oldY = yPos;
+    	//error checking
+    	System.out.println(direction + " " + xPos + " " + yPos);
+    	if (direction==Direction.UP && yPos==0 ||
+    		direction==Direction.DOWN && yPos==Constants.WORLDMAX_Y-1 ||
+    		direction==Direction.LEFT && xPos==0 ||
+    		direction==Direction.RIGHT && xPos==Constants.WORLDMAX_X-1) {
+    		return; //end move if it would end outside of screen
+    	}
     	switch (direction) {
     	case UP:yPos--;break;
     	case RIGHT:xPos++;break;
