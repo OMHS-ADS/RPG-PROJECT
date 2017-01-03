@@ -78,6 +78,14 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		w.setTile(xPos, yPos, false, this);
     		w.setTile(oldX, oldY, false, new NullEntity());
     	}
+    	else if(newTile.getTileEntity() instanceof ItemEntity){
+    		w.removeEntity(this);
+    		ItemEntity itemEnt = (ItemEntity)(newTile.getTileEntity());
+    		pickup(itemEnt);
+    		w.removeEntity(itemEnt);
+    		w.setTile(xPos, yPos, false, this);
+    		w.setTile(oldX, oldY, false, new NullEntity());
+    	}
     	else{
     		xPos = oldX;
     		yPos = oldY;
@@ -86,8 +94,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
 
     }
-    public void pickup(Item item) {			//		(pickup a visible item)
-    	inventory.addItem(item);
+    public void pickup(ItemEntity item) {			//		(pickup a visible item)
+    	inventory.addItem(item.getItem());
     }
     public ItemEntity drop(Item item) {			//(drop an item at your current location)
     	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
@@ -114,7 +122,9 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
     	
     	//Add a way to check if entity is an enemy or not
-    	Entity e = et.getTileEntity(); 
+    	if(et.getTileEntity() instanceof Enemy){
+    		Enemy e = (Enemy) et.getTileEntity(); 
+    	}
     	
     	
     	
