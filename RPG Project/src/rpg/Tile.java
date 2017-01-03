@@ -1,6 +1,7 @@
 package rpg;
 
 import rpg.entity.Entity;
+import rpg.entity.NullEntity;
 
 public class Tile {
 
@@ -13,9 +14,17 @@ public class Tile {
 		tilesEntity = e;
 	}
 	
+	public Tile(){
+		tilesEntity = new NullEntity();
+	}
+	
 	//Can return a NullEntity which is an empty entity
 	public Entity getTileEntity() {
 		return tilesEntity;
+	}
+	
+	public void setEntity(Entity e){
+		tilesEntity = e;
 	}
 	
 }

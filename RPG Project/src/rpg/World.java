@@ -76,6 +76,64 @@ public class World implements Serializable {
 		knownEntities.put(t.getTileEntity(), new ArrayValue2D(r,c));
 	}
 	
+	public void setTile(int r, int c, boolean isBG, Entity e){
+		if(isBG){
+			background[r][c].setEntity(e);
+			knownEntities.put(e, new ArrayValue2D(r,c));
+		}
+		else{
+			foreground[r][c].setEntity(e);
+			knownEntities.put(e, new ArrayValue2D(r,c));
+		}
+	}
+	
+	public void swapTiles(int r1, int r2, int c1, int c2, boolean isBG1, boolean isBG2){
+		Tile t1, t2;
+		if(isBG1){
+			t1 = background[r1][c1];
+		}
+		else{
+			t1 = foreground[r1][c1];
+		}
+		
+		if(isBG2){
+			t2 = background[r2][c2];
+		}
+		else{
+			t2 = foreground[r2][c2];
+		}
+		
+		Entity e1 = t1.getTileEntity();
+		Entity e2 = t2.getTileEntity();
+		
+		t1.setEntity(e2);
+		t2.setEntity(e1);
+		
+		knownEntities.remove(e1);
+		knownEntities.remove(e2);
+		
+		if(!(e1 instanceof NullEntity)){
+			knownEntities.put(e1, new ArrayValue2D(r2,c2));
+		}
+		if(!(e2 instanceof NullEntity)){
+			knownEntities.put(e2, new ArrayValue2D(r1,c1));
+		}
+		
+		
+		
+		
+		
+	}
+	
+	public Tile getTile(int r, int c, boolean isBG){
+		if(isBG){
+			return background[r][c];
+		}
+		else{
+			return foreground[r][c];
+		}
+	}
+	
 	public void removeEntity(Entity e) {
 		knownEntities.remove(e);
 	}

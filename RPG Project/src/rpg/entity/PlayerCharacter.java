@@ -66,11 +66,16 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	case DOWN:yPos--;break;
     	case LEFT:xPos--;break;
     	}
-    	Tile oldTile = w.getFGTile(oldX, oldY);
     	Tile newTile = w.getFGTile(xPos, yPos);
-    	w.setFGTile(newTile, oldX, oldY);
-    	//yo i dont understand the tile set up at all, someone else fix this
-    	//also need to check to make sure that the tile youre moving to is available to move to(exists, not filled)
+    	if(newTile.getTileEntity() instanceof NullEntity){
+    		w.swapTiles(oldX, oldY, xPos, yPos, false, false);
+    	}
+    	else{
+    		xPos = oldX;
+    		yPos = oldY;
+    	}
+    			
+    	
 
     }
     public void pickup(Item item) {			//		(pickup a visible item)

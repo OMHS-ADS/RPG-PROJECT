@@ -18,6 +18,7 @@ import rpg.entity.Goblin;
 import rpg.entity.Human;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
+import rpg.entity.decorative.*;
 import rpg.graphics.GameFrame;
 import rpg.item.Item;
 import rpg.util.Direction;
@@ -42,8 +43,25 @@ public class Game {
 	public Game() {
 		ArrayList<World> worlds = new ArrayList<World>();
 		worlds.add(new World());
+		worlds.add(new World());
+		createWorld(worlds.get(0));
+		createWorld(worlds.get(1));
+		currentWorld = worlds.get(0);
 	}
 	
+	private void createWorld(World world) {
+		for(int r = 0; r < 16; r++){
+			for(int c = 0; c < 9; c++){
+				world.setTile(r, c, true, new Grass());
+			}
+		}
+		
+	}
+
+
+
+
+
 	public PlayerCharacter loadPlayer(File f) throws Exception {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
 		PlayerCharacter ret = (PlayerCharacter)ois.readObject();
@@ -172,12 +190,14 @@ public class Game {
 		boolean notwon = true;
 		boolean worldWon = false;
 		int worldNum = 0;
-
+		currentWorld.setTile(0, 0, false, localPlayer);
 		while(alive && notwon){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
 				worldNum++;
 				localPlayer.restoreHP();
+				currentWorld = World.getWorld(worldNum);
+				currentWorld.setTile(0, 0, false, localPlayer);
 			}
 			if(localPlayer.getCurrentHP() <= 0){
 				alive = false;
