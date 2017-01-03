@@ -25,11 +25,13 @@ public class Rabbit extends Enemy{
 		
 	}
 
-	@Override
-	public void defend() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
+    	HP += dmg;
+    }
+	
+	public void defend(int dmg) {				//(defend an attack)
+    	this.changeHealth((double)(dmg * (1 - baseDefend)));
+    }
 
 	@Override
 	public String getLocation() {

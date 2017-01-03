@@ -20,6 +20,7 @@ import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
 import rpg.entity.decorative.*;
 import rpg.graphics.GameFrame;
+import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.util.Direction;
 
@@ -220,7 +221,13 @@ public class Game {
 
 		if(action.equals("ATTACK")){
 			direction = getDir();
-			localPlayer.attack(localPlayer, currentWorld, direction);
+			if(localPlayer.getWeapon() instanceof Fist){
+				localPlayer.attack(localPlayer, currentWorld, direction);
+			}
+			else{
+				localPlayer.attack(localPlayer, currentWorld, direction);
+			}
+			
 		}
 		else if(action.equals("MOVE")){
 			direction = getDir();

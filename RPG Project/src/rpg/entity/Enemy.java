@@ -19,7 +19,7 @@ public abstract class Enemy extends Entity{
 	    //public abstract void drop(String item);			//(drop an item at your current location)
 	    public abstract void attack(String name);		//	(attack another character)
 	    //public abstract void attack(String name, Weapon w);	//(attack a character with an item)
-	    public abstract void defend();				//(defend an attack)
+	    public abstract void defend(int dmg);				//(defend an attack)
 	    //public abstract void defend(Shield s);	//		(defend an attack with an item)
 	    public abstract String getLocation();			//	(return�s the current character�s room location as X, Y)
 }

@@ -132,21 +132,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
     	//Add a way to check if entity is an enemy or not
     	if(et.getTileEntity() instanceof Enemy){
-    		Enemy e = (Enemy) et.getTileEntity(); 
+    		Enemy e = (Enemy) et.getTileEntity();
+    		e.defend(MAP);
     	}
     	
-    	
-    	
-    	//needs to get the entity its attacking from world
-    	
-    	
-		//do 1 dmg default
-		//default attack value, dmg = attack * modifier
-		// if hits(true){
-		// name.defend(dmg * defend multiplier (smaller than with shield))
-		//}
-		//name.defend(name.getShield()){
-		//}
     	
 		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
 			if(name.getShield()==null){
