@@ -93,9 +93,29 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
     }
     public void attack(PlayerCharacter name, World w, Direction d) {
-    	//Tile t = Current Player Tile
+    	//Xmod and YMod are values that represent the enemies distance from the player
     	//Tile eT = tile 1 away from player, based on direction
     	//Get the enemy(if there is one) from eT, and use it for damage calcs
+    	int xMod = 0;
+    	int yMod = 0;
+    	if(d == Direction.UP){
+    		yMod = -1;
+    	}
+    	else if(d == Direction.DOWN){
+    		yMod = 1;
+    	}
+    	else if(d == Direction.LEFT){
+    		xMod = 1;
+    	}
+    	else{
+    		xMod = -1;
+    	}
+    	Tile et = w.getTile(xPos + xMod, yPos + yMod, false);
+    	
+    	
+    	//Add a way to check if entity is an enemy or not
+    	Entity e = et.getTileEntity(); 
+    	
     	
     	
     	//needs to get the entity its attacking from world
