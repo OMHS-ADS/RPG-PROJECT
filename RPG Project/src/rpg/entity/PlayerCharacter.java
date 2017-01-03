@@ -173,16 +173,19 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	return HP;
     }
     public void defend(int dmg) {				//(defend an attack)
-    	this.changeHealth((double)(dmg * (1 - baseDefend)));
+    	this.changeHealth(dmg * (1 - baseDefend));
     }			//(defend an attack)
    	public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
-    	this.changeHealth((double)(dmg * (1 - s.getMAP())));
+    	this.changeHealth(dmg * (1 - s.getMAP()));
     }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
     }
-    public String getLocation() {			//	(return�s the current character�s room location as X, Y)
-    	return "PlayerCharacter getLocation()";
+    public ArrayList<Integer> getLocation() {			//	(return�s the current character�s room location as X, Y)
+    	ArrayList<Integer> loc = new ArrayList<Integer>();
+    	loc.add(xPos);
+    	loc.add(yPos);
+    	return loc;
     }
     public void changeMAP(int c) {
     	MAP += c;
