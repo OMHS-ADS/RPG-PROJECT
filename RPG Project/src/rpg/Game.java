@@ -230,6 +230,8 @@ public class Game {
 			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
 			//Needs to convert player input to item entity
 			//localPlayer.drop()
+		} else if(action.equals("EXIT")) {
+			//exit game with confirmation
 		}
 	}
 	public void doEnemyTurn(){
@@ -256,14 +258,18 @@ public class Game {
 	}
 	public String getAction(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP)")){
-			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, DROP):").toUpperCase();
+		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP") && !action.equals("EXIT")){
+			
+			try {
+				action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, DROP, EXIT):").toUpperCase();
+				
+			} catch (NullPointerException e) {}
 		}
 		return action;
 	}
 	public String getAction2(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("DROP)")){
+		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("DROP")){
 			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, DROP):").toUpperCase();
 		}
 		return action;
