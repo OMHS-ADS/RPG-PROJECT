@@ -226,10 +226,6 @@ public class Game {
 			direction = getDir();
 			localPlayer.move(direction, currentWorld);
 		}
-		else if(action.equals("PICKUP")){
-			//needs to get the item entity on the same tile
-			//localPlayer.pickup();
-		}
 		else if(action.equals("DROP")){
 			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
 			//Needs to convert player input to item entity
@@ -260,15 +256,15 @@ public class Game {
 	}
 	public String getAction(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
-			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, PICKUP, DROP):").toUpperCase();
+		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP)")){
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, DROP):").toUpperCase();
 		}
 		return action;
 	}
 	public String getAction2(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("PICKUP") && !action.equals("DROP)")){
-			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, PICKUP, DROP):").toUpperCase();
+		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("DROP)")){
+			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, DROP):").toUpperCase();
 		}
 		return action;
 	}

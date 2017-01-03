@@ -4,7 +4,7 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 //kyle sluss
 //yes i did copy ur guys stuff... im moding it though
-public abstract class Enemy {
+public abstract class Enemy extends Entity{
 	 	protected int MAP; //maximum attack points of the character excluding other items
 		protected int MDP; //maximum defense points of the character excluding other items
 		protected int HP; //current health points a character has

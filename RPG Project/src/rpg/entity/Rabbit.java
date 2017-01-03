@@ -1,5 +1,7 @@
 package rpg.entity;
 
+import java.awt.Graphics;
+
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
@@ -33,6 +35,12 @@ public class Rabbit extends Enemy{
 	public String getLocation() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

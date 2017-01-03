@@ -12,6 +12,7 @@ import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
+import rpg.util.Constants;
 import rpg.util.Damageable;
 import rpg.util.Direction;
 
@@ -63,18 +64,30 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public void move(Direction direction, World w) {   //  			(move in a direction multiple space(s)
     	int oldX = xPos;
     	int oldY = yPos;
+    	//error checking
+    	if (direction==Direction.UP && yPos==0 ||
+    		direction==Direction.DOWN && yPos==Constants.WORLDMAX_Y-1 ||
+    		direction==Direction.LEFT && xPos==0 ||
+    		direction==Direction.RIGHT && xPos==Constants.WORLDMAX_X-1) {
+    		return; //end move if it would end outside of screen
+    	}
     	switch (direction) {
     	case UP:yPos--;break;
     	case RIGHT:xPos++;break;
     	case DOWN:yPos++;break;
     	case LEFT:xPos--;break;
     	}
-    	System.out.println(oldX + " " + oldY);
-    	System.out.println(xPos + " " + yPos);
-    	System.out.println("===================");
     	Tile newTile = w.getFGTile(xPos, yPos);
     	if(newTile.getTileEntity() instanceof NullEntity){
     		w.removeEntity(this);
+    		w.setTile(xPos, yPos, false, this);
+    		w.setTile(oldX, oldY, false, new NullEntity());
+    	}
+    	else if(newTile.getTileEntity() instanceof ItemEntity){
+    		w.removeEntity(this);
+    		ItemEntity itemEnt = (ItemEntity)(newTile.getTileEntity());
+    		pickup(itemEnt);
+    		w.removeEntity(itemEnt);
     		w.setTile(xPos, yPos, false, this);
     		w.setTile(oldX, oldY, false, new NullEntity());
     	}
@@ -86,8 +99,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
 
     }
-    public void pickup(Item item) {			//		(pickup a visible item)
-    	inventory.addItem(item);
+    public void pickup(ItemEntity item) {			//		(pickup a visible item)
+    	inventory.addItem(item.getItem());
     }
     public ItemEntity drop(Item item) {			//(drop an item at your current location)
     	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
@@ -114,7 +127,9 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
     	
     	//Add a way to check if entity is an enemy or not
-    	Entity e = et.getTileEntity(); 
+    	if(et.getTileEntity() instanceof Enemy){
+    		Enemy e = (Enemy) et.getTileEntity(); 
+    	}
     	
     	
     	
