@@ -230,8 +230,11 @@ public class Game {
 			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
 			//Needs to convert player input to item entity
 			//localPlayer.drop()
-		} else if(action.equals("EXIT")) {
-			//exit game with confirmation
+		} else if(action.equals("EXIT")) { //exit game with confirmation
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
+			if (confirm == JOptionPane.YES_OPTION) {
+				//exit
+			}
 		}
 	}
 	public void doEnemyTurn(){
