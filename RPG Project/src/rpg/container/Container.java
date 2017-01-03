@@ -13,7 +13,7 @@ import rpg.item.Item;
  */
 
 //Why extend entity? Because anything we want on a Tile has to be an entity
-public abstract class Container extends Entity {
+public abstract class Container extends Entity  {
 	protected ArrayList<Item> items;
 	public Container(ArrayList<Item> items) {
 		this.items=items;
