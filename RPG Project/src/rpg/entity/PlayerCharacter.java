@@ -65,7 +65,6 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	int oldX = xPos;
     	int oldY = yPos;
     	//error checking
-    	System.out.println(direction + " " + xPos + " " + yPos);
     	if (direction==Direction.UP && yPos==0 ||
     		direction==Direction.DOWN && yPos==Constants.WORLDMAX_Y-1 ||
     		direction==Direction.LEFT && xPos==0 ||
@@ -78,9 +77,6 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	case DOWN:yPos++;break;
     	case LEFT:xPos--;break;
     	}
-    	System.out.println(oldX + " " + oldY);
-    	System.out.println(xPos + " " + yPos);
-    	System.out.println("===================");
     	Tile newTile = w.getFGTile(xPos, yPos);
     	if(newTile.getTileEntity() instanceof NullEntity){
     		w.removeEntity(this);
