@@ -1,6 +1,7 @@
 package rpg.entity;
 import java.awt.Graphics;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import rpg.Tile;
 import rpg.World;
@@ -43,6 +44,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		yPos = 0;
 		MAXHP = 20;
 		HP = 20;
+		this.inventory = new Bag(new ArrayList<Item>());
 		
 	}
 	
@@ -55,15 +57,16 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		this.hitChance=hitChance;
 		shield = new Arm();
 		weapon = new Fist();
+		this.inventory = new Bag(new ArrayList<Item>());
 	}
 	
     public void move(Direction direction, World w) {   //  			(move in a direction multiple space(s)
     	int oldX = xPos;
     	int oldY = yPos;
     	switch (direction) {
-    	case UP:yPos++;break;
+    	case UP:yPos--;break;
     	case RIGHT:xPos++;break;
-    	case DOWN:yPos--;break;
+    	case DOWN:yPos++;break;
     	case LEFT:xPos--;break;
     	}
     	Tile newTile = w.getFGTile(xPos, yPos);

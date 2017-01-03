@@ -41,10 +41,7 @@ public class Game {
 	
 	
 	public Game() {
-		ArrayList<World> worlds = new ArrayList<World>();
-		worlds.add(new World());
-		worlds.add(new World());
-		currentWorld = worlds.get(0);
+		World.initWorlds();
 	}
 	
 
@@ -180,6 +177,7 @@ public class Game {
 		boolean notwon = true;
 		boolean worldWon = false;
 		int worldNum = 0;
+		currentWorld = World.getWorld(0);
 		currentWorld.setTile(0, 0, false, localPlayer);
 		while(alive && notwon){
 			currentWorld = World.getWorld(worldNum);
@@ -215,7 +213,7 @@ public class Game {
 			Bag b = localPlayer.getBagContents();
 			for(Item i: b.getItems()){
 				allItems = allItems + i.toString() + "\n";
-				 JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
 			}
 			action = getAction2();
 		}

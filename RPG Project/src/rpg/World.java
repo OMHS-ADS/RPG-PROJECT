@@ -9,6 +9,7 @@ import java.util.HashMap;
 import rpg.entity.Entity;
 import rpg.entity.NullEntity;
 import rpg.entity.decorative.Grass;
+import rpg.entity.decorative.Tree;
 import rpg.util.ArrayValue2D;
 
 public class World implements Serializable {
@@ -150,6 +151,14 @@ public class World implements Serializable {
 	private static World[] worlds;
 	private static boolean init = false;
 	
+	public static void initWorlds(){
+		//This is all temporary stuff bc createWorlds doesnt work
+		//Fix it zach
+		worlds = new World[1];
+		worlds[0] = new World();
+		worlds[0].setTile(5, 5, false, new Tree());
+	}
+	
 	public static void createWorlds() {
 		ArrayList<World> worldList = new ArrayList<World>();
 		//This should break when it runs out of frames to find
@@ -183,8 +192,6 @@ public class World implements Serializable {
 	
 	
 	public static World getWorld(int world) {
-		if(!init)
-			createWorlds();
 		return worlds[world];
 	}
 	
