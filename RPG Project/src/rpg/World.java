@@ -8,9 +8,14 @@ import java.util.HashMap;
 
 import rpg.entity.Enemy;
 import rpg.entity.Entity;
+import rpg.entity.ItemEntity;
 import rpg.entity.NullEntity;
+import rpg.entity.Rabbit;
 import rpg.entity.decorative.Grass;
+import rpg.entity.decorative.Path;
 import rpg.entity.decorative.Tree;
+import rpg.item.LargeShield;
+import rpg.item.Shield;
 import rpg.util.ArrayValue2D;
 import rpg.util.Constants;
 
@@ -268,6 +273,35 @@ public class World implements Serializable {
 		worlds = new World[1];
 		worlds[0] = new World();
 		worlds[0].setTile(5, 5, false, new Tree());
+		worlds[0].setTile(4, 4, false, new Rabbit());
+		worlds[0].setTile(3, 3, false, new ItemEntity(new LargeShield()));
+		
+		worlds[0].setTile(2, 0, true, new Path(3));
+		worlds[0].setTile(3, 0, true, new Path(1));
+		
+		worlds[0].setTile(2, 1, true, new Path(3));
+		worlds[0].setTile(3, 1, true, new Path(1));
+		
+		worlds[0].setTile(2, 2, true, new Path(3));
+		worlds[0].setTile(3, 2, true, new Path(1));
+		
+		worlds[0].setTile(2, 3, true, new Path(3));
+		worlds[0].setTile(3, 3, true, new Path(1));
+		
+		worlds[0].setTile(2, 4, true, new Path(3));
+		worlds[0].setTile(3, 4, true, new Path(1));
+		
+		worlds[0].setTile(2, 5, true, new Path(3));
+		worlds[0].setTile(3, 5, true, new Path(1));
+		
+		worlds[0].setTile(2, 6, true, new Path(3));
+		worlds[0].setTile(3, 6, true, new Path(1));
+		
+		worlds[0].setTile(2, 7, true, new Path(3));
+		worlds[0].setTile(3, 7, true, new Path(1));
+		
+		worlds[0].setTile(2, 8, true, new Path(3));
+		worlds[0].setTile(3, 8, true, new Path(1));
 	}
 	
 	/**
