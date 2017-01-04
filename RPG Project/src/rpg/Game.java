@@ -316,19 +316,19 @@ public class Game {
 		String allItems = "";
 		switch (action) {
 		case ATTACK_UP:{
-			localPlayer.attack(localPlayer, currentWorld, Direction.UP);
+			localPlayer.attack(currentWorld, Direction.UP);
 			break;
 		}
 		case ATTACK_RIGHT:{
-			localPlayer.attack(localPlayer, currentWorld, Direction.RIGHT);
+			localPlayer.attack(currentWorld, Direction.RIGHT);
 			break;
 		}
 		case ATTACK_DOWN:{
-			localPlayer.attack(localPlayer, currentWorld, Direction.RIGHT);
+			localPlayer.attack(currentWorld, Direction.RIGHT);
 			break;
 		}
 		case ATTACK_LEFT:{
-			localPlayer.attack(localPlayer, currentWorld, Direction.DOWN);
+			localPlayer.attack(currentWorld, Direction.DOWN);
 			break;
 		}
 		case MOVE_UP:{
@@ -365,7 +365,14 @@ public class Game {
 			exitGame();
 		}
 		}
-		doEnemyTurn();
+		
+		
+		for (Entity e : currentWorld.getEntities().keySet()) {
+			if(e instanceof Enemy){
+				doEnemyTurn((Enemy)e);
+			}
+		}
+		
 	}
 	/*
 	 * Exits game with confirmation
