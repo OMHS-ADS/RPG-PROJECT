@@ -226,7 +226,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	return inventory;
     }
     public String getLocation() {			//	(return�s the current character�s room location as X, Y)
-    	return "PlayerCharacter getLocation()";
+    	return "(" + xPos + ", " + yPos + ")";
     }
     public void changeMAP(int c) {
     	MAP += c;

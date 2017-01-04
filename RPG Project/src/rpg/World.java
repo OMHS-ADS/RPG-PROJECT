@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import rpg.entity.Enemy;
 import rpg.entity.Entity;
 import rpg.entity.NullEntity;
 import rpg.entity.decorative.Grass;
@@ -31,6 +32,7 @@ public class World implements Serializable {
 	//The foreground is a 2D array of tiles which map out the world. The background is the same.
 	private Tile[][] foreground;
 	private Tile[][] background;
+	private ArrayList<Enemy> enemies;
 	//This is so we can getLocation without having to search every value of the foreground. Anything to do with adding or removing an
 	//entity from the world should be done through world, and no where else.
 	private HashMap<Entity, ArrayValue2D> knownEntities;
@@ -40,6 +42,7 @@ public class World implements Serializable {
 	 */
 	public World() {
 		knownEntities = new HashMap<Entity,ArrayValue2D>();
+		enemies = new ArrayList<Enemy>();
 		background = new Tile[Constants.WORLDMAX_X][Constants.WORLDMAX_Y];
 		foreground = new Tile[Constants.WORLDMAX_X][Constants.WORLDMAX_Y];
 		for (int r = 0; r < background.length; r++) {
@@ -248,6 +251,7 @@ public class World implements Serializable {
 	public Tile[][] getBG() {
 		return background;
 	}
+	
 
 	//This array holds all of the loaded worlds
 	private static World[] worlds;
@@ -307,6 +311,10 @@ public class World implements Serializable {
 	 */
 	public static World getWorld(int world) {
 		return worlds[world];
+	}
+	
+	public HashMap<Entity, ArrayValue2D> getEntities(){
+		return knownEntities;
 	}
 	
 }

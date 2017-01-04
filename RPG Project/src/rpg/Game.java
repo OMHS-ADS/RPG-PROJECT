@@ -272,6 +272,9 @@ public class Game {
 		else if(action.equals("MOVE")){
 			direction = getDir();
 			localPlayer.move(direction, currentWorld);
+			String loc = localPlayer.getLocation();
+			JOptionPane.showMessageDialog(null, loc, "New Location", JOptionPane.INFORMATION_MESSAGE);
+			
 		}
 		else if(action.equals("DROP")){
 			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
