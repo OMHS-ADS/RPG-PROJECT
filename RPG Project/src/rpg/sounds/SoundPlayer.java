@@ -24,7 +24,7 @@ public class SoundPlayer {
 	
 	public void playCriticalSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("FileGoesHere.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("criticalSound.wav").getAbsoluteFile());
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -36,7 +36,7 @@ public class SoundPlayer {
 	
 	public void playMagicSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("FileGoesHere.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("magicSound.wav").getAbsoluteFile());
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
