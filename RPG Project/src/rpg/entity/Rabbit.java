@@ -51,11 +51,6 @@ public class Rabbit extends Enemy{
 		
 	}
 
-	@Override
-	public void changeHealth(double dmg) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public double getHP() {
