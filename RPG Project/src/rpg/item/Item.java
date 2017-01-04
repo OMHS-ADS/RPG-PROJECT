@@ -50,6 +50,10 @@ abstract public class Item implements Serializable {
                    //+ "(X,Y) position = (" + xPos + ", " + yPos + ")";
         return str;
     }
+    
+    public String getName(){
+    	return name;
+    }
 
     @Deprecated                  
     public void setX(int x){}

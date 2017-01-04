@@ -262,10 +262,10 @@ public class Game {
 		if(action.equals("ATTACK")){
 			direction = getDir();
 			if(localPlayer.getWeapon() instanceof Fist){
-				localPlayer.attack(localPlayer, currentWorld, direction);
+				localPlayer.attack(currentWorld, direction);
 			}
 			else{
-				localPlayer.attack(localPlayer, currentWorld, direction);
+				localPlayer.weaponAttack(currentWorld, localPlayer.getWeapon(), direction);
 			}
 			
 		}
@@ -275,8 +275,7 @@ public class Game {
 		}
 		else if(action.equals("DROP")){
 			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
-			//Needs to convert player input to item entity
-			//localPlayer.drop()
+			localPlayer.drop(itemName, currentWorld);
 		}
 	}
 	/**
