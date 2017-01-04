@@ -1,7 +1,22 @@
 package rpg.util;
 
+import rpg.util.Direction.DirectionWrapper;
+
 public enum PlayerActions {
-	MOVE_UP,MOVE_RIGHT,MOVE_DOWN,MOVE_LEFT,
-	ATTACK_UP,ATTACK_RIGHT,ATTACK_DOWN,ATTACK_LEFT,
-	INVENTORY,DROP,EXIT
+	MOVE(new DirectionWrapper()),
+	ATTACK(new DirectionWrapper()),
+	INVENTORY,DROP,EXIT,PICKUP;
+	Direction dir;
+	PlayerActions(DirectionWrapper d) {
+		this.dir=d.getDirection();
+	}
+	PlayerActions() {
+		
+	}
+	public static PlayerActions MOVE(DirectionWrapper dw) {
+		return MOVE(dw);
+	}
+	public static PlayerActions ATTACK(DirectionWrapper dw) {
+		return ATTACK(dw);
+	}
 }

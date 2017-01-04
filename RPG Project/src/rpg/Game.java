@@ -27,6 +27,7 @@ import rpg.entity.decorative.*;
 import rpg.graphics.GameFrame;
 import rpg.item.Item;
 import rpg.util.Direction;
+import rpg.util.Direction.DirectionWrapper;
 import rpg.util.PlayerActions;
 
 public class Game {
@@ -221,7 +222,7 @@ public class Game {
 		Direction direction;
 		String allItems = "";
 		switch (action) {
-		case ATTACK_UP:{
+		case ATTACK(Direction.UP):{
 			localPlayer.attack(localPlayer, currentWorld, Direction.UP);
 			break;
 		}
@@ -338,11 +339,18 @@ public class Game {
 		@Override
 		public void keyPressed(KeyEvent e)	{
 			switch (e.getKeyCode()) {
-			case KeyEvent.VK_W:doPlayerTurn(PlayerActions.MOVE_UP);break;
-			case KeyEvent.VK_D:doPlayerTurn(PlayerActions.MOVE_RIGHT);break;
-			case KeyEvent.VK_S:doPlayerTurn(PlayerActions.MOVE_DOWN);break;
-			case KeyEvent.VK_A:doPlayerTurn(PlayerActions.MOVE_LEFT);break;
+			case KeyEvent.VK_W:doPlayerTurn(PlayerActions.MOVE(new DirectionWrapper(Direction.UP)));break;
+			case KeyEvent.VK_D:doPlayerTurn(PlayerActions.MOVE(new DirectionWrapper(Direction.RIGHT)));break;
+			case KeyEvent.VK_S:doPlayerTurn(PlayerActions.MOVE(new DirectionWrapper(Direction.DOWN)));break;
+			case KeyEvent.VK_A:doPlayerTurn(PlayerActions.MOVE(new DirectionWrapper(Direction.LEFT)));break;
 			case KeyEvent.VK_I:doPlayerTurn(PlayerActions.INVENTORY);break;
+			case KeyEvent.VK_ESCAPE:doPlayerTurn(PlayerActions.EXIT);break;
+			case KeyEvent.VK_R:doPlayerTurn(PlayerActions.DROP);break;
+			case KeyEvent.VK_T:doPlayerTurn(PlayerActions.ATTACK(new DirectionWrapper(Direction.UP)));break;
+			case KeyEvent.VK_H:doPlayerTurn(PlayerActions.ATTACK(new DirectionWrapper(Direction.RIGHT)));break;
+			case KeyEvent.VK_G:doPlayerTurn(PlayerActions.ATTACK(new DirectionWrapper(Direction.DOWN)));break;
+			case KeyEvent.VK_F:doPlayerTurn(PlayerActions.ATTACK(new DirectionWrapper(Direction.LEFT)));break;
+			case KeyEvent.VK_Q:doPlayerTurn(PlayerActions.PICKUP);break;
 			}
 		}
 		public void keyReleased(KeyEvent e) {}
