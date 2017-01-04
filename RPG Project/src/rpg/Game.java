@@ -3,6 +3,8 @@ package rpg;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -331,12 +333,10 @@ public class Game {
 	public class Keyboard implements KeyListener {
 		
 		public Keyboard() {
-			System.out.println(localPlayer);
 		}
 		
 		@Override
 		public void keyPressed(KeyEvent e)	{
-			System.out.println(e.getKeyCode());
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_W:doPlayerTurn(PlayerActions.MOVE_UP);break;
 			case KeyEvent.VK_D:doPlayerTurn(PlayerActions.MOVE_RIGHT);break;
@@ -347,5 +347,38 @@ public class Game {
 		}
 		public void keyReleased(KeyEvent e) {}
 		public void keyTyped(KeyEvent e) {}
+	}
+	public class MouseListen implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
