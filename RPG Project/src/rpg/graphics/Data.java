@@ -1,5 +1,9 @@
 package rpg.graphics;
 
+/**
+ * This class is meant to represent data in an Entity. It has no use currently, ignore it.
+ *
+ */
 public class Data {
 
 	private final String dataName;
