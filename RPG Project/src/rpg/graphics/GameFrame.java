@@ -1,5 +1,6 @@
 package rpg.graphics;
 
+import java.awt.event.KeyAdapter;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -16,9 +17,9 @@ public class GameFrame extends JFrame {
 		setSize(16*60 + 1, 9*60 + 23);
 		setVisible(true);
 		setResizable(false);
+		setFocusable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
 	
 	public void renderWorld(Game g) {
 		BufferedImage bi = new BufferedImage((int)this.getSize().getWidth(),(int)this.getSize().getHeight(), BufferedImage.TYPE_4BYTE_ABGR);

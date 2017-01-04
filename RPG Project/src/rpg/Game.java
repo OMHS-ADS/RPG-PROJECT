@@ -1,5 +1,10 @@
 package rpg;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +27,7 @@ import rpg.entity.decorative.*;
 import rpg.graphics.GameFrame;
 import rpg.item.Item;
 import rpg.util.Direction;
+import rpg.util.PlayerActions;
 
 public class Game {
 
@@ -29,6 +35,7 @@ public class Game {
 	private static final String[] classList = new String[] {"HUMAN","ELF","DWARF","GOBLIN","OGRE"};
 	public static final String playerDir = System.getProperty("user.home") + "/ADS/RPG/PlayerFiles/";
 	private PlayerCharacter localPlayer;
+	private static Keyboard k;
 	//Nice steady 16 fps
 	public static void main(String[] args) {
 		Game g = new Game();
@@ -42,6 +49,7 @@ public class Game {
 	
 	public Game() {
 		World.initWorlds();
+		
 	}
 	
 
@@ -171,7 +179,9 @@ public class Game {
 
 	private GameFrame title;
 	public void start() {
+		k = this.new Keyboard();
 		title = new GameFrame();
+		System.out.println("TEST");
 		title.setVisible(true);
 		startRenderThread(title, this);
 		boolean alive = true;
@@ -180,6 +190,7 @@ public class Game {
 		int worldNum = 0;
 		currentWorld = World.getWorld(0);
 		currentWorld.setTile(0, 0, false, localPlayer);
+		title.addKeyListener(k);
 		while(alive && notwon && !quit){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
@@ -191,9 +202,9 @@ public class Game {
 			if(localPlayer.getCurrentHP() <= 0){
 				alive = false;
 			}
-			else{
+			/*else{
 				doPlayerTurn();
-			}
+			}*/
 			
 		}
 		if(!alive){
@@ -206,35 +217,61 @@ public class Game {
 	}
 
 	
-	public void doPlayerTurn(){
-		String action = getAction();
+	public void doPlayerTurn(PlayerActions action){
 		Direction direction;
 		String allItems = "";
-		
-		if(action.equals("INVENTORY")){
+		switch (action) {
+		case ATTACK_UP:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.UP);
+			break;
+		}
+		case ATTACK_RIGHT:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.RIGHT);
+			break;
+		}
+		case ATTACK_DOWN:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.RIGHT);
+			break;
+		}
+		case ATTACK_LEFT:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.DOWN);
+			break;
+		}
+		case MOVE_UP:{
+			localPlayer.move(Direction.UP, currentWorld);
+			break;
+		}
+		case MOVE_RIGHT:{
+			localPlayer.move(Direction.RIGHT, currentWorld);
+			break;
+		}
+		case MOVE_DOWN:{
+			localPlayer.move(Direction.DOWN, currentWorld);
+			break;
+		}
+		case MOVE_LEFT:{
+			localPlayer.move(Direction.LEFT, currentWorld);
+			break;
+		}
+		case DROP: {
+			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
+			break;
+			//Needs to convert player input to item entity
+			//localPlayer.drop()
+		}
+		case INVENTORY: {
 			Bag b = localPlayer.getBagContents();
 			for(Item i: b.getItems()){
 				allItems = allItems + i.toString() + "\n";
 					JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
 			}
-			action = getAction2();
+			break;
 		}
-
-		if(action.equals("ATTACK")){
-			direction = getDir();
-			localPlayer.attack(localPlayer, currentWorld, direction);
-		}
-		else if(action.equals("MOVE")){
-			direction = getDir();
-			localPlayer.move(direction, currentWorld);
-		}
-		else if(action.equals("DROP")){
-			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
-			//Needs to convert player input to item entity
-			//localPlayer.drop()
-		} else if(action.equals("EXIT")) { //exit game with confirmation
+		case EXIT: { //exit game with confirmation
 			exitGame();
 		}
+		}
+		doEnemyTurn();
 	}
 	/*
 	 * Exits game with confirmation
@@ -250,7 +287,7 @@ public class Game {
 	public void doEnemyTurn(){
 		
 	}
-	
+	@Deprecated
 	public Direction getDir(){
 		String dir = "";
 		while(!dir.equals("UP") && !dir.equals("DOWN") && !dir.equals("LEFT") && !dir.equals("RIGHT")){
@@ -269,6 +306,7 @@ public class Game {
 			return Direction.DOWN;
 		}
 	}
+	@Deprecated
 	public String getAction(){
 		String action = ""; 
 		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP") && !action.equals("EXIT")){
@@ -292,4 +330,55 @@ public class Game {
 		return currentWorld;
 	}
 
+	public class Keyboard implements KeyListener {
+		
+		public Keyboard() {
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent e)	{
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_W:doPlayerTurn(PlayerActions.MOVE_UP);break;
+			case KeyEvent.VK_D:doPlayerTurn(PlayerActions.MOVE_RIGHT);break;
+			case KeyEvent.VK_S:doPlayerTurn(PlayerActions.MOVE_DOWN);break;
+			case KeyEvent.VK_A:doPlayerTurn(PlayerActions.MOVE_LEFT);break;
+			case KeyEvent.VK_I:doPlayerTurn(PlayerActions.INVENTORY);break;
+			}
+		}
+		public void keyReleased(KeyEvent e) {}
+		public void keyTyped(KeyEvent e) {}
+	}
+	public class MouseListen implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }
