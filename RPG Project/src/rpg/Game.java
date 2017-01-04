@@ -365,7 +365,7 @@ public class Game {
 			exitGame();
 		}
 		}
-		//doEnemyTurn();
+		doEnemyTurn();
 	}
 	/*
 	 * Exits game with confirmation
