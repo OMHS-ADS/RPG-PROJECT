@@ -168,9 +168,10 @@ public class Game {
 		};
 		t.start();
 	}
-	
+
+	private GameFrame title;
 	public void start() {
-		GameFrame title = new GameFrame();
+		title = new GameFrame();
 		title.setVisible(true);
 		startRenderThread(title, this);
 		boolean alive = true;
@@ -179,7 +180,7 @@ public class Game {
 		int worldNum = 0;
 		currentWorld = World.getWorld(0);
 		currentWorld.setTile(0, 0, false, localPlayer);
-		while(alive && notwon){
+		while(alive && notwon && !quit){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
 				worldNum++;
@@ -195,8 +196,9 @@ public class Game {
 			}
 			
 		}
-		if(alive == false){
+		if(!alive){
 			//Losing stuff here, close game maybe
+			exitGame();
 		}
 		else{
 			//Winning stuff here
@@ -231,10 +233,18 @@ public class Game {
 			//Needs to convert player input to item entity
 			//localPlayer.drop()
 		} else if(action.equals("EXIT")) { //exit game with confirmation
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
-			if (confirm == JOptionPane.YES_OPTION) {
-				//exit
-			}
+			exitGame();
+		}
+	}
+	/*
+	 * Exits game with confirmation
+	 */
+	private boolean quit=false;
+	private void exitGame() {
+		int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
+		if (confirm == JOptionPane.YES_OPTION) {
+			title.dispose();
+			quit=true;
 		}
 	}
 	public void doEnemyTurn(){
