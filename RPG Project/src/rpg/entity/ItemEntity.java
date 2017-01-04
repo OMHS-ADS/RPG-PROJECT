@@ -3,13 +3,14 @@ package rpg.entity;
 import java.awt.Graphics;
 
 import rpg.item.Item;
-import rpg.util.Coordinatable;
+import rpg.util.Interactable;
 /**
- * An entity that represents an item on the ground
+ * An entity that represents an item on the ground. 
+ * @see Interactable
  * @author Morgan
  *
  */
-public class ItemEntity extends Entity {
+public class ItemEntity extends Entity implements Interactable {
 	protected Item rep; //The item represented by the ItemEntity
 
 	/**
@@ -32,5 +33,10 @@ public class ItemEntity extends Entity {
 	public void render(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void interact(PlayerCharacter p) {
+		//Possibly pick up the item?
 	}
 }
