@@ -1,5 +1,13 @@
 package rpg;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,6 +34,7 @@ import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
+import rpg.util.PlayerActions;
 
 /**
  * The Game class contains the main method, which is the where the game is run. It contains the current world, and the current player.
@@ -33,6 +42,7 @@ import rpg.util.Direction;
  */
 public class Game {
 
+	private GameFrame displayWindow;
 	//The current world
 	private World currentWorld;
 	//The list of different possible classes
@@ -41,8 +51,8 @@ public class Game {
 	public static final String playerDir = System.getProperty("user.home") + "/ADS/RPG/PlayerFiles/";
 	//The current player
 	private PlayerCharacter localPlayer;
-	
-
+	private static Keyboard k;
+	//Nice steady 16 fps
 	public static void main(String[] args) {
 		Game g = new Game();
 		g.createPlayer();
@@ -57,6 +67,7 @@ public class Game {
 	 */
 	public Game() {
 		World.initWorlds();
+		
 	}
 	
 
@@ -196,7 +207,16 @@ public class Game {
 
 					if (timePassed >= 1) {
 						// Tick!!!
-						title.renderWorld(g);
+						int width = (int)(g.getDisplayWindow().getWidth());
+						int height = (int)(g.getDisplayWindow().getHeight());
+						BufferedImage bi = new BufferedImage(width,height, BufferedImage.TYPE_4BYTE_ABGR);
+						Graphics graphics = bi.getGraphics();
+						title.renderWorld(g, graphics);
+						drawHud(graphics);
+						drawBorder(graphics);
+						
+						g.getDisplayWindow().getGraphics().drawImage(bi, 0, 0, g.getDisplayWindow().getWidth(), g.getDisplayWindow().getHeight(), null);
+						graphics.dispose();
 						timePassed -= 1;
 					}
 
@@ -206,21 +226,62 @@ public class Game {
 		};
 		t.start();
 	}
+	/**
+	 * Draws the border to the game window
+	 * @param g
+	 */
+	public void drawBorder(Graphics g) {
+		Color borderColor = new Color(38, 71, 124);
+		g.setColor(borderColor);
+		g.fillRect(0, 0, this.getDisplayWindow().getWidth(), 20);
+		g.drawLine(0, 0, 0, this.getDisplayWindow().getHeight());
+		g.drawLine(this.getDisplayWindow().getWidth()-1, 0, this.getDisplayWindow().getWidth(), this.getDisplayWindow().getHeight());
+		g.drawLine(0, this.getDisplayWindow().getHeight()-1, this.getDisplayWindow().getWidth(),  this.getDisplayWindow().getHeight());
+	}
 	
+	/**
+	 * Draw the HUD to the window
+	 * @param g The window graphics
+	 */
+	public void drawHud(Graphics g) {
+		g.setColor(Color.GRAY);
+		g.fillRect(1, 540+21, 960, 19);
+		g.setColor(Color.RED);
+		int maxBarW = 100;
+		int maxHP = localPlayer.getMaxHP();
+		int cHP = (int)localPlayer.getHP();
+		int barW = (int)(((double)cHP/(double)maxHP) * maxBarW);
+		if(barW > maxBarW)
+			barW = maxBarW;
+		g.drawRect(3, 541+20, maxBarW+1, 18);
+
+		g.setColor(Color.GREEN);
+		g.fillRect(4, 541+21, barW, 17);
+	}
+	
+	/**
+	 * Get the window
+	 * @return The window
+	 */
+	public GameFrame getDisplayWindow() {
+		return this.displayWindow;
+	}
 	/**
 	 * This method initializes and starts the game. Once called, it is assumed it will not be called again.
 	 */
 	public void start() {
-		GameFrame title = new GameFrame();
-		title.setVisible(true);
-		startRenderThread(title, this);
+		k = this.new Keyboard();
+		displayWindow = new GameFrame();
+		System.out.println("TEST");
+		startRenderThread(displayWindow, this);
 		boolean alive = true;
 		boolean notwon = true;
 		boolean worldWon = false;
 		int worldNum = 0;
 		currentWorld = World.getWorld(0);
 		currentWorld.setTile(0, 0, false, localPlayer);
-		while(alive && notwon){
+		displayWindow.addKeyListener(k);
+		while(alive && notwon && !quit){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
 				worldNum++;
@@ -231,18 +292,15 @@ public class Game {
 			if(localPlayer.getHP() <= 0){
 				alive = false;
 			}
-			else{
-				doPlayerTurn();
 				for (Entity e : currentWorld.getEntities().keySet()) {
 					if(e instanceof Enemy){
 						doEnemyTurn((Enemy)e);
 					}
 				}
-			}
-			
 		}
-		if(alive == false){
+		if(!alive) {
 			//Losing stuff here, close game maybe
+			exitGame();
 		}
 		else{
 			//Winning stuff here
@@ -253,40 +311,71 @@ public class Game {
 	/**
 	 * The doPlayerTurn method accepts user input to conduct the players turn.
 	 */
-	public void doPlayerTurn(){
-		String action = getAction();
+	public void doPlayerTurn(PlayerActions action) {
 		Direction direction;
 		String allItems = "";
-		
-		if(action.equals("INVENTORY")){
+		switch (action) {
+		case ATTACK_UP:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.UP);
+			break;
+		}
+		case ATTACK_RIGHT:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.RIGHT);
+			break;
+		}
+		case ATTACK_DOWN:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.RIGHT);
+			break;
+		}
+		case ATTACK_LEFT:{
+			localPlayer.attack(localPlayer, currentWorld, Direction.DOWN);
+			break;
+		}
+		case MOVE_UP:{
+			localPlayer.move(Direction.UP, currentWorld);
+			break;
+		}
+		case MOVE_RIGHT:{
+			localPlayer.move(Direction.RIGHT, currentWorld);
+			break;
+		}
+		case MOVE_DOWN:{
+			localPlayer.move(Direction.DOWN, currentWorld);
+			break;
+		}
+		case MOVE_LEFT:{
+			localPlayer.move(Direction.LEFT, currentWorld);
+			break;
+		}
+		case DROP: {
+			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
+			break;
+			//Needs to convert player input to item entity
+			//localPlayer.drop()
+		}
+		case INVENTORY: {
 			Bag b = localPlayer.getBagContents();
 			for(Item i: b.getItems()){
 				allItems = allItems + i.toString() + "\n";
 					JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
 			}
-			action = getAction2();
+			break;
 		}
-
-		if(action.equals("ATTACK")){
-			direction = getDir();
-			if(localPlayer.getWeapon() instanceof Fist){
-				localPlayer.attack(currentWorld, direction);
-			}
-			else{
-				localPlayer.weaponAttack(currentWorld, localPlayer.getWeapon(), direction);
-			}
-			
+		case EXIT: { //exit game with confirmation
+			exitGame();
 		}
-		else if(action.equals("MOVE")){
-			direction = getDir();
-			localPlayer.move(direction, currentWorld);
-			String loc = localPlayer.getLocation();
-			JOptionPane.showMessageDialog(null, loc, "New Location", JOptionPane.INFORMATION_MESSAGE);
-			
 		}
-		else if(action.equals("DROP")){
-			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
-			localPlayer.drop(itemName, currentWorld);
+		doEnemyTurn();
+	}
+	/*
+	 * Exits game with confirmation
+	 */
+	private boolean quit=false;
+	private void exitGame() {
+		int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
+		if (confirm == JOptionPane.YES_OPTION) {
+			displayWindow.dispose();
+			quit=true;
 		}
 	}
 	/**
@@ -297,7 +386,8 @@ public class Game {
 			e.attack(localPlayer);
 		}
 	}
-	
+
+	@Deprecated
 	/**
 	 * The getDir method takes in input from the user and will loop until a valid input is reached. This includes "up" "down" "left" and "right"
 	 * @return The Direction from the player.
@@ -320,7 +410,8 @@ public class Game {
 			return Direction.DOWN;
 		}
 	}
-	
+
+	@Deprecated
 	/**
 	 * The getAction method takes in input from the user to decide what action should be taken. It will continue to prompt the user until a valid response is given. Valid
 	 * responses include "Attack" "inventory" "move" and "drop"
@@ -328,8 +419,12 @@ public class Game {
 	 */
 	public String getAction(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP")){
-			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, DROP):").toUpperCase();
+		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP") && !action.equals("EXIT")){
+			
+			try {
+				action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, DROP, EXIT):").toUpperCase();
+				
+			} catch (NullPointerException e) {}
 		}
 		return action;
 	}
@@ -370,4 +465,55 @@ public class Game {
 		return false;
 	}
 
+	public class Keyboard implements KeyListener {
+		
+		public Keyboard() {
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent e)	{
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_W:doPlayerTurn(PlayerActions.MOVE_UP);break;
+			case KeyEvent.VK_D:doPlayerTurn(PlayerActions.MOVE_RIGHT);break;
+			case KeyEvent.VK_S:doPlayerTurn(PlayerActions.MOVE_DOWN);break;
+			case KeyEvent.VK_A:doPlayerTurn(PlayerActions.MOVE_LEFT);break;
+			case KeyEvent.VK_I:doPlayerTurn(PlayerActions.INVENTORY);break;
+			}
+		}
+		public void keyReleased(KeyEvent e) {}
+		public void keyTyped(KeyEvent e) {}
+	}
+	public class MouseListen implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }
