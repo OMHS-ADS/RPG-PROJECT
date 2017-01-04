@@ -372,7 +372,14 @@ public class Game {
 			exitGame();
 		}
 		}
-		doEnemyTurn();
+		
+		
+		for (Entity e : currentWorld.getEntities().keySet()) {
+			if(e instanceof Enemy){
+				doEnemyTurn((Enemy)e);
+			}
+		}
+		
 	}
 	/*
 	 * Exits game with confirmation

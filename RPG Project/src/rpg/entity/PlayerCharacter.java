@@ -164,8 +164,15 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	//Add a way to check if entity is an enemy or not
     	if(et.getTileEntity() instanceof Enemy){
     		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
-    			Enemy e = (Enemy) et.getTileEntity();
-        		e.defend(MAP);
+    			if(weapon == new Fist()){
+    				Enemy e = (Enemy) et.getTileEntity();
+    				e.defend(MAP*(weapon.getMAP()));
+    			}
+    			else{
+    				Enemy e = (Enemy) et.getTileEntity();
+            		e.defend(MAP);
+    			}
+    			
     		}
     		
     	}
@@ -173,43 +180,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
 		
     }
-    public void weaponAttack(World w, Weapon weapon, Direction d) {
 
-		//do 1 dmg default
-		//default attack value, dmg = attack * modifier
-		//do more dmgs based on modifier
-    	
-    	
-    	//Xmod and YMod are values that represent the enemies distance from the player
-    	//Tile eT = tile 1 away from player, based on direction
-    	//Get the enemy(if there is one) from eT, and use it for damage calcs
-    	int xMod = 0;
-    	int yMod = 0;
-    	if(d == Direction.UP){
-    		yMod = -1;
-    	}
-    	else if(d == Direction.DOWN){
-    		yMod = 1;
-    	}
-    	else if(d == Direction.LEFT){
-    		xMod = 1;
-    	}
-    	else{
-    		xMod = -1;
-    	}
-    	Tile et = w.getTile(xPos + xMod, yPos + yMod, false);
-    	
-    	
-    	//Add a way to check if entity is an enemy or not
-    	if(et.getTileEntity() instanceof Enemy){
-    		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
-    			Enemy e = (Enemy) et.getTileEntity();
-    			e.defend(MAP*(weapon.getMAP()));
-
-    		}
-    		
-    	}
-    }	//(attack a character with an item)
     public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
     }
