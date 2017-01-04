@@ -1,4 +1,9 @@
 package rpg.item;
+
+
+//Someone do comments for all of item
+//I literally touched none of these
+
 public class LargeShield extends Shield {
 
 	public LargeShield() {

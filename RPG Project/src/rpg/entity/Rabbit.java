@@ -2,9 +2,16 @@ package rpg.entity;
 
 import java.awt.Graphics;
 
+import rpg.item.Arm;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * Rabit is an Enemy.
+ * @see Enemy
+ * @author MadelynCarr
+ *
+ */
 public class Rabbit extends Enemy{
 	public Rabbit(){
 		this.HP = 10;
@@ -20,16 +27,24 @@ public class Rabbit extends Enemy{
 	}
 
 	@Override
-	public void attack(String name) {
-		// TODO Auto-generated method stub
+	public void attack(Entity target) {
+		PlayerCharacter player = ((PlayerCharacter)target);
+		if(player.getShield() == new Arm()){
+			player.defend(MAP);
+		}
+		else{
+			player.defend(MAP, player.getShield());
+		}
 		
 	}
 
-	@Override
-	public void defend() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
+    	HP += dmg;
+    }
+	
+	public void defend(int dmg) {				//(defend an attack)
+    	this.changeHealth((double)(dmg * (1 - baseDefend)));
+    }
 
 	@Override
 	public String getLocation() {
@@ -41,6 +56,13 @@ public class Rabbit extends Enemy{
 	public void render(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public double getHP() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 

@@ -3,6 +3,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The mage player class.
+ * @see PlayerCharacter
+ *
+ */
 public class Mage extends PlayerCharacter {
 
 	/**

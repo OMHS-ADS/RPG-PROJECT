@@ -4,6 +4,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The Elf player class
+ * @see PlayerCharacter
+ *
+ */
 public class Elf extends PlayerCharacter {
 	/**
 	 * 

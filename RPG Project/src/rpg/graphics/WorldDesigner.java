@@ -9,6 +9,10 @@ import javax.swing.JFrame;
 import rpg.Tile;
 import rpg.entity.EntityEnum;
 
+/**
+ * This world designer class is unfinished and will most likely remain that way unless this project is continued.
+ *
+ */
 public class WorldDesigner extends JFrame {
 
 	private Location currentTile;
