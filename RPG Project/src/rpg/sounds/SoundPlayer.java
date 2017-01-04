@@ -45,4 +45,28 @@ public class SoundPlayer {
 	        ex.printStackTrace(); //remove later
 	    }
 	}
+	
+	public void playBlockSound(){
+		try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("blockSound.wav").getAbsoluteFile());
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace(); //remove later
+	    }
+	}
+	
+	public void playDeathSound(){
+		try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("deathSound.wav").getAbsoluteFile());
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace(); //remove later
+	    }
+	}
 }
