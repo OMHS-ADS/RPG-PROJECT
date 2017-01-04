@@ -250,8 +250,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	return this.name;
     }
     
-    public int getCurrentHP(){
-    	return HP;
+    public int getMaxHP(){
+    	return MAXHP;
     }
     
     public void restoreHP(){
