@@ -217,10 +217,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	return HP;
     }
     public void defend(int dmg) {				//(defend an attack)
-    	this.changeHealth((double)(dmg * (1 - baseDefend)));
+    	this.changeHealth(dmg * (1 - baseDefend));
     }			//(defend an attack)
    	public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
-    	this.changeHealth((double)(dmg * (1 - s.getMAP())));
+    	this.changeHealth(dmg * (1 - s.getMAP()));
     }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
