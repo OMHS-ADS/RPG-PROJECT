@@ -240,8 +240,8 @@ public class Game {
 		g.setColor(Color.red);
 		g.fillRect(2, 2, 16, 16);
 		g.setColor(Color.WHITE);
-		g.drawLine(3, 3, 3+16, 3+16);
-		g.drawLine(3, 3+16, 3+16, 3);
+		g.drawLine(3, 3, 2+16, 2+16);
+		g.drawLine(3, 2+16, 2+16, 3);
 	}
 	
 	/**
