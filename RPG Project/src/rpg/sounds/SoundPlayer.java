@@ -12,7 +12,7 @@ public class SoundPlayer {
 	
 	public void playAttackSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("FileGoesHere.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("attackSound.wav").getAbsoluteFile());
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
