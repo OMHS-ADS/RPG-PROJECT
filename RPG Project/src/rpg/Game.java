@@ -228,7 +228,7 @@ public class Game {
 				currentWorld = World.getWorld(worldNum);
 				currentWorld.setTile(0, 0, false, localPlayer);
 			}
-			if(localPlayer.getCurrentHP() <= 0){
+			if(localPlayer.getHP() <= 0){
 				alive = false;
 			}
 			else{
