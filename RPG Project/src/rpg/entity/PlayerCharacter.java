@@ -11,6 +11,7 @@ import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
+import rpg.sounds.SoundPlayer;
 import rpg.util.Damageable;
 import rpg.util.Direction;
 
@@ -28,6 +29,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	protected Shield shield;
 	protected float hitChance = (float) 0.75, baseDefend = 0.1f;
 	protected int xPos, yPos;
+	protected SoundPlayer sp;
 
 	
 	public PlayerCharacter(String className, String playerName) {
@@ -99,6 +101,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 			} else{
 				name.defend(MAP,name.getShield());
 			}
+			//sp.playAttackSound();
 		}
     }
     public void attack(PlayerCharacter name, Weapon w) {
