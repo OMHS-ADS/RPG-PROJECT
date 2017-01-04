@@ -2,11 +2,12 @@ package rpg;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -283,6 +284,7 @@ public class Game {
 		currentWorld.setTile(0, 0, false, localPlayer);
 		displayWindow.addKeyListener(k);
 		displayWindow.addMouseListener(m);
+		displayWindow.addMouseMotionListener(m);
 		while(alive && notwon && !quit){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
@@ -421,8 +423,26 @@ public class Game {
 	}
 	
 	
+	/**
+	 * Called to handle mouse movement. This is for moving the window around.
+	 * @param e The Event
+	 */
+	public void windowMoved(MouseEvent e, int xoffset, int yoffset) {
+		Point newPoint = e.getLocationOnScreen();
+		this.displayWindow.setLocation((int)newPoint.getX()-xoffset,(int)newPoint.getY()-yoffset);
+		//System.out.println("AAAAAA");
+	}
+	
+	/**
+	 * Get the exit button on the top bar
+	 * @return The bounds
+	 */
+	public Rectangle getExitClickedBounds() {
+		return (new Rectangle(2,2,16,16));
+	}
+	
 	public void mouseClicked(MouseEvent e) {
-		if((new Rectangle(2,2,16,16)).contains(e.getPoint()))
+		if(getExitClickedBounds().contains(e.getPoint()))
 			this.exitGame();
 	}
 
@@ -498,19 +518,36 @@ public class Game {
 		public void keyReleased(KeyEvent e) {}
 		public void keyTyped(KeyEvent e) {}
 	}
-	public class MouseListen implements MouseListener {
+	public class MouseListen extends MouseAdapter {
 
 		private Game g;
+		private boolean topBarHeld;
+		private int xoff,yoff;
 		
 		public MouseListen(Game g) {
 			this.g= g;
+			topBarHeld = false;
+			
 		}
 		
 		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			g.mouseClicked(arg0);
+		public void mouseMoved(MouseEvent e) {
+			if(topBarHeld)
+				g.windowMoved(e, xoff, yoff);
+			
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			xoff = e.getX();
+			yoff = e.getY();
+			g.mouseClicked(e);
+			if(!g.getExitClickedBounds().contains(e.getPoint()))
+				topBarHeld = true;
 		}
 
+		
+		
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			// TODO Auto-generated method stub
@@ -531,8 +568,8 @@ public class Game {
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
+			if(topBarHeld)
+				topBarHeld = false;
 		}
 		
 	}
