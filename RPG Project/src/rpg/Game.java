@@ -237,6 +237,11 @@ public class Game {
 		g.drawLine(0, 0, 0, this.getDisplayWindow().getHeight());
 		g.drawLine(this.getDisplayWindow().getWidth()-1, 0, this.getDisplayWindow().getWidth(), this.getDisplayWindow().getHeight());
 		g.drawLine(0, this.getDisplayWindow().getHeight()-1, this.getDisplayWindow().getWidth(),  this.getDisplayWindow().getHeight());
+		g.setColor(Color.red);
+		g.fillRect(2, 2, 16, 16);
+		g.setColor(Color.WHITE);
+		g.drawLine(3, 3, 3+16, 3+16);
+		g.drawLine(3, 3+16, 3+16, 3);
 	}
 	
 	/**
@@ -271,6 +276,7 @@ public class Game {
 	 */
 	public void start() {
 		k = this.new Keyboard();
+		MouseListen m = new MouseListen(this);
 		displayWindow = new GameFrame();
 		System.out.println("TEST");
 		startRenderThread(displayWindow, this);
@@ -281,6 +287,7 @@ public class Game {
 		currentWorld = World.getWorld(0);
 		currentWorld.setTile(0, 0, false, localPlayer);
 		displayWindow.addKeyListener(k);
+		displayWindow.addMouseListener(m);
 		while(alive && notwon && !quit){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
@@ -410,6 +417,11 @@ public class Game {
 			return Direction.DOWN;
 		}
 	}
+	
+	
+	public void mouseClicked(MouseEvent e) {
+		
+	}
 
 	@Deprecated
 	/**
@@ -485,10 +497,15 @@ public class Game {
 	}
 	public class MouseListen implements MouseListener {
 
+		private Game g;
+		
+		public MouseListen(Game g) {
+			this.g= g;
+		}
+		
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
+			g.mouseClicked(arg0);
 		}
 
 		@Override
