@@ -135,7 +135,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public ItemEntity drop(Item item) {			//(drop an item at your current location)
     	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
     }
-    public void attack(PlayerCharacter name, World w, Direction d) {
+    public void attack(World w, Direction d) {
     	//Xmod and YMod are values that represent the enemies distance from the player
     	//Tile eT = tile 1 away from player, based on direction
     	//Get the enemy(if there is one) from eT, and use it for damage calcs
@@ -158,18 +158,15 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
     	//Add a way to check if entity is an enemy or not
     	if(et.getTileEntity() instanceof Enemy){
-    		Enemy e = (Enemy) et.getTileEntity();
-    		e.defend(MAP);
+    		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+    			Enemy e = (Enemy) et.getTileEntity();
+        		e.defend(MAP);
+    		}
+    		
     	}
     	
     	
-		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
-			if(name.getShield()==null){
-				name.defend(MAP);
-			} else{
-				name.defend(MAP,name.getShield());
-			}
-		}
+		
     }
     public void attack(PlayerCharacter name, Weapon w) {
 
