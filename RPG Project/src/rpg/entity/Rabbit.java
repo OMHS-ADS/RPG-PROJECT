@@ -2,6 +2,7 @@ package rpg.entity;
 
 import java.awt.Graphics;
 
+import rpg.graphics.Animation;
 import rpg.item.Arm;
 import rpg.item.Shield;
 import rpg.item.Weapon;
@@ -13,7 +14,8 @@ import rpg.item.Weapon;
  *
  */
 public class Rabbit extends Enemy{
-	public Rabbit(){
+	public Rabbit(Animation a){
+		super(a);
 		this.HP = 10;
 		this.MAP = 1;
 		this.MDP = 1;

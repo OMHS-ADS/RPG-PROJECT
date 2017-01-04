@@ -1,5 +1,6 @@
 package rpg.entity;
 
+import rpg.graphics.Animation;
 import rpg.util.Damageable;
 
 /**
@@ -7,8 +8,12 @@ import rpg.util.Damageable;
  * @see Entity
  *
  */
-public abstract class Enemy extends Entity implements Damageable {
-	 	protected int MAP; //maximum attack points of the character excluding other items
+public abstract class Enemy extends AnimatedEntity implements Damageable {
+	 	public Enemy(Animation a) {
+		super(a);
+		// TODO Auto-generated constructor stub
+	}
+		protected int MAP; //maximum attack points of the character excluding other items
 		protected int MDP; //maximum defense points of the character excluding other items
 		protected int HP; //current health points a character has
 		protected String name;  //the name of the character
