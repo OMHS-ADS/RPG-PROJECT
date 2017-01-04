@@ -12,10 +12,19 @@ import rpg.util.Coordinatable;
 public class ItemEntity extends Entity {
 	protected Item rep; //The item represented by the ItemEntity
 
+	/**
+	 * Default constructor which takes in the item being represented
+	 * @param rep The item
+	 * @see Item
+	 */
 	public ItemEntity(Item rep) {
 		this.rep = rep;
 	}
 
+	/**
+	 * Returns the item being displayed.
+	 * @return
+	 */
 	public Item getItem() {
 		return rep;
 	}

@@ -5,6 +5,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The Dwarf player class.
+ * @see PlayerCharacter
+ *
+ */
 public class Dwarf extends PlayerCharacter {
 
 	/**

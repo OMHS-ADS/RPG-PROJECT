@@ -4,6 +4,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The goblin player class.
+ * @see PlayerCharacter
+ *
+ */
 public class Goblin extends PlayerCharacter {
 
 	/**

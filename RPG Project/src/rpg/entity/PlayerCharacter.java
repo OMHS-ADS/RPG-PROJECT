@@ -16,6 +16,36 @@ import rpg.util.Constants;
 import rpg.util.Damageable;
 import rpg.util.Direction;
 
+
+
+
+
+
+
+
+
+
+//Someone else comment this jesus #notIt #notMyJob #itIsButIDidntWriteThisClassAndImCommentingEnoughAlready
+
+
+
+
+
+
+
+
+
+/**
+ * 
+ * PUT STUFF HERE
+ * 
+ * @see Elf
+ * @see Dwarf
+ * @see Human
+ * @see Ogre
+ * @see Mage
+ *
+ */
 public abstract class PlayerCharacter extends AnimatedEntity implements Damageable, Serializable {
     /**
 	 * 
