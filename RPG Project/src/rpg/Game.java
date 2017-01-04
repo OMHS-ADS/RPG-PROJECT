@@ -1,21 +1,18 @@
 package rpg;
 
-import java.awt.event.KeyAdapter;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -28,9 +25,7 @@ import rpg.entity.Goblin;
 import rpg.entity.Human;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
-import rpg.entity.decorative.*;
 import rpg.graphics.GameFrame;
-import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
@@ -240,8 +235,8 @@ public class Game {
 		g.setColor(Color.red);
 		g.fillRect(2, 2, 16, 16);
 		g.setColor(Color.WHITE);
-		g.drawLine(3, 3, 2+16, 2+16);
-		g.drawLine(3, 2+16, 2+16, 3);
+		g.drawLine(1, 2, 1+16, 1+16);
+		g.drawLine(1, 1+16, 1+15, 2);
 	}
 	
 	/**
@@ -427,7 +422,8 @@ public class Game {
 	
 	
 	public void mouseClicked(MouseEvent e) {
-		
+		if((new Rectangle(2,2,16,16)).contains(e.getPoint()))
+			this.exitGame();
 	}
 
 	@Deprecated
