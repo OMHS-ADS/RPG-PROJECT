@@ -246,10 +246,8 @@ public class Game {
 						doEnemyTurn((Enemy)e);
 					}
 				}
-			}
-			
 		}
-		if(!alive){
+		if(!alive) {
 			//Losing stuff here, close game maybe
 			exitGame();
 		}
@@ -262,7 +260,7 @@ public class Game {
 	/**
 	 * The doPlayerTurn method accepts user input to conduct the players turn.
 	 */
-	public void doPlayerTurn(PlayerActions action){
+	public void doPlayerTurn(PlayerActions action) {
 		Direction direction;
 		String allItems = "";
 		switch (action) {
