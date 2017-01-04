@@ -24,7 +24,7 @@ import rpg.item.Item;
 import rpg.util.Direction;
 
 /**
- * The Game clas contains the main method, which is the where the game is run. It contains the current world, and the current player.
+ * The Game class contains the main method, which is the where the game is run. It contains the current world, and the current player.
  *
  */
 public class Game {
