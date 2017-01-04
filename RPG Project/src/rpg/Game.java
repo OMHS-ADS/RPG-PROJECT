@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import rpg.container.Bag;
 import rpg.entity.Dwarf;
 import rpg.entity.Elf;
+import rpg.entity.Enemy;
+import rpg.entity.Entity;
 import rpg.entity.Goblin;
 import rpg.entity.Human;
 import rpg.entity.Ogre;
@@ -22,6 +24,7 @@ import rpg.entity.decorative.*;
 import rpg.graphics.GameFrame;
 import rpg.item.Fist;
 import rpg.item.Item;
+import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
 
 /**
@@ -230,6 +233,11 @@ public class Game {
 			}
 			else{
 				doPlayerTurn();
+				for (Entity e : currentWorld.getEntities().keySet()) {
+					if(e instanceof Enemy){
+						doEnemyTurn((Enemy)e);
+					}
+				}
 			}
 			
 		}
@@ -284,8 +292,10 @@ public class Game {
 	/**
 	 * The doEnemyTurn method conducts AI movement and actions per turn.
 	 */
-	public void doEnemyTurn(){
-		
+	public void doEnemyTurn(Enemy e){
+		if(isPlayerAdjacent(e)){
+			e.attack(localPlayer);
+		}
 	}
 	
 	/**
@@ -342,6 +352,22 @@ public class Game {
 	 */
 	public World getCurrentWorld() {
 		return currentWorld;
+	}
+	
+	public boolean isPlayerAdjacent(Entity e){
+		ArrayValue2D ePos = currentWorld.getEntities().get(e);
+		ArrayValue2D pPos = currentWorld.getEntities().get(localPlayer);
+		if(ePos.getX() == pPos.getX()){
+			if(ePos.getY() == pPos.getY() + 1 || ePos.getY() == pPos.getY() - 1){
+				return true;
+			}
+		}
+		else if(ePos.getY() == pPos.getY()){
+			if(ePos.getX() == pPos.getX() + 1 || ePos.getX() == pPos.getX() - 1){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

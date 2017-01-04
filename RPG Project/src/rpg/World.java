@@ -224,6 +224,7 @@ public class World implements Serializable {
 		else{
 			return foreground[r][c];
 		}
+		
 	}
 	
 	/**

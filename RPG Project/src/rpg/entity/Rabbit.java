@@ -2,6 +2,7 @@ package rpg.entity;
 
 import java.awt.Graphics;
 
+import rpg.item.Arm;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
@@ -26,8 +27,14 @@ public class Rabbit extends Enemy{
 	}
 
 	@Override
-	public void attack(String name) {
-		// TODO Auto-generated method stub
+	public void attack(Entity target) {
+		PlayerCharacter player = ((PlayerCharacter)target);
+		if(player.getShield() == new Arm()){
+			player.defend(MAP);
+		}
+		else{
+			player.defend(MAP, player.getShield());
+		}
 		
 	}
 
