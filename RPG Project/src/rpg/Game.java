@@ -24,13 +24,22 @@ import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.util.Direction;
 
+/**
+ * The Game class contains the main method, which is the where the game is run. It contains the current world, and the current player.
+ *
+ */
 public class Game {
 
+	//The current world
 	private World currentWorld;
+	//The list of different possible classes
 	private static final String[] classList = new String[] {"HUMAN","ELF","DWARF","GOBLIN","OGRE"};
+	//The player save file directory
 	public static final String playerDir = System.getProperty("user.home") + "/ADS/RPG/PlayerFiles/";
+	//The current player
 	private PlayerCharacter localPlayer;
-	//Nice steady 16 fps
+	
+
 	public static void main(String[] args) {
 		Game g = new Game();
 		g.createPlayer();
@@ -40,7 +49,9 @@ public class Game {
 	
 	
 	
-	
+	/**
+	 * The game
+	 */
 	public Game() {
 		World.initWorlds();
 	}
@@ -49,7 +60,12 @@ public class Game {
 
 
 
-
+	/**
+	 * This method loads the player from a {@link File} present. If the file does not exist or it is a corrupted file, this method will throw an Exception.
+	 * @param f The file
+	 * @return The player file
+	 * @throws Exception IOException, ClassCastException, FileNotFoundException, ClassNotFoundException...
+	 */
 	public PlayerCharacter loadPlayer(File f) throws Exception {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
 		PlayerCharacter ret = (PlayerCharacter)ois.readObject();
@@ -57,6 +73,10 @@ public class Game {
 		return ret;
 	}
 	
+	/**
+	 * The create player method creates a player for the game. It will ask the user to input their username. If a file with that name exists,
+	 * it will load it as a player. If that fails or it does not exist, it will assist the player in creating a new {@link PlayerCharacter} for them.
+	 */
 	public void createPlayer() {
 		localPlayer = null;
 		String playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
@@ -107,9 +127,9 @@ public class Game {
 	}
 	
 	/**
-	 * 
-	 * @param p
-	 * @return Success
+	 * This method saves a player to a file. The file location will be the default directory listed in Game, and it's name will be the {@link PlayerCharacter#getPlayerName()} + ".rplr"
+	 * @param p The {@link PlayerCharacter}
+	 * @return Success Will return true if the player is successfully saved, false otherwise.
 	 */
 	public boolean savePlayer(PlayerCharacter p) {
 		try {
@@ -125,6 +145,10 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Create a String from the default class list in Game.
+	 * @return A {@link String} of all the classes.
+	 */
 	public String getClassString() {
 		String r = "";
 		for (String s : classList) {
@@ -133,6 +157,11 @@ public class Game {
 		return r;
 	}
 	
+	/**
+	 * This method validates whether a string matches one of the available class names. If not, it will return false. This ignores case.
+	 * @param s The input String
+	 * @return Returns true if the String matches the valid class.
+	 */
 	public boolean isValidClass(String s) {
 		for(String str : classList) {
 			if(str.equalsIgnoreCase(s))
@@ -141,6 +170,11 @@ public class Game {
 		return false;
 	}
 	
+	/**
+	 * The startRenderThread method creates a new {@link Thread} specifically dedicated to rendering the game. It renders one frame every 1/16th of a second.
+	 * @param title The {@link GameFrame} used in the game.
+	 * @param g The {@link Game} used for gathering render data.
+	 */
 	private void startRenderThread(GameFrame title, Game g) {
 		Thread t = new Thread() { 
 			@Override
@@ -170,6 +204,9 @@ public class Game {
 		t.start();
 	}
 	
+	/**
+	 * This method initializes and starts the game. Once called, it is assumed it will not be called again.
+	 */
 	public void start() {
 		GameFrame title = new GameFrame();
 		title.setVisible(true);
@@ -205,6 +242,9 @@ public class Game {
 	}
 
 	
+	/**
+	 * The doPlayerTurn method accepts user input to conduct the players turn.
+	 */
 	public void doPlayerTurn(){
 		String action = getAction();
 		Direction direction;
@@ -239,10 +279,17 @@ public class Game {
 			//localPlayer.drop()
 		}
 	}
+	/**
+	 * The doEnemyTurn method conducts AI movement and actions per turn.
+	 */
 	public void doEnemyTurn(){
 		
 	}
 	
+	/**
+	 * The getDir method takes in input from the user and will loop until a valid input is reached. This includes "up" "down" "left" and "right"
+	 * @return The Direction from the player.
+	 */
 	public Direction getDir(){
 		String dir = "";
 		while(!dir.equals("UP") && !dir.equals("DOWN") && !dir.equals("LEFT") && !dir.equals("RIGHT")){
@@ -261,21 +308,36 @@ public class Game {
 			return Direction.DOWN;
 		}
 	}
+	
+	/**
+	 * The getAction method takes in input from the user to decide what action should be taken. It will continue to prompt the user until a valid response is given. Valid
+	 * responses include "Attack" "inventory" "move" and "drop"
+	 * @return The action, as a {@link String}
+	 */
 	public String getAction(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP)")){
+		while (!action.equals("ATTACK") && !action.equals("INVENTORY") && !action.equals("MOVE") && !action.equals("DROP")){
 			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, INVENTORY, DROP):").toUpperCase();
 		}
 		return action;
 	}
+	
+	/**
+	 * The getAction2 does the same thing as {@link #getAction()}?
+	 * @return
+	 */
 	public String getAction2(){
 		String action = ""; 
-		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("DROP)")){
+		while (!action.equals("ATTACK") && !action.equals("MOVE") && !action.equals("DROP")){
 			action = JOptionPane.showInputDialog("Enter an action(MOVE, ATTACK, DROP):").toUpperCase();
 		}
 		return action;
 	}
 	
+	/**
+	 * The getCurrentWorld method returns the currentWorld that the game is operating on.
+	 * @return The current {@link World}.
+	 */
 	public World getCurrentWorld() {
 		return currentWorld;
 	}

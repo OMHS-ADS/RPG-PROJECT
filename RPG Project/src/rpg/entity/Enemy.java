@@ -1,10 +1,13 @@
 package rpg.entity;
 
-import rpg.item.Shield;
-import rpg.item.Weapon;
-//kyle sluss
-//yes i did copy ur guys stuff... im moding it though
-public abstract class Enemy extends Entity{
+import rpg.util.Damageable;
+
+/**
+ * The Enemy class, which is the highest level class for an Enemy in the game.
+ * @see Entity
+ *
+ */
+public abstract class Enemy extends Entity implements Damageable {
 	 	protected int MAP; //maximum attack points of the character excluding other items
 		protected int MDP; //maximum defense points of the character excluding other items
 		protected int HP; //current health points a character has

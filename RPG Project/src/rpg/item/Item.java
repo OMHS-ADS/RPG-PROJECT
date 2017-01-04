@@ -1,6 +1,16 @@
 package rpg.item;
 import java.io.Serializable;
 import java.util.Random;
+
+
+
+
+//Someone do the comments for this one too
+
+
+
+
+
 abstract public class Item implements Serializable {
     /**
 	 * 

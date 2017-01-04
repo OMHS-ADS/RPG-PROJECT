@@ -5,6 +5,12 @@ import java.awt.Graphics;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * Rabit is an Enemy.
+ * @see Enemy
+ * @author MadelynCarr
+ *
+ */
 public class Rabbit extends Enemy{
 	public Rabbit(){
 		this.HP = 10;
@@ -43,6 +49,18 @@ public class Rabbit extends Enemy{
 	public void render(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void changeHealth(double dmg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getHP() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 
