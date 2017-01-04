@@ -5,6 +5,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -39,6 +42,7 @@ import rpg.util.PlayerActions;
  */
 public class Game {
 
+	private GameFrame displayWindow;
 	//The current world
 	private World currentWorld;
 	//The list of different possible classes
@@ -203,7 +207,16 @@ public class Game {
 
 					if (timePassed >= 1) {
 						// Tick!!!
-						title.renderWorld(g);
+						int width = (int)(g.getDisplayWindow().getWidth());
+						int height = (int)(g.getDisplayWindow().getHeight());
+						BufferedImage bi = new BufferedImage(width,height, BufferedImage.TYPE_4BYTE_ABGR);
+						Graphics graphics = bi.getGraphics();
+						title.renderWorld(g, graphics);
+						drawHud(graphics);
+						drawBorder(graphics);
+						
+						g.getDisplayWindow().getGraphics().drawImage(bi, 0, 0, g.getDisplayWindow().getWidth(), g.getDisplayWindow().getHeight(), null);
+						graphics.dispose();
 						timePassed -= 1;
 					}
 
@@ -213,23 +226,61 @@ public class Game {
 		};
 		t.start();
 	}
-	private GameFrame title;
+	/**
+	 * Draws the border to the game window
+	 * @param g
+	 */
+	public void drawBorder(Graphics g) {
+		Color borderColor = new Color(38, 71, 124);
+		g.setColor(borderColor);
+		g.fillRect(0, 0, this.getDisplayWindow().getWidth(), 20);
+		g.drawLine(0, 0, 0, this.getDisplayWindow().getHeight());
+		g.drawLine(this.getDisplayWindow().getWidth()-1, 0, this.getDisplayWindow().getWidth(), this.getDisplayWindow().getHeight());
+		g.drawLine(0, this.getDisplayWindow().getHeight()-1, this.getDisplayWindow().getWidth(),  this.getDisplayWindow().getHeight());
+	}
+	
+	/**
+	 * Draw the HUD to the window
+	 * @param g The window graphics
+	 */
+	public void drawHud(Graphics g) {
+		g.setColor(Color.GRAY);
+		g.fillRect(1, 540+21, 960, 19);
+		g.setColor(Color.RED);
+		int maxBarW = 100;
+		int maxHP = localPlayer.getMaxHP();
+		int cHP = (int)localPlayer.getHP();
+		int barW = (int)(((double)cHP/(double)maxHP) * maxBarW);
+		if(barW > maxBarW)
+			barW = maxBarW;
+		g.drawRect(3, 541+20, maxBarW+1, 18);
+
+		g.setColor(Color.GREEN);
+		g.fillRect(4, 541+21, barW, 17);
+	}
+	
+	/**
+	 * Get the window
+	 * @return The window
+	 */
+	public GameFrame getDisplayWindow() {
+		return this.displayWindow;
+	}
 	/**
 	 * This method initializes and starts the game. Once called, it is assumed it will not be called again.
 	 */
 	public void start() {
 		k = this.new Keyboard();
-		title = new GameFrame();
+		displayWindow = new GameFrame();
 		System.out.println("TEST");
-		title.setVisible(true);
-		startRenderThread(title, this);
+		startRenderThread(displayWindow, this);
 		boolean alive = true;
 		boolean notwon = true;
 		boolean worldWon = false;
 		int worldNum = 0;
 		currentWorld = World.getWorld(0);
 		currentWorld.setTile(0, 0, false, localPlayer);
-		title.addKeyListener(k);
+		displayWindow.addKeyListener(k);
 		while(alive && notwon && !quit){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
@@ -323,7 +374,7 @@ public class Game {
 	private void exitGame() {
 		int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
 		if (confirm == JOptionPane.YES_OPTION) {
-			title.dispose();
+			displayWindow.dispose();
 			quit=true;
 		}
 	}
