@@ -1,6 +1,16 @@
 package rpg.item;
 import java.io.Serializable;
 import java.util.Random;
+
+
+
+
+//Someone do the comments for this one too
+
+
+
+
+
 abstract public class Item implements Serializable {
     /**
 	 * 
@@ -39,6 +49,10 @@ abstract public class Item implements Serializable {
                    //+ "In somebody's inventory = " + state + "\n"
                    //+ "(X,Y) position = (" + xPos + ", " + yPos + ")";
         return str;
+    }
+    
+    public String getName(){
+    	return name;
     }
 
     @Deprecated                  

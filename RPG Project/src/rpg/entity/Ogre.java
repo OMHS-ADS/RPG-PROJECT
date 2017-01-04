@@ -4,6 +4,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The ogre player class
+ * @see PlayerCharacter
+ *
+ */
 public class Ogre extends PlayerCharacter {
 
 	/**

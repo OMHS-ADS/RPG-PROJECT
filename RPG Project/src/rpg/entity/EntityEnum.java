@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import rpg.graphics.Data;
 import rpg.item.Item;
 
+/**
+ * EntityEnum is used for the level designer. It is unsure how this enum functions.
+ * @author Your's truly, xDest.
+ *
+ */
 public enum EntityEnum {
 	MORTAL_OBS(new Data[]{new Data("HP",new Integer(1))}),
 	IMMORTAL_OBS(new Data[0]),
@@ -19,10 +24,12 @@ public enum EntityEnum {
 	
 	private Data[] data;
 	
+	//The entity data
 	EntityEnum(Data[] d) {
 		data = d;
 	}
 	
+	//Set the entity data
 	public void setData(Data[] d) {
 		data = d;
 	}

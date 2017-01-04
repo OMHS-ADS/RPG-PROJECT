@@ -5,6 +5,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The Dwarf player class.
+ * @see PlayerCharacter
+ *
+ */
 public class Dwarf extends PlayerCharacter {
 
 	/**
@@ -14,8 +19,8 @@ public class Dwarf extends PlayerCharacter {
 
 	public Dwarf(String playerName) {
 		super("dwarf",playerName);
-		this.MAP=4;
-		this.hitChance=(float) .65;
+		this.MAP=100000;
+		this.hitChance=(float) .00001;
 	}
 	
 	

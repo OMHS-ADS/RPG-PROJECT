@@ -9,9 +9,15 @@ import rpg.Game;
 import rpg.Tile;
 import rpg.World;
 
+/**
+ * GameFrame extends {@link JFrame}. It is used to display the {@link World} and everything in it.
+ *
+ */
 public class GameFrame extends JFrame {
 	
-	
+	/**
+	 * Default constructor. Visible by default.
+	 */
 	public GameFrame() {
 		super("World of Datacraft");
 		setSize(16*60 + 1, 9*60 + 23);
@@ -21,6 +27,10 @@ public class GameFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	/**
+	 * Renders the world of the specified game's current world.
+	 * @param g The game rendered.
+	 */
 	public void renderWorld(Game g) {
 		BufferedImage bi = new BufferedImage((int)this.getSize().getWidth(),(int)this.getSize().getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 		World w = g.getCurrentWorld();

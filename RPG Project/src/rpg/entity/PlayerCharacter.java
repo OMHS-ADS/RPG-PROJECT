@@ -16,6 +16,36 @@ import rpg.util.Constants;
 import rpg.util.Damageable;
 import rpg.util.Direction;
 
+
+
+
+
+
+
+
+
+
+//Someone else comment this jesus #notIt #notMyJob #itIsButIDidntWriteThisClassAndImCommentingEnoughAlready
+
+
+
+
+
+
+
+
+
+/**
+ * 
+ * PUT STUFF HERE
+ * 
+ * @see Elf
+ * @see Dwarf
+ * @see Human
+ * @see Ogre
+ * @see Mage
+ *
+ */
 public abstract class PlayerCharacter extends AnimatedEntity implements Damageable, Serializable {
     /**
 	 * 
@@ -102,10 +132,15 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public void pickup(ItemEntity item) {			//		(pickup a visible item)
     	inventory.addItem(item.getItem());
     }
-    public ItemEntity drop(Item item) {			//(drop an item at your current location)
-    	return new ItemEntity(inventory.removeItem(item)); //Needs a world to put it in
+    public void drop(String name, World w) {			//(drop an item at your current location)
+    	for(Item i: inventory.getItems()){
+    		if(i.getName().toUpperCase().equals(name.toUpperCase())){
+    			inventory.removeItem(i);
+    			return;
+    		}
+    	}
     }
-    public void attack(PlayerCharacter name, World w, Direction d) {
+    public void attack(World w, Direction d) {
     	//Xmod and YMod are values that represent the enemies distance from the player
     	//Tile eT = tile 1 away from player, based on direction
     	//Get the enemy(if there is one) from eT, and use it for damage calcs
@@ -128,43 +163,52 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
     	//Add a way to check if entity is an enemy or not
     	if(et.getTileEntity() instanceof Enemy){
-    		Enemy e = (Enemy) et.getTileEntity(); 
+    		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+    			Enemy e = (Enemy) et.getTileEntity();
+        		e.defend(MAP);
+    		}
+    		
     	}
     	
     	
-    	
-    	//needs to get the entity its attacking from world
-    	
-    	
-		//do 1 dmg default
-		//default attack value, dmg = attack * modifier
-		// if hits(true){
-		// name.defend(dmg * defend multiplier (smaller than with shield))
-		//}
-		//name.defend(name.getShield()){
-		//}
-    	
-		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
-			if(name.getShield()==null){
-				name.defend(MAP);
-			} else{
-				name.defend(MAP,name.getShield());
-			}
-		}
+		
     }
-    public void attack(PlayerCharacter name, Weapon w) {
+    public void weaponAttack(World w, Weapon weapon, Direction d) {
 
 		//do 1 dmg default
 		//default attack value, dmg = attack * modifier
 		//do more dmgs based on modifier
     	
-		if (Math.random()<hitChance){
-			if(name.getShield()==null){
-				name.defend(MAP*(w.getMAP()));
-			} else{
-				name.defend(MAP*(w.getMAP()),name.getShield());
-			}
-		}
+    	
+    	//Xmod and YMod are values that represent the enemies distance from the player
+    	//Tile eT = tile 1 away from player, based on direction
+    	//Get the enemy(if there is one) from eT, and use it for damage calcs
+    	int xMod = 0;
+    	int yMod = 0;
+    	if(d == Direction.UP){
+    		yMod = -1;
+    	}
+    	else if(d == Direction.DOWN){
+    		yMod = 1;
+    	}
+    	else if(d == Direction.LEFT){
+    		xMod = 1;
+    	}
+    	else{
+    		xMod = -1;
+    	}
+    	Tile et = w.getTile(xPos + xMod, yPos + yMod, false);
+    	
+    	
+    	//Add a way to check if entity is an enemy or not
+    	if(et.getTileEntity() instanceof Enemy){
+    		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+    			Enemy e = (Enemy) et.getTileEntity();
+    			e.defend(MAP*(weapon.getMAP()));
+
+    		}
+    		
+    	}
     }	//(attack a character with an item)
     public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
@@ -181,11 +225,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
     }
-    public ArrayList<Integer> getLocation() {			//	(return�s the current character�s room location as X, Y)
-    	ArrayList<Integer> loc = new ArrayList<Integer>();
-    	loc.add(xPos);
-    	loc.add(yPos);
-    	return loc;
+    public String getLocation() {			//	(return�s the current character�s room location as X, Y)
+    	return "(" + xPos + ", " + yPos + ")";
     }
     public void changeMAP(int c) {
     	MAP += c;
@@ -209,8 +250,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	return this.name;
     }
     
-    public int getCurrentHP(){
-    	return HP;
+    public int getMaxHP(){
+    	return MAXHP;
     }
     
     public void restoreHP(){
