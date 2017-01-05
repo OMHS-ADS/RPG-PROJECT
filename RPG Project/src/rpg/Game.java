@@ -393,6 +393,10 @@ public class Game {
 			}
 			break;
 		}
+		case EQUIP:{
+			localPlayer.equip();
+			break;
+		}
 		case EXIT: { //exit game with confirmation
 			exitGame();
 		}
@@ -563,6 +567,7 @@ public class Game {
 			
 			case KeyEvent.VK_E:doPlayerTurn(PlayerActions.EQUIP);break;
 			case KeyEvent.VK_Q:doPlayerTurn(PlayerActions.DROP);break;
+			case KeyEvent.VK_ESCAPE:doPlayerTurn(PlayerActions.EXIT);break;
 			}
 		}
 		public void keyReleased(KeyEvent e) {}
