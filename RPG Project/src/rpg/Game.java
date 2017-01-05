@@ -560,6 +560,9 @@ public class Game {
 			case KeyEvent.VK_S:doPlayerTurn(PlayerActions.MOVE_DOWN);break;
 			case KeyEvent.VK_A:doPlayerTurn(PlayerActions.MOVE_LEFT);break;
 			case KeyEvent.VK_I:doPlayerTurn(PlayerActions.INVENTORY);break;
+			
+			case KeyEvent.VK_E:doPlayerTurn(PlayerActions.EQUIP);break;
+			case KeyEvent.VK_Q:doPlayerTurn(PlayerActions.DROP);break;
 			}
 		}
 		public void keyReleased(KeyEvent e) {}

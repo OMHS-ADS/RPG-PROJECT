@@ -3,6 +3,8 @@ import java.awt.Graphics;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import rpg.Tile;
 import rpg.World;
 import rpg.container.Bag;
@@ -195,6 +197,37 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
+    }
+    
+    public void equip(){
+    	//Placeholder until zach does some unnecessary bs with the inventory
+    	//Gets an item as a string, cycles thru inventory to find matching item
+    	//if one is found, replace the weapon/shield as necessary, returning the old one to the inventory
+    	String itemName = JOptionPane.showInputDialog("Enter an item to equip").toUpperCase();
+    	for(Item i: inventory.getItems()){
+    		if(i.getName().toUpperCase().equals(itemName)){
+    			if(i instanceof Weapon){
+    				if(!(weapon instanceof Fist)){
+        				inventory.addItem(weapon);
+    				}
+    				weapon = (Weapon)i;
+    				inventory.removeItem(i);
+    				return;
+    			}
+    			else if(i instanceof Shield){
+    				if(!(shield instanceof Arm)){
+    					inventory.addItem(shield);
+    				}
+    				shield = (Shield)i;
+    				inventory.removeItem(i);
+    				return;
+    			}
+    			else{
+    				//You shouldnt be able to get here
+    				return;
+    			}
+    		}
+    	}
     }
     public String getLocation() {			//	(return�s the current character�s room location as X, Y)
     	return "(" + xPos + ", " + yPos + ")";
