@@ -1,6 +1,7 @@
 package rpg;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -30,6 +31,7 @@ import rpg.graphics.GameFrame;
 import rpg.item.Item;
 import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
+import rpg.util.ImageLoader;
 import rpg.util.PlayerActions;
 
 /**
@@ -196,7 +198,7 @@ public class Game {
 				double lastTime = System.nanoTime();
 
 				double nsPassed = 0;
-				while (title.isVisible()) {
+				while (title.isVisible() && !quit) {
 					currentTime = System.nanoTime();
 					nsPassed += currentTime - lastTime;
 					timePassed += (currentTime - lastTime) / nsPerTick;
@@ -231,8 +233,11 @@ public class Game {
 		g.setColor(borderColor);
 		g.fillRect(0, 0, this.getDisplayWindow().getWidth(), 20);
 		g.drawLine(0, 0, 0, this.getDisplayWindow().getHeight());
-		g.drawLine(this.getDisplayWindow().getWidth()-1, 0, this.getDisplayWindow().getWidth(), this.getDisplayWindow().getHeight());
-		g.drawLine(0, this.getDisplayWindow().getHeight()-1, this.getDisplayWindow().getWidth(),  this.getDisplayWindow().getHeight());
+		g.drawLine(1, 0, 1, this.getDisplayWindow().getHeight());
+		g.drawLine(this.getDisplayWindow().getWidth()-1, 0, this.getDisplayWindow().getWidth()-1, this.getDisplayWindow().getHeight());
+		g.drawLine(this.getDisplayWindow().getWidth()-2, 0, this.getDisplayWindow().getWidth()-2, this.getDisplayWindow().getHeight());
+		g.drawLine(0, this.getDisplayWindow().getHeight()-1, this.getDisplayWindow().getWidth(),  this.getDisplayWindow().getHeight()-1);
+		g.drawLine(0, this.getDisplayWindow().getHeight()-2, this.getDisplayWindow().getWidth(),  this.getDisplayWindow().getHeight()-2);
 		g.setColor(Color.red);
 		g.fillRect(2, 2, 16, 16);
 		g.setColor(Color.WHITE);
@@ -245,8 +250,9 @@ public class Game {
 	 * @param g The window graphics
 	 */
 	public void drawHud(Graphics g) {
-		g.setColor(Color.GRAY);
-		g.fillRect(1, 540+21, 960, 19);
+		g.setColor(Color.WHITE);
+		g.drawImage(ImageLoader.getImage("parchment"), 1,540+21,960,19, null);
+		//g.fillRect(1, 540+21, 960, 19);
 		g.setColor(Color.RED);
 		int maxBarW = 100;
 		int maxHP = localPlayer.getMaxHP();
@@ -258,6 +264,12 @@ public class Game {
 
 		g.setColor(Color.GREEN);
 		g.fillRect(4, 541+21, barW, 17);
+		
+		//This could be done better but im lazy
+		g.setFont(new Font("Arial",Font.BOLD,16));
+		g.setColor(Color.black);
+		g.drawString(cHP + "/" + maxHP, maxBarW/4, 576);
+		g.drawString(localPlayer.getPlayerName(), maxBarW + 10, 576);
 	}
 	
 	/**
@@ -441,9 +453,17 @@ public class Game {
 		return (new Rectangle(2,2,16,16));
 	}
 	
+	/**
+	 * Called when the mouse is clicked. This is used for clicking different buttons.
+	 * @param e
+	 */
 	public void mouseClicked(MouseEvent e) {
 		if(getExitClickedBounds().contains(e.getPoint()))
 			this.exitGame();
+	}
+	
+	public Rectangle getTopBarBounds() {
+		return new Rectangle(0,0,this.getDisplayWindow().getWidth(),20);
 	}
 
 	@Deprecated
@@ -532,21 +552,28 @@ public class Game {
 		
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			if(topBarHeld)
-				g.windowMoved(e, xoff, yoff);
 			
 		}
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			g.mouseClicked(e);
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent e) {
 			xoff = e.getX();
 			yoff = e.getY();
-			g.mouseClicked(e);
-			if(!g.getExitClickedBounds().contains(e.getPoint()))
+			if(!g.getExitClickedBounds().contains(e.getPoint()) && g.getTopBarBounds().contains(e.getPoint()))
 				topBarHeld = true;
 		}
 
 		
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			if(topBarHeld)
+				g.windowMoved(e, xoff, yoff);
+		}
 		
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
@@ -561,15 +588,8 @@ public class Game {
 		}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			if(topBarHeld)
-				topBarHeld = false;
+			topBarHeld = false;
 		}
 		
 	}
