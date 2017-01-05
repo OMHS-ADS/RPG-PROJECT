@@ -58,7 +58,7 @@ public abstract class Enemy extends AnimatedEntity implements Damageable {
 			int maxHP = this.getMaxHP();
 			int cHP = (int)this.getHP();
 			int barW = (int)(((double)cHP/(double)maxHP) * maxBarW);
-			System.out.println(barW);
+			//System.out.println(barW);
 			if(barW > maxBarW)
 				return;
 			g.fillRect(xo+(Tile.TILE_SIZE/2) - (maxBarW/2)-1, yo+Tile.TILE_SIZE - (13), maxBarW+2, 12);
