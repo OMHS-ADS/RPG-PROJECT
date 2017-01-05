@@ -101,7 +101,6 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 			} else{
 				name.defend(MAP,name.getShield());
 			}
-			//sp.playAttackSound();
 		}
     }
     public void attack(PlayerCharacter name, Weapon w) {
