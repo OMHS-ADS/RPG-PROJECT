@@ -9,10 +9,10 @@ abstract public class Shield extends Item {
 	}
 	
 	public String toString(){
-		String str = name + " : \n"
+		String str = name + "- "
 				   //+ "Equipped = " + equipped + "\n"
 				   //+ "In somebody's inventory = " + state + "\n"
-				   + "Defense Points : " + DHP;// + "\n"
+				   + "DP: " + DHP;// + "\n"
 				   //+ "(X,Y) position = (" + xPos + ", " + yPos + ")";
 		return str;
 	}

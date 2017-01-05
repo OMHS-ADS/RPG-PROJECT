@@ -304,6 +304,7 @@ public class World implements Serializable {
 		worlds[0].setTile(2, 8, true, new Path(3));
 		worlds[0].setTile(3, 8, true, new Path(1));
 		worlds[0].getEntities().put(worlds[0].getTile(4, 4, false).getTileEntity(), new ArrayValue2D(4,4));
+		worlds[0].getEntities().put(worlds[0].getTile(3, 3, false).getTileEntity(), new ArrayValue2D(3,3));
 	}
 	
 	/**

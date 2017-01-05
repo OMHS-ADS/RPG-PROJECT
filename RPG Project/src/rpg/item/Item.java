@@ -27,6 +27,7 @@ abstract public class Item implements Serializable {
     public Item() {
         //state = false;
         //equipped = false;
+    	name = "EMPTY";
     }
     
     

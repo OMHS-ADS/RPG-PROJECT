@@ -11,10 +11,10 @@ abstract public class Weapon extends Item{
 	}
 	
 	public String toString(){
-		String str = name + " : \n"
+		String str = name + "- "
 				   //+ "Equipped = " + equipped + "\n"
 				   //+ "In somebody's inventory = " + state + "\n"
-				   + "Attack Points : " + MAP;// + "\n"
+				   + "AP: " + MAP;// + "\n"
 				   //+ "(X,Y) position = (" + xPos + ", " + yPos + ")";
 		return str;
 	}		

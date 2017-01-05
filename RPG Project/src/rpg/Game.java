@@ -28,6 +28,8 @@ import rpg.entity.Human;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
 import rpg.graphics.GameFrame;
+import rpg.item.Arm;
+import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
@@ -90,14 +92,27 @@ public class Game {
 	 * it will load it as a player. If that fails or it does not exist, it will assist the player in creating a new {@link PlayerCharacter} for them.
 	 */
 	public void createPlayer() {
+		
 		localPlayer = null;
-		String playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
-		File f = new File(Game.playerDir + playerName + ".rplr");
 		boolean loadedSave = false;
+		boolean deadPlayer = false;
+		String playerName;
+		File f;
+		do {
+		playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
+		f = new File(Game.playerDir + playerName + ".rplr");
+		deadPlayer = false;
+		loadedSave = false;
 		if(f.exists()) {
 			try {
 				localPlayer = loadPlayer(f);
 				loadedSave = true;
+				deadPlayer = false;
+				if(localPlayer.getHP() <= 0) {
+					JOptionPane.showConfirmDialog(null, "The character " + localPlayer.getPlayerName() + " is dead. Please make another character.");
+					deadPlayer = true;
+					throw new Exception("Player is dead");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				localPlayer = null;
@@ -108,6 +123,7 @@ public class Game {
 			path.mkdirs();
 			//System.out.println("aa");
 		}
+		} while(deadPlayer);
 		if(!loadedSave) {
 			String playerClass = "";
 			do { 
@@ -269,7 +285,7 @@ public class Game {
 		g.setFont(new Font("Arial",Font.BOLD,16));
 		g.setColor(Color.black);
 		g.drawString(cHP + "/" + maxHP, maxBarW/4, 576);
-		g.drawString(localPlayer.getPlayerName(), maxBarW + 10, 576);
+		g.drawString(localPlayer.toString(), maxBarW + 10, 576);
 	}
 	
 	/**
@@ -293,7 +309,7 @@ public class Game {
 		boolean worldWon = false;
 		int worldNum = 0;
 		currentWorld = World.getWorld(0);
-		currentWorld.setTile(0, 0, false, localPlayer);
+		currentWorld.setTile(localPlayer.getX(), localPlayer.getY(), false, localPlayer);
 		displayWindow.addKeyListener(k);
 		displayWindow.addMouseListener(m);
 		displayWindow.addMouseMotionListener(m);
@@ -303,7 +319,7 @@ public class Game {
 				worldNum++;
 				localPlayer.restoreHP();
 				currentWorld = World.getWorld(worldNum);
-				currentWorld.setTile(0, 0, false, localPlayer);
+				currentWorld.setTile(localPlayer.getX(), localPlayer.getY(), false, localPlayer);
 			}
 			if(localPlayer.getHP() <= 0){
 				alive = false;
@@ -395,10 +411,21 @@ public class Game {
 	 */
 	private boolean quit=false;
 	private void exitGame() {
-		int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?");
+		int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?" + (localPlayer.getHP() <= 0 ? " Your character data for " + localPlayer.getPlayerName() + " will be lost because of its death, This is unavoidable.":" Your character data for " + localPlayer.getPlayerName() + " will be saved. Note that on death, your character will be deleted."));
 		if (confirm == JOptionPane.YES_OPTION) {
 			displayWindow.dispose();
 			quit=true;
+			if(localPlayer.getHP() > 0) {
+				savePlayer(localPlayer);
+			} else {
+				//rip player
+				//this doesn't work
+				localPlayer.getPlayerName().replaceAll(localPlayer.getPlayerName(), localPlayer.getPlayerName() + " is D E A D");
+				localPlayer.getBagContents().getItems().clear();
+				localPlayer.setShield(new Arm());
+				localPlayer.setWeapon(new Fist());
+				savePlayer(localPlayer);
+			}
 		}
 	}
 	/**

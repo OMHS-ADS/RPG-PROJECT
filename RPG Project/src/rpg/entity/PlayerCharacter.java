@@ -188,10 +188,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	return HP;
     }
     public void defend(int dmg) {				//(defend an attack)
-    	this.changeHealth(dmg * (1 - baseDefend));
+    	this.changeHealth(-1 * dmg * (1 - baseDefend));
     }			//(defend an attack)
    	public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
-    	this.changeHealth(dmg * (1 - s.getMAP()));
+    	this.changeHealth(-1 * dmg * (1 - s.getMAP()));
     }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
@@ -229,8 +229,24 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	HP = MAXHP;
     }
     
+    public int getX() {
+    	return this.xPos;
+    }
+    
+    public int getY() {
+    	return this.yPos;
+    }
+    
+    public void setWeapon(Weapon w) {
+    	this.weapon = w;
+    }
+    
+    public void setShield(Shield s) {
+    	this.shield = s;
+    }
+    
     public String toString() {
-    	return name + "| CLASS: " + className + " | HP: " + HP + " | MAP: " + MAP + " | MDP: " + MDP + " | WEAPON: " + weapon.toString() + " | SHIELD: " + shield.toString();
+    	return name + "| CLASS: " + className + " | HP: " + HP + " | MAP: " + MAP + " | MDP: " + MDP + " | WP: " + weapon.toString() + " | SH: " + shield.toString();
     }
     
     public void render(Graphics g, int xo, int yo) {
