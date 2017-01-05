@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import rpg.Game;
 import rpg.Tile;
 import rpg.World;
+import rpg.entity.AnimatedEntity;
 
 /**
  * GameFrame extends {@link JFrame}. It is used to display the {@link World} and everything in it.

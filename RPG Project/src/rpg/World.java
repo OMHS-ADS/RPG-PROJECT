@@ -274,7 +274,7 @@ public class World implements Serializable {
 		worlds = new World[1];
 		worlds[0] = new World();
 		worlds[0].setTile(5, 5, false, new Tree());
-		worlds[0].setTile(4, 4, false, new Rabbit(Animation.getAnimation("Rabbit")));
+		worlds[0].setTile(4, 4, false, new Rabbit());
 		worlds[0].setTile(3, 3, false, new ItemEntity(new LargeShield()));
 		
 		worlds[0].setTile(2, 0, true, new Path(3));
@@ -303,6 +303,7 @@ public class World implements Serializable {
 		
 		worlds[0].setTile(2, 8, true, new Path(3));
 		worlds[0].setTile(3, 8, true, new Path(1));
+		worlds[0].getEntities().put(worlds[0].getTile(4, 4, false).getTileEntity(), new ArrayValue2D(4,4));
 	}
 	
 	/**

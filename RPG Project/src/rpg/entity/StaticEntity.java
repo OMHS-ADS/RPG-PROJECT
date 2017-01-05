@@ -21,10 +21,10 @@ public class StaticEntity extends Entity {
 	
 	/**
 	 * Creates an Entity with a name, and loads that image from its source.
-	 * @param tileName
+	 * @param imageName the image for the tile
 	 */
-	public StaticEntity(String tileName) {
-		image = ImageLoader.getImage(tileName);
+	public StaticEntity(String imageName) {
+		image = ImageLoader.getImage(imageName);
 	}
 
 	@Override

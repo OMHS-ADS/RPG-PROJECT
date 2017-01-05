@@ -1,5 +1,7 @@
 package rpg.entity;
 
+import java.awt.Graphics;
+
 import rpg.graphics.Animation;
 import rpg.util.Damageable;
 
@@ -30,4 +32,13 @@ public abstract class Enemy extends AnimatedEntity implements Damageable {
 	    public abstract void defend(int dmg);				//(defend an attack)
 	    //public abstract void defend(Shield s);	//		(defend an attack with an item)
 	    public abstract String getLocation();			//	(return�s the current character�s room location as X, Y)
+	    
+	    public void render(Graphics g, int xo, int yo) {
+	    	
+	    		//a = Animation.getAnimation(className);
+	    	//This is because the animation is lost in serialization
+	    	super.render(g, xo, yo);
+	    }
+	    
+
 }

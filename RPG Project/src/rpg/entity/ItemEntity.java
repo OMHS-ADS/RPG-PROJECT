@@ -10,7 +10,7 @@ import rpg.util.Interactable;
  * @author Morgan
  *
  */
-public class ItemEntity extends Entity implements Interactable {
+public class ItemEntity extends StaticEntity implements Interactable {
 	protected Item rep; //The item represented by the ItemEntity
 
 	/**
@@ -19,6 +19,7 @@ public class ItemEntity extends Entity implements Interactable {
 	 * @see Item
 	 */
 	public ItemEntity(Item rep) {
+		super(rep.getName());
 		this.rep = rep;
 	}
 
@@ -28,11 +29,6 @@ public class ItemEntity extends Entity implements Interactable {
 	 */
 	public Item getItem() {
 		return rep;
-	}
-	@Override
-	public void render(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

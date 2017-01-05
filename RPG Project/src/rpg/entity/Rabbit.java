@@ -14,8 +14,8 @@ import rpg.item.Weapon;
  *
  */
 public class Rabbit extends Enemy{
-	public Rabbit(Animation a){
-		super(a);
+	public Rabbit(){
+		super(Animation.getAnimation("rabbit"));
 		this.HP = 10;
 		this.MAP = 1;
 		this.MDP = 1;
@@ -54,11 +54,6 @@ public class Rabbit extends Enemy{
 		return null;
 	}
 
-	@Override
-	public void render(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	@Override
