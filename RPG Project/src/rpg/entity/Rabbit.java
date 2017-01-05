@@ -45,7 +45,7 @@ public class Rabbit extends Enemy{
     }
 	
 	public void defend(int dmg) {				//(defend an attack)
-    	this.changeHealth((double)(dmg * (1 - baseDefend)));
+    	this.changeHealth((double)(dmg * (1 - baseDefend)) * (-1));
     }
 
 	@Override
