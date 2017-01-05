@@ -383,16 +383,16 @@ public class Game {
 		}
 		case DROP: {
 			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
+			localPlayer.drop(itemName, currentWorld);
 			break;
-			//Needs to convert player input to item entity
-			//localPlayer.drop()
+			
 		}
 		case INVENTORY: {
 			Bag b = localPlayer.getBagContents();
 			for(Item i: b.getItems()){
 				allItems = allItems + i.toString() + "\n";
-					JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
 			}
+			JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		}
 		case EQUIP:{
