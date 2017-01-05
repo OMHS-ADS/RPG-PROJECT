@@ -148,6 +148,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	//Get the enemy(if there is one) from eT, and use it for damage calcs
     	int xMod = 0;
     	int yMod = 0;
+    	d = Direction.UP;
     	if(d == Direction.UP){
     		yMod = -1;
     	}

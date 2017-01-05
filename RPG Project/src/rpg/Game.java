@@ -25,6 +25,7 @@ import rpg.entity.Enemy;
 import rpg.entity.Entity;
 import rpg.entity.Goblin;
 import rpg.entity.Human;
+import rpg.entity.NullEntity;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
 import rpg.graphics.GameFrame;
@@ -356,11 +357,11 @@ public class Game {
 			break;
 		}
 		case ATTACK_DOWN:{
-			localPlayer.attack(currentWorld, Direction.RIGHT);
+			localPlayer.attack(currentWorld, Direction.DOWN);
 			break;
 		}
 		case ATTACK_LEFT:{
-			localPlayer.attack(currentWorld, Direction.DOWN);
+			localPlayer.attack(currentWorld, Direction.LEFT);
 			break;
 		}
 		case MOVE_UP:{
@@ -436,6 +437,13 @@ public class Game {
 	 * The doEnemyTurn method conducts AI movement and actions per turn.
 	 */
 	public void doEnemyTurn(Enemy e){
+		//Should remove enemy if dead, someone else make sure it removes the right enemy
+		if(e.getHP() <= 0){
+			ArrayValue2D ePos = currentWorld.getEntities().get(e);
+			currentWorld.setTile(ePos.getX(), ePos.getY(), false, new NullEntity());
+			currentWorld.removeEntity(e);
+			return;
+		}
 		if(isPlayerAdjacent(e)){
 			e.attack(localPlayer);
 		}
@@ -568,6 +576,12 @@ public class Game {
 			case KeyEvent.VK_E:doPlayerTurn(PlayerActions.EQUIP);break;
 			case KeyEvent.VK_Q:doPlayerTurn(PlayerActions.DROP);break;
 			case KeyEvent.VK_ESCAPE:doPlayerTurn(PlayerActions.EXIT);break;
+			
+
+			case KeyEvent.VK_KP_UP:doPlayerTurn(PlayerActions.ATTACK_UP);break;
+			case KeyEvent.VK_KP_DOWN:doPlayerTurn(PlayerActions.ATTACK_DOWN);break;
+			case KeyEvent.VK_KP_LEFT:doPlayerTurn(PlayerActions.ATTACK_LEFT);break;
+			case KeyEvent.VK_KP_RIGHT:doPlayerTurn(PlayerActions.ATTACK_RIGHT);break;
 			}
 		}
 		public void keyReleased(KeyEvent e) {}
