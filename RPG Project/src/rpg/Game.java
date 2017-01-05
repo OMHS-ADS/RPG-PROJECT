@@ -336,13 +336,14 @@ public class Game {
 							doEnemyTurn((Enemy)e);
 						}
 					}
-				} catch (ConcurrentModificationException e ) {
+				} catch (NullPointerException | ConcurrentModificationException e ) {
 					//shhh
 				}
 		}
 		if(!alive) {
 			//Losing stuff here, close game maybe
-			exitGame();
+			
+			exitGame(true);
 		}
 		else{
 			//Winning stuff here
@@ -408,7 +409,7 @@ public class Game {
 			break;
 		}
 		case EXIT: { //exit game with confirmation
-			exitGame();
+			exitGame(false);
 		}
 		}
 		
@@ -427,9 +428,9 @@ public class Game {
 	 * Exits game with confirmation
 	 */
 	private boolean quit=false;
-	private void exitGame() {
-		int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?" + (localPlayer.getHP() <= 0 ? " Your character data for " + localPlayer.getPlayerName() + " will be lost because of its death, This is unavoidable.":" Your character data for " + localPlayer.getPlayerName() + " will be saved. Note that on death, your character will be deleted."));
-		if (confirm == JOptionPane.YES_OPTION) {
+	private void exitGame(boolean death) {
+		int confirm = JOptionPane.showConfirmDialog(null,(death ? "Your character will be unaccessable due to it's death." : "Are you sure you want to quit?"));
+			if (confirm == JOptionPane.YES_OPTION || death) {
 			displayWindow.dispose();
 			quit=true;
 			if(localPlayer.getHP() > 0) {
@@ -510,7 +511,7 @@ public class Game {
 	 */
 	public void mouseClicked(MouseEvent e) {
 		if(getExitClickedBounds().contains(e.getPoint()))
-			this.exitGame();
+			this.exitGame(false);
 	}
 	
 	public Rectangle getTopBarBounds() {
