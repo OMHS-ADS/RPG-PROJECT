@@ -330,15 +330,6 @@ public class Game {
 			if(localPlayer.getHP() <= 0){
 				alive = false;
 			}
-				try {
-					for (Entity e : currentWorld.getEntities().keySet()) {
-						if(e instanceof Enemy){
-							doEnemyTurn((Enemy)e);
-						}
-					}
-				} catch (NullPointerException | ConcurrentModificationException e ) {
-					//shhh
-				}
 		}
 		if(!alive) {
 			//Losing stuff here, close game maybe

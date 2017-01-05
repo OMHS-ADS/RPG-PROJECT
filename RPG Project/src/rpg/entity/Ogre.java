@@ -18,6 +18,9 @@ public class Ogre extends PlayerCharacter {
 
 	public Ogre(String playerName) {
 		super("ogre", playerName);
+		this.MAXHP = 100;
+		this.HP = 100;
+
 		this.MAP = 5;
 		this.hitChance = 0.6f;
 	}
