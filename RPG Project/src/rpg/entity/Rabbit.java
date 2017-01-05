@@ -17,7 +17,7 @@ public class Rabbit extends Enemy{
 	public Rabbit(){
 		super(Animation.getAnimation("rabbit"));
 		this.HP = 10;
-		this.MAP = 1;
+		this.MAP = 5;
 		this.MDP = 1;
 		this.hitChance = (float) 0.3;
 	}

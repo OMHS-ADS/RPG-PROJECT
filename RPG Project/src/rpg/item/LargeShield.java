@@ -8,11 +8,11 @@ public class LargeShield extends Shield {
 
 	public LargeShield() {
 		super("large_shield");
-		super.setDefense(20);
+		super.setDefense(50);
 	}	
 	
 	public LargeShield(String name) {
 		super(name);
-		super.setDefense(20);
+		super.setDefense(50);
 	}
 }
