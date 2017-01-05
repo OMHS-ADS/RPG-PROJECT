@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ConcurrentModificationException;
 
 import javax.swing.JOptionPane;
 
@@ -226,7 +227,11 @@ public class Game {
 						int height = (int)(g.getDisplayWindow().getHeight());
 						BufferedImage bi = new BufferedImage(width,height, BufferedImage.TYPE_4BYTE_ABGR);
 						Graphics graphics = bi.getGraphics();
-						title.renderWorld(g, graphics);
+						try {
+							title.renderWorld(g, graphics);
+						} catch (ConcurrentModificationException e) {
+							//Do nothing
+						}
 						drawHud(graphics);
 						drawBorder(graphics);
 						
@@ -325,10 +330,14 @@ public class Game {
 			if(localPlayer.getHP() <= 0){
 				alive = false;
 			}
-				for (Entity e : currentWorld.getEntities().keySet()) {
-					if(e instanceof Enemy){
-						doEnemyTurn((Enemy)e);
+				try {
+					for (Entity e : currentWorld.getEntities().keySet()) {
+						if(e instanceof Enemy){
+							doEnemyTurn((Enemy)e);
+						}
 					}
+				} catch (ConcurrentModificationException e ) {
+					//shhh
 				}
 		}
 		if(!alive) {
@@ -403,11 +412,14 @@ public class Game {
 		}
 		}
 		
-		
-		for (Entity e : currentWorld.getEntities().keySet()) {
-			if(e instanceof Enemy){
-				doEnemyTurn((Enemy)e);
+		try {
+			for (Entity e : currentWorld.getEntities().keySet()) {
+				if(e instanceof Enemy){
+					doEnemyTurn((Enemy)e);
+				}
 			}
+		} catch (ConcurrentModificationException e) {
+			//aaaaaa
 		}
 		
 	}
@@ -578,10 +590,10 @@ public class Game {
 			case KeyEvent.VK_ESCAPE:doPlayerTurn(PlayerActions.EXIT);break;
 			
 
-			case KeyEvent.VK_KP_UP:doPlayerTurn(PlayerActions.ATTACK_UP);break;
-			case KeyEvent.VK_KP_DOWN:doPlayerTurn(PlayerActions.ATTACK_DOWN);break;
-			case KeyEvent.VK_KP_LEFT:doPlayerTurn(PlayerActions.ATTACK_LEFT);break;
-			case KeyEvent.VK_KP_RIGHT:doPlayerTurn(PlayerActions.ATTACK_RIGHT);break;
+			case KeyEvent.VK_UP:doPlayerTurn(PlayerActions.ATTACK_UP);break;
+			case KeyEvent.VK_DOWN:doPlayerTurn(PlayerActions.ATTACK_DOWN);break;
+			case KeyEvent.VK_LEFT:doPlayerTurn(PlayerActions.ATTACK_LEFT);break;
+			case KeyEvent.VK_RIGHT:doPlayerTurn(PlayerActions.ATTACK_RIGHT);break;
 			}
 		}
 		public void keyReleased(KeyEvent e) {}

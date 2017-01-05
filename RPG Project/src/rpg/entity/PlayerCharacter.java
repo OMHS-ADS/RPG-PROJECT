@@ -148,7 +148,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	//Get the enemy(if there is one) from eT, and use it for damage calcs
     	int xMod = 0;
     	int yMod = 0;
-    	d = Direction.UP;
+    	//d = Direction.UP;
     	if(d == Direction.UP){
     		yMod = -1;
     	}
@@ -156,17 +156,19 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		yMod = 1;
     	}
     	else if(d == Direction.LEFT){
-    		xMod = 1;
-    	}
-    	else{
     		xMod = -1;
     	}
+    	else{
+    		xMod = 1;
+    	}
     	Tile et = w.getTile(xPos + xMod, yPos + yMod, false);
-    	
-    	
+    	//System.out.println(xPos + xMod + "  " + (yPos + yMod));
+    	//System.out.println(et.getTileEntity().toString());
     	//Add a way to check if entity is an enemy or not
     	if(et.getTileEntity() instanceof Enemy){
-    		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+    		double chance = Math.random();
+    		//System.out.println(chance + "  " + hitChance);
+    		if (chance < hitChance){  //if the attack works, then the enemy has a chance to defend itself
     			if(weapon == new Fist()){
     				Enemy e = (Enemy) et.getTileEntity();
     				e.defend(MAP*(weapon.getMAP()));

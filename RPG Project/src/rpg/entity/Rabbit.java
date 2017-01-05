@@ -42,6 +42,7 @@ public class Rabbit extends Enemy{
 
 	public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
+    	//System.out.println(HP);
     }
 	
 	public void defend(int dmg) {				//(defend an attack)
