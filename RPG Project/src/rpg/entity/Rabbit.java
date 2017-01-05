@@ -45,7 +45,7 @@ public class Rabbit extends Enemy{
     }
 	
 	public void defend(int dmg) {				//(defend an attack)
-    	this.changeHealth((double)(dmg * (1 - baseDefend)));
+    	this.changeHealth((double)(dmg * (1 - baseDefend)) * (-1));
     }
 
 	@Override
@@ -59,7 +59,7 @@ public class Rabbit extends Enemy{
 	@Override
 	public double getHP() {
 		// TODO Auto-generated method stub
-		return 0;
+		return HP;
 	}
 }
 
