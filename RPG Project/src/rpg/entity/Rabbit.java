@@ -59,7 +59,7 @@ public class Rabbit extends Enemy{
 	@Override
 	public double getHP() {
 		// TODO Auto-generated method stub
-		return 0;
+		return HP;
 	}
 }
 
