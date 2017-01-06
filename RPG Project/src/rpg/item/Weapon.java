@@ -1,17 +1,13 @@
 package rpg.item;
 abstract public class Weapon extends Item{
 	// all the variables are in the super class... isn't this awesome? :D
-	
-	public Weapon(){
-		super();
-	}
-	
-	public Weapon(String name){
-		super(name);
+
+	public Weapon(String className, String displayName){
+		super(className, displayName);
 	}
 	
 	public String toString(){
-		String str = name + "- "
+		String str = displayName + "- "
 				   //+ "Equipped = " + equipped + "\n"
 				   //+ "In somebody's inventory = " + state + "\n"
 				   + "AP: " + MAP;// + "\n"

@@ -1,7 +1,9 @@
 package rpg.entity;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
+import rpg.Tile;
 import rpg.graphics.Animation;
 import rpg.util.Damageable;
 
@@ -11,15 +13,19 @@ import rpg.util.Damageable;
  *
  */
 public abstract class Enemy extends AnimatedEntity implements Damageable {
-	 	public Enemy(Animation a) {
-		super(a);
-		// TODO Auto-generated constructor stub
-	}
-		protected int MAP; //maximum attack points of the character excluding other items
+	 	
+		public Enemy(Animation a) {
+	 		super(a);
+	 		maxHp = 10;
+	 		HP = maxHp;
+	 	}
+		
+	 	protected int MAP; //maximum attack points of the character excluding other items
 		protected int MDP; //maximum defense points of the character excluding other items
 		protected int HP; //current health points a character has
 		protected String name;  //the name of the character
 		protected int xPos, yPos; //location of the character
+		protected int maxHp;
 		protected boolean boss;
 		protected float hitChance = (float) 0.75, baseDefend = 0.1f;
 
@@ -33,11 +39,32 @@ public abstract class Enemy extends AnimatedEntity implements Damageable {
 	    //public abstract void defend(Shield s);	//		(defend an attack with an item)
 	    public abstract String getLocation();			//	(return�s the current character�s room location as X, Y)
 	    
+	    public int getMaxHP() {
+	    	return this.maxHp;
+	    }
+	    
+	    @Override
+	    public double getHP() {
+	    	return this.HP;
+	    }
+	    
 	    public void render(Graphics g, int xo, int yo) {
 	    	
 	    		//a = Animation.getAnimation(className);
 	    	//This is because the animation is lost in serialization
 	    	super.render(g, xo, yo);
+	    	g.setColor(Color.WHITE);
+			int maxBarW = 40;
+			int maxHP = this.getMaxHP();
+			int cHP = (int)this.getHP();
+			int barW = (int)(((double)cHP/(double)maxHP) * maxBarW);
+			//System.out.println(barW);
+			if(barW > maxBarW)
+				return;
+			g.fillRect(xo+(Tile.TILE_SIZE/2) - (maxBarW/2)-1, yo+Tile.TILE_SIZE - (13), maxBarW+2, 12);
+
+			g.setColor(Color.BLUE);
+			g.fillRect(xo+(Tile.TILE_SIZE/2) - (maxBarW/2), yo+Tile.TILE_SIZE - (12), barW, 10);
 	    }
 	    
 

@@ -17,7 +17,7 @@ public class Rabbit extends Enemy{
 	public Rabbit(){
 		super(Animation.getAnimation("rabbit"));
 		this.HP = 10;
-		this.MAP = 1;
+		this.MAP = 5;
 		this.MDP = 1;
 		this.hitChance = (float) 0.3;
 	}
@@ -31,7 +31,7 @@ public class Rabbit extends Enemy{
 	@Override
 	public void attack(Entity target) {
 		PlayerCharacter player = ((PlayerCharacter)target);
-		if(player.getShield() == new Arm()){
+		if(player.getShield() == null){
 			player.defend(MAP);
 		}
 		else{
@@ -42,6 +42,7 @@ public class Rabbit extends Enemy{
 
 	public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
     	HP += dmg;
+    	//System.out.println(HP);
     }
 	
 	public void defend(int dmg) {				//(defend an attack)

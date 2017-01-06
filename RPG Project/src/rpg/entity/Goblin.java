@@ -19,8 +19,8 @@ public class Goblin extends PlayerCharacter {
 
 	public Goblin(String playerName) {
 		super("goblin", playerName);
-		this.MAP=69;
-		this.hitChance=(float) .04;
+		this.MAP=10;
+		this.hitChance=(float) .4;
 	}
 	
 

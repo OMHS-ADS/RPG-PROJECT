@@ -19,8 +19,8 @@ public class Dwarf extends PlayerCharacter {
 
 	public Dwarf(String playerName) {
 		super("dwarf",playerName);
-		this.MAP=100000;
-		this.hitChance=(float) .00001;
+		this.MAP=15;
+		this.hitChance=(float) .4;
 	}
 	
 	

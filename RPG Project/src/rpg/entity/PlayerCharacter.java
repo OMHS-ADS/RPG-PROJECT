@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import rpg.Game;
 import rpg.Tile;
 import rpg.World;
 import rpg.container.Bag;
@@ -14,40 +15,12 @@ import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.item.Shield;
 import rpg.item.Weapon;
+import rpg.sounds.SoundPlayer;
 import rpg.util.Constants;
 import rpg.util.Damageable;
 import rpg.util.Direction;
+import rpg.util.Interactable;
 
-
-
-
-
-
-
-
-
-
-//Someone else comment this jesus #notIt #notMyJob #itIsButIDidntWriteThisClassAndImCommentingEnoughAlready
-
-
-
-
-
-
-
-
-
-/**
- * 
- * PUT STUFF HERE
- * 
- * @see Elf
- * @see Dwarf
- * @see Human
- * @see Ogre
- * @see Mage
- *
- */
 public abstract class PlayerCharacter extends AnimatedEntity implements Damageable, Serializable {
     /**
 	 * 
@@ -63,6 +36,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 	protected Shield shield;
 	protected float hitChance = (float) 0.75, baseDefend = 0.1f;
 	protected int xPos, yPos;
+	protected transient SoundPlayer sp;
 
 	
 	public PlayerCharacter(String className, String playerName) {
@@ -71,13 +45,14 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		this.className = className;
 		this.MAP=1;
 		this.hitChance=(float) 0.75;
-		shield = new Arm();
-		weapon = new Fist();
+		shield = new Arm("Arm");
+		weapon = new Fist("Fist");
 		xPos = 0;
 		yPos = 0;
 		MAXHP = 20;
 		HP = 20;
 		this.inventory = new Bag(new ArrayList<Item>());
+		sp = new SoundPlayer();
 		
 	}
 	
@@ -88,14 +63,21 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		this.className = className;
 		this.MAP=dmg;
 		this.hitChance=hitChance;
-		shield = new Arm();
-		weapon = new Fist();
+		shield = new Arm("Arm");
+		weapon = new Fist("Fist");
 		this.inventory = new Bag(new ArrayList<Item>());
+		sp = new SoundPlayer();
 	}
 	
-    public void move(Direction direction, World w) {   //  			(move in a direction multiple space(s)
+	public void checkSPExists() {
+		if(sp == null)
+			sp = new SoundPlayer();
+	}
+	
+    public void move(Direction direction, World w, Game g) {   //  			(move in a direction multiple space(s)
     	int oldX = xPos;
     	int oldY = yPos;
+    	System.out.println(xPos + " AA " + yPos);
     	//error checking
     	if (direction==Direction.UP && yPos==0 ||
     		direction==Direction.DOWN && yPos==Constants.WORLDMAX_Y-1 ||
@@ -122,6 +104,14 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		w.removeEntity(itemEnt);
     		w.setTile(xPos, yPos, false, this);
     		w.setTile(oldX, oldY, false, new NullEntity());
+    	} else if (newTile.getTileEntity() instanceof Interactable) {
+    		int preX = xPos;
+    		int preY = yPos;
+    		((Interactable)newTile.getTileEntity()).interact(this, g);
+    		if(preX == xPos && preY == yPos) {
+    			xPos = oldX;
+    			yPos = oldY;
+    		}
     	}
     	else{
     		xPos = oldX;
@@ -131,8 +121,19 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
 
     }
+    
+    public void setX(int x) {
+    	this.xPos = x;
+    }
+    
+    public void setY(int y) {
+    	this.yPos = y;
+    }
+    
     public void pickup(ItemEntity item) {			//		(pickup a visible item)
     	inventory.addItem(item.getItem());
+    	checkSPExists();
+    	sp.playPickupSound();
     }
     public void drop(String name, World w) {			//(drop an item at your current location)
     	for(Item i: inventory.getItems()){
@@ -142,13 +143,18 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		}
     	}
     }
+    
+    public void drop(int invVal, World w) {
+    	inventory.removeItem(invVal);
+    }
+    
     public void attack(World w, Direction d) {
     	//Xmod and YMod are values that represent the enemies distance from the player
     	//Tile eT = tile 1 away from player, based on direction
     	//Get the enemy(if there is one) from eT, and use it for damage calcs
     	int xMod = 0;
     	int yMod = 0;
-    	d = Direction.UP;
+    	//d = Direction.UP;
     	if(d == Direction.UP){
     		yMod = -1;
     	}
@@ -156,26 +162,36 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		yMod = 1;
     	}
     	else if(d == Direction.LEFT){
-    		xMod = 1;
-    	}
-    	else{
     		xMod = -1;
     	}
+    	else{
+    		xMod = 1;
+    	}
     	Tile et = w.getTile(xPos + xMod, yPos + yMod, false);
-    	
-    	
+    	//System.out.println(xPos + xMod + "  " + (yPos + yMod));
+    	//System.out.println(et.getTileEntity().toString());
     	//Add a way to check if entity is an enemy or not
     	if(et.getTileEntity() instanceof Enemy){
-    		if (Math.random() < hitChance){  //if the attack works, then the enemy has a chance to defend itself
-    			if(weapon == new Fist()){
+    		double chance = Math.random();
+    		//System.out.println(chance + "  " + hitChance);
+    		if (chance < hitChance){  //if the attack works, then the enemy has a chance to defend itself
+    			if(!(weapon instanceof Fist)){
     				Enemy e = (Enemy) et.getTileEntity();
     				e.defend(MAP*(weapon.getMAP()));
+    				checkSPExists();
+    				sp.playCriticalSound();
+    				
     			}
     			else{
     				Enemy e = (Enemy) et.getTileEntity();
             		e.defend(MAP);
+            		checkSPExists();
+            		sp.playAttackSound();
     			}
     			
+    		} else {
+    			checkSPExists();
+    			sp.playMissSound();
     		}
     		
     	}
@@ -192,12 +208,36 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     }
     public void defend(int dmg) {				//(defend an attack)
     	this.changeHealth(-1 * dmg * (1 - baseDefend));
+    	checkSPExists();
+    	sp.playBlockSound();
     }			//(defend an attack)
    	public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
-    	this.changeHealth(-1 * dmg * (1 - s.getMAP()));
+   		this.changeHealth(-1 * dmg * (1 - ((.01)*(double)shield.getDef())));
+    	checkSPExists();
+    	sp.playBlockSound();
     }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
+    }
+    
+    public void equip(int invValue) {
+    //	System.out.println(inventory.getItems().size() + " and " + invValue);
+    	if(invValue >= inventory.getItems().size())
+    		return;
+    	Item item = inventory.getItems().get(invValue);
+    	if(item instanceof Weapon) {
+    		if(!(weapon instanceof Fist)){
+				inventory.addItem(weapon);
+			}
+			weapon = (Weapon)item;
+			inventory.removeItem(item);
+    	} else if (item instanceof Shield) {
+    		if(!(shield instanceof Arm)){
+				inventory.addItem(shield);
+			}
+			shield = (Shield)item;
+			inventory.removeItem(item);
+    	}
     }
     
     public void equip(){
@@ -206,7 +246,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	//if one is found, replace the weapon/shield as necessary, returning the old one to the inventory
     	String itemName = JOptionPane.showInputDialog("Enter an item to equip").toUpperCase();
     	for(Item i: inventory.getItems()){
-    		if(i.getName().toUpperCase().equals(itemName)){
+    		if(i.getDisplayName().toUpperCase().equals(itemName)){
     			if(i instanceof Weapon){
     				if(!(weapon instanceof Fist)){
         				inventory.addItem(weapon);
@@ -289,6 +329,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	//This is because the animation is lost in serialization
     	super.render(g, xo, yo);
     }
+    
     
     
 }

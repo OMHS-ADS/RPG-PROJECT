@@ -7,12 +7,12 @@ package rpg.item;
 public class LargeShield extends Shield {
 
 	public LargeShield() {
-		super("large_shield");
-		super.setDefense(20);
+		super("large_shield", "Large Shield");
+		super.setDefense(50);
 	}	
 	
-	public LargeShield(String name) {
-		super(name);
-		super.setDefense(20);
+	public LargeShield(String displayName) {
+		super("large_shield",displayName);
+		super.setDefense(50);
 	}
 }

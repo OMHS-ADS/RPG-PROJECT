@@ -30,4 +30,9 @@ public abstract class Spell implements Coordinatable {
 	}
 	public abstract void doEffect(PlayerCharacter c);
 	
+	//This is not how spell is supposed to be but i needed a way for player to heal. can be removed
+	public static Spell getSpell(int spell) {
+		Spell[] spells = new Spell[] {new HealingSpell(0,0,0,0,5), new DefenseSpell(0,0,0,0,5), new DamageSpell(0,0,0,0,5), new DamageOutputSpell(0,0,0,0,5)};
+		return spells[spell];
+	}
 }

@@ -18,7 +18,7 @@ abstract public class Item implements Serializable {
 	private static final long serialVersionUID = -4228305767651958209L;
 	protected int MAP; //maximum attack points the item can increase a character's attack by
     protected int DHP; //maximum defense points the item can increase a character's defense
-    protected String name;  //the name of the item
+    protected String name, displayName;  //the name of the item
     //protected boolean state; // 0 if on the ground, 1 if in character's bag
     //protected int xPos, yPos;
     //protected boolean equipped; //0 if not in use, 1 if in use
@@ -31,9 +31,10 @@ abstract public class Item implements Serializable {
     }
     
     
-    public Item(String nameIn){
+    public Item(String className, String displayName){
         //xPos = x;
-        name = nameIn;
+        name = className;
+        this.displayName = displayName;
         //yPos = y;
       //  MAP = MAPin;
        // DHP = DHPin;
@@ -44,7 +45,7 @@ abstract public class Item implements Serializable {
     //add other constructor(s) here if necessary
     
     public String toString(){ 
-        String str = name;
+        String str = name + "  (" + displayName + ")";
         		   // + " : \n"
                    //+ "Equipped = " + equipped + "\n"
                    //+ "In somebody's inventory = " + state + "\n"
@@ -54,6 +55,14 @@ abstract public class Item implements Serializable {
     
     public String getName(){
     	return name;
+    }
+    
+    /**
+     * Return the display name for this object
+     * @return
+     */
+    public String getDisplayName() {
+    	return this.displayName;
     }
 
     @Deprecated                  
@@ -81,13 +90,13 @@ abstract public class Item implements Serializable {
     	return MAP;
     }
     public static Item getRandomItem(){
-    	Item[] itemTypes = new Item[3];
-    	itemTypes[0] = new Sword();
-    	itemTypes[1] = new Axe();
-    	itemTypes[2] = new LargeShield();
-    	itemTypes[3] = new SmallShield();
+    	Item[] itemTypes = new Item[4];
+    	itemTypes[0] = new Sword("Sword");
+    	itemTypes[1] = new Axe("Axe");
+    	itemTypes[2] = new LargeShield("Large Shield");
+    	itemTypes[3] = new SmallShield("Small Shield");
     	Random r = new Random();
-    	int index = r.nextInt(6);
+    	int index = r.nextInt(4);
     	Item wep = itemTypes[index];
     	return wep;
     }
