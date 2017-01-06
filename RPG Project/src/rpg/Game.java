@@ -26,6 +26,7 @@ import rpg.entity.Enemy;
 import rpg.entity.Entity;
 import rpg.entity.Goblin;
 import rpg.entity.Human;
+import rpg.entity.Mage;
 import rpg.entity.NullEntity;
 import rpg.entity.Ogre;
 import rpg.entity.PlayerCharacter;
@@ -49,7 +50,7 @@ public class Game {
 	//The current world
 	private World currentWorld;
 	//The list of different possible classes
-	private static final String[] classList = new String[] {"HUMAN","ELF","DWARF","GOBLIN","OGRE"};
+	private static final String[] classList = new String[] {"HUMAN","ELF","DWARF","GOBLIN","OGRE","MAGE"};
 	//The player save file directory
 	public static final String playerDir = System.getProperty("user.home") + "/ADS/RPG/PlayerFiles/";
 	//The current player
@@ -157,6 +158,9 @@ public class Game {
 					break;
 				case "dwarf":
 					localPlayer = new Dwarf(playerName);
+					break;
+				case "mage":
+					localPlayer = new Mage(playerName);
 					break;
 				default:
 					localPlayer = new Human(playerName);
@@ -338,7 +342,7 @@ public class Game {
 				currentWorld.setTile(localPlayer.getX(), localPlayer.getY(), false, localPlayer);
 			}
 			//Doesn't work for me without a print statement here...?
-			System.out.println("");
+			System.out.print("");
 			if(localPlayer.getHP() <= 0){
 				
 				alive = false;

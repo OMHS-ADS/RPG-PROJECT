@@ -8,15 +8,14 @@ import java.util.HashMap;
 
 import rpg.entity.Enemy;
 import rpg.entity.Entity;
+import rpg.entity.ExitEntity;
 import rpg.entity.ItemEntity;
 import rpg.entity.NullEntity;
 import rpg.entity.Rabbit;
 import rpg.entity.decorative.Grass;
 import rpg.entity.decorative.Path;
 import rpg.entity.decorative.Tree;
-import rpg.graphics.Animation;
 import rpg.item.LargeShield;
-import rpg.item.Shield;
 import rpg.util.ArrayValue2D;
 import rpg.util.Constants;
 
@@ -276,6 +275,7 @@ public class World implements Serializable {
 		worlds[0].setTile(5, 5, false, new Tree());
 		worlds[0].setTile(4, 4, false, new Rabbit());
 		worlds[0].setTile(3, 3, false, new ItemEntity(new LargeShield()));
+		worlds[0].setTile(5, 5, false, new ExitEntity(0));
 		
 		worlds[0].setTile(2, 0, true, new Path(3));
 		worlds[0].setTile(3, 0, true, new Path(1));
