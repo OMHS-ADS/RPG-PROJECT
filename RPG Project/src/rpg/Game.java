@@ -337,7 +337,10 @@ public class Game {
 				currentWorld = World.getWorld(worldNum);
 				currentWorld.setTile(localPlayer.getX(), localPlayer.getY(), false, localPlayer);
 			}
+			//Doesn't work for me without a print statement here...?
+			System.out.println("");
 			if(localPlayer.getHP() <= 0){
+				
 				alive = false;
 			}
 		}
@@ -432,8 +435,14 @@ public class Game {
 	private void exitGame(boolean death) {
 		if(death)
 			sp.playDeathSound();
-		int confirm = JOptionPane.showConfirmDialog(null,(death ? "Your character will be unaccessable due to it's death." : "Are you sure you want to quit?"));
-			if (confirm == JOptionPane.YES_OPTION || death) {
+		int confirm = -1;
+		if(death) {
+			JOptionPane.showMessageDialog(null,"You have died and your character will be unaccessable due to it's death.");
+			confirm = JOptionPane.YES_OPTION;
+		} else
+			confirm = JOptionPane.showConfirmDialog(null,"Are you sure you want to quit?", "Quitting", JOptionPane.YES_NO_OPTION);
+		
+			if (confirm == JOptionPane.YES_OPTION || death || confirm == JOptionPane.OK_OPTION) {
 			displayWindow.dispose();
 			quit=true;
 			if(localPlayer.getHP() > 0) {
