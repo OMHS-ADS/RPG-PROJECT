@@ -173,6 +173,20 @@ public class Game {
 		}
 		JOptionPane.showMessageDialog(null, localPlayer.toString());
 	}
+
+	/**
+	 * A method that checks if a & b share characters
+	 * @author Morgan
+	 */
+	private static boolean containsAny(String a, String b) {
+		for (char c1 : a.toCharArray()) {
+			for (char c2 : b.toCharArray()) {
+				if (c1 == c2)
+					return true;
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * This method saves a player to a file. The file location will be the default directory listed in Game, and it's name will be the {@link PlayerCharacter#getPlayerName()} + ".rplr"
