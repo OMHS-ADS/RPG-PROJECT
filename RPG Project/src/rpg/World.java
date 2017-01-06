@@ -13,7 +13,9 @@ import rpg.entity.ExitEntity;
 import rpg.entity.ItemEntity;
 import rpg.entity.NullEntity;
 import rpg.entity.Rabbit;
+import rpg.entity.decorative.Dirt;
 import rpg.entity.decorative.Grass;
+import rpg.entity.decorative.MarbleTile;
 import rpg.entity.decorative.Path;
 import rpg.entity.decorative.Tree;
 import rpg.item.LargeShield;
@@ -275,7 +277,11 @@ public class World implements Serializable {
 		worlds = new World[2];
 		worlds[0] = new World();
 		worlds[0].setTile(5, 5, false, new Tree());
+		worlds[0].setTile(8, 2, false, new Tree());
+		worlds[0].setTile(9, 8, false, new Tree());
 		worlds[0].setTile(4, 4, false, new Rabbit());
+		worlds[0].setTile(7, 5, false, new Rabbit());
+		worlds[0].setTile(8, 1, false, new Rabbit());
 		worlds[0].setTile(3, 3, false, new ItemEntity(new LargeShield("Kronik Shield")));
 		worlds[0].setTile(2, 2, false, new ItemEntity(new Sword("Cool Sword")));
 		worlds[0].setTile(5, 5, false, new ExitEntity(1));
@@ -310,13 +316,32 @@ public class World implements Serializable {
 		worlds[0].getEntities().put(worlds[0].getTile(3, 3, false).getTileEntity(), new ArrayValue2D(3,3));
 		
 		worlds[1] = new World();
+		
+		
+		worlds[1].setTile(1, 8, false, new Tree());
+		worlds[1].setTile(2, 6, false, new Tree());
+		worlds[1].setTile(8, 8, false, new Tree());
+		worlds[1].setTile(10, 5, false, new Rabbit());
+		worlds[1].setTile(6, 9, false, new Rabbit());
+		worlds[1].setTile(5, 3, false, new Rabbit());
 
-		worlds[1].setTile(1, 1, false, new ItemEntity(new LargeShield("Kronik Shield")));
-		worlds[1].setTile(2, 2, false, new ItemEntity(new Sword("Cool Sword")));
-		worlds[1].setTile(3, 3, false, new ItemEntity(new LargeShield("Kronik Shield")));
-		worlds[1].setTile(4, 4, false, new ItemEntity(new Sword("Cool Sword")));
+		worlds[1].setTile(1, 1, false, new ItemEntity(new LargeShield("Kronik Shield 1")));
+		worlds[1].setTile(2, 2, false, new ItemEntity(new Sword("Cool Sword 1")));
+		worlds[1].setTile(3, 3, false, new ItemEntity(new LargeShield("Kronik Shield 2")));
+		worlds[1].setTile(4, 4, false, new ItemEntity(new Sword("Cool Sword 2")));
 		worlds[1].setTile(5, 4, false, new ExitEntity(0));
 
+		
+		for (int r = 0; r < 16; r++) {
+			for(int c = 0; c < 9; c++) {
+				worlds[1].setTile(r, c, true, new MarbleTile());
+			}
+		}
+		
+		worlds[1].setTile(1, 8, true, new Dirt());
+		worlds[1].setTile(2, 6, true, new Dirt());
+		worlds[1].setTile(8, 8, true, new Dirt());
+		
 		worlds[1].getEntities().put(worlds[1].getTile(1, 1, false).getTileEntity(), new ArrayValue2D(1,1));
 		worlds[1].getEntities().put(worlds[1].getTile(2, 2, false).getTileEntity(), new ArrayValue2D(2,2));
 
