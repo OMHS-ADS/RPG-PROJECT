@@ -540,6 +540,7 @@ public class Game {
 				localPlayer.setShield(new Arm("Arm"));
 				localPlayer.setWeapon(new Fist("Fist"));
 				savePlayer(localPlayer);
+				displayWindow.dispose();
 			}
 		}
 	}
