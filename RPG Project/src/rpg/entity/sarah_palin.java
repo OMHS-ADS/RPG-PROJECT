@@ -8,9 +8,9 @@ import rpg.item.Weapon;
 public class sarah_palin extends Enemy{
 	public sarah_palin(){
 		this.HP = 100;
-		this.MAP = 1818; //the year the consevatives were used
+		this.MAP = 18;
 		this.MDP = 50;
-		this.hitChance = (float) 0.56;//apovel rating
+		this.hitChance = (float) 0.56;
 	}
 
 	@Override
