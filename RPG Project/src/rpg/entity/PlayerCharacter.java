@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import rpg.Game;
 import rpg.Tile;
 import rpg.World;
 import rpg.container.Bag;
@@ -17,6 +19,7 @@ import rpg.sounds.SoundPlayer;
 import rpg.util.Constants;
 import rpg.util.Damageable;
 import rpg.util.Direction;
+import rpg.util.Interactable;
 
 public abstract class PlayerCharacter extends AnimatedEntity implements Damageable, Serializable {
     /**
@@ -71,7 +74,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 			sp = new SoundPlayer();
 	}
 	
-    public void move(Direction direction, World w) {   //  			(move in a direction multiple space(s)
+    public void move(Direction direction, World w, Game g) {   //  			(move in a direction multiple space(s)
     	int oldX = xPos;
     	int oldY = yPos;
     	//error checking
@@ -100,6 +103,10 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		w.removeEntity(itemEnt);
     		w.setTile(xPos, yPos, false, this);
     		w.setTile(oldX, oldY, false, new NullEntity());
+    	} else if (newTile.getTileEntity() instanceof Interactable) {
+    		((Interactable)newTile.getTileEntity()).interact(this, g);
+    		xPos = oldX;
+    		yPos = oldY;
     	}
     	else{
     		xPos = oldX;
@@ -200,7 +207,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     }
     
     public void equip(int invValue) {
-    	System.out.println(inventory.getItems().size() + " and " + invValue);
+    //	System.out.println(inventory.getItems().size() + " and " + invValue);
     	if(invValue >= inventory.getItems().size())
     		return;
     	Item item = inventory.getItems().get(invValue);

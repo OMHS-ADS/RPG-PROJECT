@@ -271,13 +271,13 @@ public class World implements Serializable {
 	public static void initWorlds(){
 		//This is all temporary stuff bc createWorlds doesnt work
 		//Fix it zach
-		worlds = new World[1];
+		worlds = new World[2];
 		worlds[0] = new World();
 		worlds[0].setTile(5, 5, false, new Tree());
 		worlds[0].setTile(4, 4, false, new Rabbit());
 		worlds[0].setTile(3, 3, false, new ItemEntity(new LargeShield("Kronik Shield")));
 		worlds[0].setTile(2, 2, false, new ItemEntity(new Sword("Cool Sword")));
-		worlds[0].setTile(5, 5, false, new ExitEntity(0));
+		worlds[0].setTile(5, 5, false, new ExitEntity(1));
 		
 		worlds[0].setTile(2, 0, true, new Path(3));
 		worlds[0].setTile(3, 0, true, new Path(1));
@@ -307,6 +307,8 @@ public class World implements Serializable {
 		worlds[0].setTile(3, 8, true, new Path(1));
 		worlds[0].getEntities().put(worlds[0].getTile(4, 4, false).getTileEntity(), new ArrayValue2D(4,4));
 		worlds[0].getEntities().put(worlds[0].getTile(3, 3, false).getTileEntity(), new ArrayValue2D(3,3));
+		
+		worlds[1] = new World();
 	}
 	
 	/**

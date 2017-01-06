@@ -34,7 +34,6 @@ import rpg.graphics.GameFrame;
 import rpg.item.Arm;
 import rpg.item.Fist;
 import rpg.item.Item;
-import rpg.item.LargeShield;
 import rpg.sounds.SoundPlayer;
 import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
@@ -246,7 +245,11 @@ public class Game {
 						Graphics graphics = bi.getGraphics();
 						if(invRender) {
 							//Draw inventory
-							drawInventory(graphics);
+							try {
+								drawInventory(graphics);
+							} catch (ConcurrentModificationException e) {
+								//shhhhh
+							}
 							
 							drawHud(graphics);
 							drawBorder(graphics);
@@ -361,6 +364,12 @@ public class Game {
 	public GameFrame getDisplayWindow() {
 		return this.displayWindow;
 	}
+	
+	
+	public void setCurrentWorld(World w) {
+		this.currentWorld = w;
+	}
+	
 	/**
 	 * This method initializes and starts the game. Once called, it is assumed it will not be called again.
 	 */
@@ -379,11 +388,8 @@ public class Game {
 		displayWindow.addKeyListener(k);
 		displayWindow.addMouseListener(m);
 		displayWindow.addMouseMotionListener(m);
-		for(int i = 0; i < 22; i++) {
-			localPlayer.getBagContents().addItem(Item.getRandomItem());
-		}
 		while(alive && notwon && !quit){
-			currentWorld = World.getWorld(worldNum);
+			//currentWorld = World.getWorld(worldNum);
 			if(worldWon){
 				worldNum++;
 				localPlayer.restoreHP();
@@ -432,19 +438,19 @@ public class Game {
 			break;
 		}
 		case MOVE_UP:{
-			localPlayer.move(Direction.UP, currentWorld);
+			localPlayer.move(Direction.UP, currentWorld, this);
 			break;
 		}
 		case MOVE_RIGHT:{
-			localPlayer.move(Direction.RIGHT, currentWorld);
+			localPlayer.move(Direction.RIGHT, currentWorld, this);
 			break;
 		}
 		case MOVE_DOWN:{
-			localPlayer.move(Direction.DOWN, currentWorld);
+			localPlayer.move(Direction.DOWN, currentWorld, this);
 			break;
 		}
 		case MOVE_LEFT:{
-			localPlayer.move(Direction.LEFT, currentWorld);
+			localPlayer.move(Direction.LEFT, currentWorld, this);
 			break;
 		}
 		case DROP: {
@@ -468,7 +474,7 @@ public class Game {
 		}
 		case EQUIP:{
 			//localPlayer.equip();
-			System.out.println("trying to equip aaa" + action.getValue());
+			//System.out.println("trying to equip aaa" + action.getValue());
 			localPlayer.equip(action.getValue());
 			break;
 		}
@@ -586,7 +592,7 @@ public class Game {
 			this.exitGame(false);
 		if(this.invRender) {
 			checkInvClick(e.getPoint(), (e.getButton() == MouseEvent.BUTTON2 || e.isControlDown()));
-			System.out.println("did thing");
+			//System.out.println("did thing");
 		}
 	}
 	
@@ -597,19 +603,19 @@ public class Game {
 	public void checkInvClick(Point p, boolean isRightClick) {
 		int xPos = (int)(p.getX()/Tile.TILE_SIZE);
 		int yPos = (int)((p.getY()-20)/Tile.TILE_SIZE);
-		int invPos = xPos + (15 * yPos);
+		int invPos = xPos + (16 * yPos);
 		//Item item = localPlayer.getBagContents().getItems().get(invPos);
-		System.out.println(xPos + "  " + yPos + "  " + isRightClick);
+		//System.out.println(xPos + "  " + yPos + "  " + isRightClick);
 		if(isRightClick) {
 			PlayerActions action = PlayerActions.DROP;
 			action.setValue(invPos);
 			doPlayerTurn(action);
-			System.out.println("trying to drop");
+		//	System.out.println("trying to drop");
 		} else {
 			PlayerActions action = PlayerActions.EQUIP;
 			action.setValue(invPos);
 			doPlayerTurn(action);
-			System.out.println("trying to equip " + action.getValue());
+			//System.out.println("trying to equip " + action.getValue());
 		}
 	}
 	

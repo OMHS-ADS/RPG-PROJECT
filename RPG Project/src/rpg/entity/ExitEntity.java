@@ -1,5 +1,7 @@
 package rpg.entity;
 
+import rpg.Game;
+import rpg.World;
 import rpg.graphics.Animation;
 import rpg.util.Interactable;
 
@@ -35,8 +37,13 @@ public class ExitEntity extends AnimatedEntity implements Interactable {
 	}
 
 	@Override
-	public void interact(PlayerCharacter p) {
+	public void interact(PlayerCharacter p, Game g) {
 		//Move to other world somehow
+		World destination = World.getWorld(this.toWorldId);
+		System.out.println("interecated!");
+		destination.setTile(p.getX(), p.getY(), false, p);
+		g.setCurrentWorld(destination);
+		
 	}
 	
 	

@@ -31,7 +31,7 @@ public class Rabbit extends Enemy{
 	@Override
 	public void attack(Entity target) {
 		PlayerCharacter player = ((PlayerCharacter)target);
-		if(player.getShield() == new Arm()){
+		if(player.getShield() == null){
 			player.defend(MAP);
 		}
 		else{

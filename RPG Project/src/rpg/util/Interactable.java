@@ -1,5 +1,6 @@
 package rpg.util;
 
+import rpg.Game;
 import rpg.entity.PlayerCharacter;
 
 /**
@@ -12,7 +13,7 @@ public interface Interactable {
 	 * Indicates the player has interacted with this object, and it should do something.
 	 * @param p The player interacting.
 	 */
-	public void interact(PlayerCharacter p);
+	public void interact(PlayerCharacter p, Game g);
 	
 	
 }
