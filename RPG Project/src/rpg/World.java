@@ -6,16 +6,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import rpg.container.Chest;
 import rpg.entity.Enemy;
 import rpg.entity.Entity;
 import rpg.entity.ExitEntity;
 import rpg.entity.ItemEntity;
 import rpg.entity.NullEntity;
 import rpg.entity.Rabbit;
+import rpg.entity.harambe;
 import rpg.entity.decorative.Dirt;
 import rpg.entity.decorative.Grass;
-import rpg.entity.decorative.MarbleTile;
 import rpg.entity.decorative.Path;
 import rpg.entity.decorative.Tree;
 import rpg.item.LargeShield;
@@ -322,7 +321,7 @@ public class World implements Serializable {
 		worlds[1].setTile(2, 6, false, new Tree());
 		worlds[1].setTile(8, 8, false, new Tree());
 		worlds[1].setTile(10, 5, false, new Rabbit());
-		worlds[1].setTile(6, 8, false, new Rabbit());
+		worlds[1].setTile(6, 8, false, new harambe());
 		worlds[1].setTile(5, 3, false, new Rabbit());
 
 		worlds[1].setTile(1, 1, false, new ItemEntity(new LargeShield("Kronik Shield 1")));

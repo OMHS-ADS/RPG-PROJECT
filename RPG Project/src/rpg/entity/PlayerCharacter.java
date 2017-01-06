@@ -77,7 +77,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public void move(Direction direction, World w, Game g) {   //  			(move in a direction multiple space(s)
     	int oldX = xPos;
     	int oldY = yPos;
-    	System.out.println(xPos + " AA " + yPos);
+    //	System.out.println(xPos + " AA " + yPos);
     	//error checking
     	if (direction==Direction.UP && yPos==0 ||
     		direction==Direction.DOWN && yPos==Constants.WORLDMAX_Y-1 ||

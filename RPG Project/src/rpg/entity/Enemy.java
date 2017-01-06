@@ -137,6 +137,8 @@ public abstract class Enemy extends AnimatedEntity implements Damageable {
 
 			g.setColor(Color.BLUE);
 			g.fillRect(xo+(Tile.TILE_SIZE/2) - (maxBarW/2), yo+Tile.TILE_SIZE - (12), barW, 10);
+			
+			
 	    }
 	    
 
