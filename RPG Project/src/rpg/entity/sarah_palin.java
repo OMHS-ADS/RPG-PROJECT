@@ -42,5 +42,23 @@ public class sarah_palin extends Enemy{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void changeHealth(double dmg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attack(Entity target) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void defend(int dmg) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

@@ -334,13 +334,10 @@ public class World implements Serializable {
 		
 		for (int r = 0; r < 16; r++) {
 			for(int c = 0; c < 9; c++) {
-				worlds[1].setTile(r, c, true, new MarbleTile());
+				worlds[1].setTile(r, c, true, new Dirt());
 			}
 		}
 		
-		worlds[1].setTile(1, 8, true, new Dirt());
-		worlds[1].setTile(2, 6, true, new Dirt());
-		worlds[1].setTile(8, 8, true, new Dirt());
 		
 		worlds[1].getEntities().put(worlds[1].getTile(1, 1, false).getTileEntity(), new ArrayValue2D(1,1));
 		worlds[1].getEntities().put(worlds[1].getTile(2, 2, false).getTileEntity(), new ArrayValue2D(2,2));

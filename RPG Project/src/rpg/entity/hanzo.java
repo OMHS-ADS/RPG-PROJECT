@@ -6,6 +6,11 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class hanzo extends Enemy{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public hanzo(){
 		this.HP = 200;
 		this.MAP = 125;

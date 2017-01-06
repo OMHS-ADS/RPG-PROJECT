@@ -6,6 +6,11 @@ import rpg.item.Shield;
 import rpg.item.Weapon;
 
 public class harambe extends Enemy{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public harambe(){
 		this.HP = 400;
 		this.MAP = 57;
@@ -39,6 +44,24 @@ public class harambe extends Enemy{
 
 	@Override
 	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeHealth(double dmg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attack(Entity target) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void defend(int dmg) {
 		// TODO Auto-generated method stub
 		
 	}
