@@ -2,6 +2,7 @@ package rpg.entity;
 
 import java.awt.Graphics;
 
+import rpg.Game;
 import rpg.item.Item;
 import rpg.util.Interactable;
 /**
@@ -25,14 +26,18 @@ public class ItemEntity extends StaticEntity implements Interactable {
 
 	/**
 	 * Returns the item being displayed.
-	 * @return
 	 */
 	public Item getItem() {
 		return rep;
 	}
 
-	@Override
 	public void interact(PlayerCharacter p) {
 		//Possibly pick up the item?
+	}
+
+	@Override
+	public void interact(PlayerCharacter p, Game g) {
+		// TODO Auto-generated method stub
+		
 	}
 }
