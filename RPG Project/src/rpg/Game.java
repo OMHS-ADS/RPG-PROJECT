@@ -115,8 +115,9 @@ public class Game {
 		String playerName;
 		File f;
 		do {
-		playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
-		f = new File(Game.playerDir + playerName + ".rplr");
+			do {
+				playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
+			} while (!containsAny(playerName,"/:*?<>|"));		f = new File(Game.playerDir + playerName + ".rplr");
 		deadPlayer = false;
 		loadedSave = false;
 		if(f.exists()) {
