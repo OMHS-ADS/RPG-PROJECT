@@ -26,7 +26,6 @@ public class ItemEntity extends StaticEntity implements Interactable {
 
 	/**
 	 * Returns the item being displayed.
-	 * @return
 	 */
 	public Item getItem() {
 		return rep;
