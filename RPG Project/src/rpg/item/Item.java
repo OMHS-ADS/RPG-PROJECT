@@ -91,10 +91,10 @@ abstract public class Item implements Serializable {
     }
     public static Item getRandomItem(){
     	Item[] itemTypes = new Item[3];
-    	itemTypes[0] = new Sword();
-    	itemTypes[1] = new Axe();
-    	itemTypes[2] = new LargeShield();
-    	itemTypes[3] = new SmallShield();
+    	itemTypes[0] = new Sword("Sword");
+    	itemTypes[1] = new Axe("Axe");
+    	itemTypes[2] = new LargeShield("Large Shield");
+    	itemTypes[3] = new SmallShield("Small Shield");
     	Random r = new Random();
     	int index = r.nextInt(6);
     	Item wep = itemTypes[index];

@@ -1,11 +1,7 @@
 package rpg.item;
 abstract public class Weapon extends Item{
 	// all the variables are in the super class... isn't this awesome? :D
-	
-	public Weapon(){
-		super();
-	}
-	
+
 	public Weapon(String className, String displayName){
 		super(className, displayName);
 	}
