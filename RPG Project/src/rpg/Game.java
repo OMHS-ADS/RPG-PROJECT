@@ -558,6 +558,9 @@ public class Game {
 		if(isPlayerAdjacent(e)){
 			e.attack(localPlayer);
 		}
+		else{
+			e.move(localPlayer, currentWorld);
+		}
 	}
 
 	@Deprecated

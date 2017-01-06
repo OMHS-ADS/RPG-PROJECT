@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import rpg.Tile;
+import rpg.World;
 import rpg.graphics.Animation;
+import rpg.util.ArrayValue2D;
 import rpg.util.Damageable;
 
 /**
@@ -33,8 +35,49 @@ public abstract class Enemy extends AnimatedEntity implements Damageable {
 	   
 	    
 
-		public void move(int direction) {
-			// TODO Auto-generated method stub
+		public void move(PlayerCharacter pc, World currentWorld) {
+			ArrayValue2D ePos = currentWorld.getEntities().get(this);
+			ArrayValue2D pPos = currentWorld.getEntities().get(pc);
+			int xDiff = ePos.getX() - pPos.getX();
+			int yDiff = ePos.getY() - pPos.getY();
+			int absXDiff = Math.abs(xDiff);
+			int absYDiff = Math.abs(yDiff);
+			int targetX = 0;
+			int targetY = 0;
+			Tile newTile;
+			if(absXDiff > absYDiff){
+				if(xDiff > 0){
+					newTile = currentWorld.getFGTile(ePos.getX()-1, ePos.getY());
+					targetX = ePos.getX()-1;
+					targetY = ePos.getY();
+				}
+				else{
+					newTile = currentWorld.getFGTile(ePos.getX()+1, ePos.getY());
+					targetX = ePos.getX()+1;
+					targetY = ePos.getY();
+				}
+			}
+			else{
+				if(yDiff > 0){
+					newTile = currentWorld.getFGTile(ePos.getX(), ePos.getY()-1);
+					targetY = ePos.getY()-1;
+					targetX = ePos.getX();
+				}
+				else{
+					newTile = currentWorld.getFGTile(ePos.getX(), ePos.getY()+1);
+					targetY = ePos.getY()+1;
+					targetX = ePos.getX();
+				}
+			}
+			if(newTile.getTileEntity() instanceof NullEntity){
+	    		currentWorld.removeEntity(this);
+	    		currentWorld.setTile(ePos.getX(), ePos.getY(), false, new NullEntity());
+	    		currentWorld.setTile(targetX, targetY, false, this);
+	    		
+	    	}
+			
+			
+			
 			
 		}
 
