@@ -15,11 +15,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 import javax.swing.JOptionPane;
 
-import rpg.container.Bag;
 import rpg.entity.Dwarf;
 import rpg.entity.Elf;
 import rpg.entity.Enemy;
@@ -34,6 +34,7 @@ import rpg.graphics.GameFrame;
 import rpg.item.Arm;
 import rpg.item.Fist;
 import rpg.item.Item;
+import rpg.item.LargeShield;
 import rpg.sounds.SoundPlayer;
 import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
@@ -57,6 +58,7 @@ public class Game {
 	private PlayerCharacter localPlayer;
 	private static Keyboard k;
 	private SoundPlayer sp;
+	private boolean invRender;
 	
 	//Nice steady 16 fps
 	public static void main(String[] args) {
@@ -74,6 +76,7 @@ public class Game {
 	public Game() {
 		World.initWorlds();
 		sp = new SoundPlayer();
+		invRender = false;
 	}
 	
 	/**
@@ -241,14 +244,21 @@ public class Game {
 						int height = (int)(g.getDisplayWindow().getHeight());
 						BufferedImage bi = new BufferedImage(width,height, BufferedImage.TYPE_4BYTE_ABGR);
 						Graphics graphics = bi.getGraphics();
-						try {
-							title.renderWorld(g, graphics);
-						} catch (ConcurrentModificationException e) {
-							//Do nothing
-						}
-						drawHud(graphics);
-						drawBorder(graphics);
-						
+						if(invRender) {
+							//Draw inventory
+							drawInventory(graphics);
+							
+							drawHud(graphics);
+							drawBorder(graphics);
+						} else {
+							try {
+								title.renderWorld(g, graphics);
+							} catch (ConcurrentModificationException e) {
+								//Do nothing
+							}
+								drawHud(graphics);
+								drawBorder(graphics);
+							}
 						g.getDisplayWindow().getGraphics().drawImage(bi, 0, 0, g.getDisplayWindow().getWidth(), g.getDisplayWindow().getHeight(), null);
 						graphics.dispose();
 						timePassed -= 1;
@@ -309,6 +319,42 @@ public class Game {
 	}
 	
 	/**
+	 * Draw the inventory of the player to the given graphics
+	 * @param g The graphics used
+	 */
+	public void drawInventory(Graphics g) {
+		int yoffset = 20;
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(0, yoffset, (int)this.displayWindow.getWidth(), (int)this.displayWindow.getHeight());
+		g.setColor(Color.white);
+		for (int y = 0; y < 9; y++) {
+			 g.drawLine(0, (y*Tile.TILE_SIZE)+yoffset,  (int)this.displayWindow.getSize().getWidth(), (y * Tile.TILE_SIZE) + yoffset);
+		}
+		for (int x = 0; x < 16; x++) {
+			 g.drawLine((x * Tile.TILE_SIZE), 0+yoffset,  (x * Tile.TILE_SIZE), (int)this.displayWindow.getSize().getHeight());
+		}
+		ArrayList<Item> items = localPlayer.getBagContents().getItems();
+		int maxX = 15;
+		int maxY = 8;
+		int currentX = 0;
+		int currentY = 0;
+		//This draws 16*9 items...
+		for(Item item : items) {
+			g.drawImage(ImageLoader.getImage(item.getName()), (currentX * Tile.TILE_SIZE), (currentY * Tile.TILE_SIZE) + yoffset, Tile.TILE_SIZE, Tile.TILE_SIZE, null);
+			currentX++;
+			if(currentX>maxX) {
+				currentX=0;
+				currentY++;
+				if(currentY>maxY) {
+					//Too many items tbh
+					//Learn to manage items
+					break;
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Get the window
 	 * @return The window
 	 */
@@ -322,7 +368,7 @@ public class Game {
 		k = this.new Keyboard();
 		MouseListen m = new MouseListen(this);
 		displayWindow = new GameFrame();
-		System.out.println("TEST");
+		//System.out.println("TEST");
 		startRenderThread(displayWindow, this);
 		boolean alive = true;
 		boolean notwon = true;
@@ -333,6 +379,9 @@ public class Game {
 		displayWindow.addKeyListener(k);
 		displayWindow.addMouseListener(m);
 		displayWindow.addMouseMotionListener(m);
+		for(int i = 0; i < 22; i++) {
+			localPlayer.getBagContents().addItem(Item.getRandomItem());
+		}
 		while(alive && notwon && !quit){
 			currentWorld = World.getWorld(worldNum);
 			if(worldWon){
@@ -399,21 +448,28 @@ public class Game {
 			break;
 		}
 		case DROP: {
-			String itemName = JOptionPane.showInputDialog("Enter an item to drop:").toUpperCase();
-			localPlayer.drop(itemName, currentWorld);
+			int dropped = action.getValue();
+			//String itemName = localPlayer.getBagContents().getItems().get(dropped).getName();
+			//System.out.println("trying to drop " + itemName + "  " + dropped);
+			localPlayer.drop(dropped, currentWorld);
 			break;
 			
 		}
 		case INVENTORY: {
+			this.invRender = !this.invRender;
+			break;
+			/*
 			Bag b = localPlayer.getBagContents();
 			for(Item i: b.getItems()){
 				allItems = allItems + i.toString() + "\n";
 			}
-			JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);
-			break;
+			JOptionPane.showMessageDialog(null, allItems, "Inventory", JOptionPane.INFORMATION_MESSAGE);*/
+			//break;
 		}
 		case EQUIP:{
-			localPlayer.equip();
+			//localPlayer.equip();
+			System.out.println("trying to equip aaa" + action.getValue());
+			localPlayer.equip(action.getValue());
 			break;
 		}
 		case EXIT: { //exit game with confirmation
@@ -528,6 +584,33 @@ public class Game {
 	public void mouseClicked(MouseEvent e) {
 		if(getExitClickedBounds().contains(e.getPoint()))
 			this.exitGame(false);
+		if(this.invRender) {
+			checkInvClick(e.getPoint(), (e.getButton() == MouseEvent.BUTTON2 || e.isControlDown()));
+			System.out.println("did thing");
+		}
+	}
+	
+	/**
+	 * Drop or Equip item. Left click is equip, right click is drop.
+	 * @param p
+	 */
+	public void checkInvClick(Point p, boolean isRightClick) {
+		int xPos = (int)(p.getX()/Tile.TILE_SIZE);
+		int yPos = (int)((p.getY()-20)/Tile.TILE_SIZE);
+		int invPos = xPos + (15 * yPos);
+		//Item item = localPlayer.getBagContents().getItems().get(invPos);
+		System.out.println(xPos + "  " + yPos + "  " + isRightClick);
+		if(isRightClick) {
+			PlayerActions action = PlayerActions.DROP;
+			action.setValue(invPos);
+			doPlayerTurn(action);
+			System.out.println("trying to drop");
+		} else {
+			PlayerActions action = PlayerActions.EQUIP;
+			action.setValue(invPos);
+			doPlayerTurn(action);
+			System.out.println("trying to equip " + action.getValue());
+		}
 	}
 	
 	public Rectangle getTopBarBounds() {

@@ -122,6 +122,11 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		}
     	}
     }
+    
+    public void drop(int invVal, World w) {
+    	inventory.removeItem(invVal);
+    }
+    
     public void attack(World w, Direction d) {
     	//Xmod and YMod are values that represent the enemies distance from the player
     	//Tile eT = tile 1 away from player, based on direction
@@ -191,6 +196,26 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     }	//		(defend an attack with an item)
     public Bag getBagContents() {			//(return all the contents in the character�s person)
     	return inventory;
+    }
+    
+    public void equip(int invValue) {
+    	System.out.println(inventory.getItems().size() + " and " + invValue);
+    	if(invValue >= inventory.getItems().size())
+    		return;
+    	Item item = inventory.getItems().get(invValue);
+    	if(item instanceof Weapon) {
+    		if(!(weapon instanceof Fist)){
+				inventory.addItem(weapon);
+			}
+			weapon = (Weapon)item;
+			inventory.removeItem(item);
+    	} else if (item instanceof Shield) {
+    		if(!(shield instanceof Arm)){
+				inventory.addItem(shield);
+			}
+			shield = (Shield)item;
+			inventory.removeItem(item);
+    	}
     }
     
     public void equip(){

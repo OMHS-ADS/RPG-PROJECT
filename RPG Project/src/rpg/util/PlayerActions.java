@@ -1,7 +1,21 @@
 package rpg.util;
 
 public enum PlayerActions {
-	MOVE_UP,MOVE_RIGHT,MOVE_DOWN,MOVE_LEFT,
-	ATTACK_UP,ATTACK_RIGHT,ATTACK_DOWN,ATTACK_LEFT,
-	INVENTORY,DROP,EXIT, PICKUP, EQUIP
+	MOVE_UP(-1),MOVE_RIGHT(-1),MOVE_DOWN(-1),MOVE_LEFT(-1),
+	ATTACK_UP(-1),ATTACK_RIGHT(-1),ATTACK_DOWN(-1),ATTACK_LEFT(-1),
+	INVENTORY(-1),DROP(0),EXIT(-1), PICKUP(-1), EQUIP(0);
+	
+	private int value;
+	
+	PlayerActions(int extraValue) {
+		this.value = extraValue;
+	}
+	
+	public int getValue() {
+		return this.value;
+	}
+	
+	public void setValue(int v) {
+		this.value = v;
+	}
 }

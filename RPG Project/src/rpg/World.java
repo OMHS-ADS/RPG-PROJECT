@@ -274,7 +274,7 @@ public class World implements Serializable {
 		worlds[0] = new World();
 		worlds[0].setTile(5, 5, false, new Tree());
 		worlds[0].setTile(4, 4, false, new Rabbit());
-		worlds[0].setTile(3, 3, false, new ItemEntity(new LargeShield()));
+		worlds[0].setTile(3, 3, false, new ItemEntity(new LargeShield("Kronic Shield")));
 		worlds[0].setTile(5, 5, false, new ExitEntity(0));
 		
 		worlds[0].setTile(2, 0, true, new Path(3));
