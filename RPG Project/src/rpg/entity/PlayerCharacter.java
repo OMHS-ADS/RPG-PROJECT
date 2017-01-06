@@ -77,6 +77,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     public void move(Direction direction, World w, Game g) {   //  			(move in a direction multiple space(s)
     	int oldX = xPos;
     	int oldY = yPos;
+    	System.out.println(xPos + " AA " + yPos);
     	//error checking
     	if (direction==Direction.UP && yPos==0 ||
     		direction==Direction.DOWN && yPos==Constants.WORLDMAX_Y-1 ||
@@ -104,9 +105,13 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		w.setTile(xPos, yPos, false, this);
     		w.setTile(oldX, oldY, false, new NullEntity());
     	} else if (newTile.getTileEntity() instanceof Interactable) {
+    		int preX = xPos;
+    		int preY = yPos;
     		((Interactable)newTile.getTileEntity()).interact(this, g);
-    		xPos = oldX;
-    		yPos = oldY;
+    		if(preX == xPos && preY == yPos) {
+    			xPos = oldX;
+    			yPos = oldY;
+    		}
     	}
     	else{
     		xPos = oldX;
@@ -116,6 +121,15 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	
 
     }
+    
+    public void setX(int x) {
+    	this.xPos = x;
+    }
+    
+    public void setY(int y) {
+    	this.yPos = y;
+    }
+    
     public void pickup(ItemEntity item) {			//		(pickup a visible item)
     	inventory.addItem(item.getItem());
     	checkSPExists();

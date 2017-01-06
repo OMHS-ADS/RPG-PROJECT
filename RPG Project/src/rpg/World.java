@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import rpg.container.Chest;
 import rpg.entity.Enemy;
 import rpg.entity.Entity;
 import rpg.entity.ExitEntity;
@@ -309,6 +310,19 @@ public class World implements Serializable {
 		worlds[0].getEntities().put(worlds[0].getTile(3, 3, false).getTileEntity(), new ArrayValue2D(3,3));
 		
 		worlds[1] = new World();
+
+		worlds[1].setTile(1, 1, false, new ItemEntity(new LargeShield("Kronik Shield")));
+		worlds[1].setTile(2, 2, false, new ItemEntity(new Sword("Cool Sword")));
+		worlds[1].setTile(3, 3, false, new ItemEntity(new LargeShield("Kronik Shield")));
+		worlds[1].setTile(4, 4, false, new ItemEntity(new Sword("Cool Sword")));
+		worlds[1].setTile(5, 4, false, new ExitEntity(0));
+
+		worlds[1].getEntities().put(worlds[1].getTile(1, 1, false).getTileEntity(), new ArrayValue2D(1,1));
+		worlds[1].getEntities().put(worlds[1].getTile(2, 2, false).getTileEntity(), new ArrayValue2D(2,2));
+
+		worlds[1].getEntities().put(worlds[1].getTile(3, 3, false).getTileEntity(), new ArrayValue2D(3,3));
+		worlds[1].getEntities().put(worlds[1].getTile(4, 4, false).getTileEntity(), new ArrayValue2D(4,4));
+
 	}
 	
 	/**

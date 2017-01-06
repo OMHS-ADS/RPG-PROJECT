@@ -35,6 +35,7 @@ import rpg.item.Arm;
 import rpg.item.Fist;
 import rpg.item.Item;
 import rpg.sounds.SoundPlayer;
+import rpg.spell.Spell;
 import rpg.util.ArrayValue2D;
 import rpg.util.Direction;
 import rpg.util.ImageLoader;
@@ -415,6 +416,19 @@ public class Game {
 
 	
 	/**
+	 * Switch the world to the specified world
+	 * @param w The new World
+	 */
+	public void transferPlayerToWorld(World w) {
+		currentWorld.removeEntity(localPlayer);
+		w.getEntities().put(localPlayer, new ArrayValue2D(0,0));
+		w.setTile(0, 0, false, localPlayer);
+		localPlayer.setX(0);
+		localPlayer.setY(0);
+		currentWorld = w;
+	}
+	
+	/**
 	 * The doPlayerTurn method accepts user input to conduct the players turn.
 	 */
 	public void doPlayerTurn(PlayerActions action) {
@@ -480,6 +494,11 @@ public class Game {
 		}
 		case EXIT: { //exit game with confirmation
 			exitGame(false);
+		} case SPELL: {
+			//Rip i killed morgans spell idea :(
+			int spellNum = action.getValue();
+			Spell cast = Spell.getSpell(spellNum);
+			cast.doEffect(localPlayer);
 		}
 		}
 		
@@ -691,9 +710,13 @@ public class Game {
 			case KeyEvent.VK_A:doPlayerTurn(PlayerActions.MOVE_LEFT);break;
 			case KeyEvent.VK_I:doPlayerTurn(PlayerActions.INVENTORY);break;
 			
-			case KeyEvent.VK_E:doPlayerTurn(PlayerActions.EQUIP);break;
+			//case KeyEvent.VK_E:doPlayerTurn(PlayerActions.EQUIP);break;
 			case KeyEvent.VK_Q:doPlayerTurn(PlayerActions.DROP);break;
 			case KeyEvent.VK_ESCAPE:doPlayerTurn(PlayerActions.EXIT);break;
+			case KeyEvent.VK_1:doPlayerTurn(PlayerActions.SPELL.setValue(0));break;
+			case KeyEvent.VK_2:doPlayerTurn(PlayerActions.SPELL.setValue(1));break;
+			case KeyEvent.VK_3:doPlayerTurn(PlayerActions.SPELL.setValue(2));break;
+			case KeyEvent.VK_4:doPlayerTurn(PlayerActions.SPELL.setValue(3));break;
 			
 
 			case KeyEvent.VK_UP:doPlayerTurn(PlayerActions.ATTACK_UP);break;
