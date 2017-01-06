@@ -30,20 +30,49 @@ public abstract class Enemy extends AnimatedEntity implements Damageable {
 		protected float hitChance = (float) 0.75, baseDefend = 0.1f;
 
 		
-	    public abstract void move(int direction);   //  			(move in a direction multiple space(s)
-	    //public abstract void pickup(String item);	//		(pickup a visible item)
-	    //public abstract void drop(String item);			//(drop an item at your current location)
-	    public abstract void attack(Entity target);		//	(attack another character)
-	    //public abstract void attack(String name, Weapon w);	//(attack a character with an item)
-	    public abstract void defend(int dmg);				//(defend an attack)
-	    //public abstract void defend(Shield s);	//		(defend an attack with an item)
-	    public abstract String getLocation();			//	(return�s the current character�s room location as X, Y)
+	   
 	    
+
+		public void move(int direction) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		public void attack(Entity target) {
+			PlayerCharacter player = ((PlayerCharacter)target);
+			if(player.getShield() == null){
+				player.defend(MAP);
+			}
+			else{
+				player.defend(MAP, player.getShield());
+			}
+			
+		}
+
+		public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
+	    	HP += dmg;
+	    	//System.out.println(HP);
+	    }
+		
+		public void defend(int dmg) {				//(defend an attack)
+	    	this.changeHealth((double)(dmg * (1 - baseDefend)) * (-1));
+	    }
+
+		public String getLocation() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
+
+
 	    public int getMaxHP() {
 	    	return this.maxHp;
 	    }
 	    
-	    @Override
+
 	    public double getHP() {
 	    	return this.HP;
 	    }
