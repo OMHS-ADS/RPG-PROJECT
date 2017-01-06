@@ -322,7 +322,7 @@ public class World implements Serializable {
 		worlds[1].setTile(2, 6, false, new Tree());
 		worlds[1].setTile(8, 8, false, new Tree());
 		worlds[1].setTile(10, 5, false, new Rabbit());
-		worlds[1].setTile(6, 9, false, new Rabbit());
+		worlds[1].setTile(6, 8, false, new Rabbit());
 		worlds[1].setTile(5, 3, false, new Rabbit());
 
 		worlds[1].setTile(1, 1, false, new ItemEntity(new LargeShield("Kronik Shield 1")));
