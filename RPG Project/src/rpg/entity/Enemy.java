@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import rpg.Tile;
+import rpg.World;
 import rpg.graphics.Animation;
+import rpg.util.ArrayValue2D;
 import rpg.util.Damageable;
 
 /**
@@ -30,20 +32,90 @@ public abstract class Enemy extends AnimatedEntity implements Damageable {
 		protected float hitChance = (float) 0.75, baseDefend = 0.1f;
 
 		
-	    public abstract void move(int direction);   //  			(move in a direction multiple space(s)
-	    //public abstract void pickup(String item);	//		(pickup a visible item)
-	    //public abstract void drop(String item);			//(drop an item at your current location)
-	    public abstract void attack(Entity target);		//	(attack another character)
-	    //public abstract void attack(String name, Weapon w);	//(attack a character with an item)
-	    public abstract void defend(int dmg);				//(defend an attack)
-	    //public abstract void defend(Shield s);	//		(defend an attack with an item)
-	    public abstract String getLocation();			//	(return�s the current character�s room location as X, Y)
+	   
 	    
+
+		public void move(PlayerCharacter pc, World currentWorld) {
+			ArrayValue2D ePos = currentWorld.getEntities().get(this);
+			ArrayValue2D pPos = currentWorld.getEntities().get(pc);
+			int xDiff = ePos.getX() - pPos.getX();
+			int yDiff = ePos.getY() - pPos.getY();
+			int absXDiff = Math.abs(xDiff);
+			int absYDiff = Math.abs(yDiff);
+			int targetX = 0;
+			int targetY = 0;
+			Tile newTile;
+			if(absXDiff > absYDiff){
+				if(xDiff > 0){
+					newTile = currentWorld.getFGTile(ePos.getX()-1, ePos.getY());
+					targetX = ePos.getX()-1;
+					targetY = ePos.getY();
+				}
+				else{
+					newTile = currentWorld.getFGTile(ePos.getX()+1, ePos.getY());
+					targetX = ePos.getX()+1;
+					targetY = ePos.getY();
+				}
+			}
+			else{
+				if(yDiff > 0){
+					newTile = currentWorld.getFGTile(ePos.getX(), ePos.getY()-1);
+					targetY = ePos.getY()-1;
+					targetX = ePos.getX();
+				}
+				else{
+					newTile = currentWorld.getFGTile(ePos.getX(), ePos.getY()+1);
+					targetY = ePos.getY()+1;
+					targetX = ePos.getX();
+				}
+			}
+			if(newTile.getTileEntity() instanceof NullEntity){
+	    		currentWorld.removeEntity(this);
+	    		currentWorld.setTile(ePos.getX(), ePos.getY(), false, new NullEntity());
+	    		currentWorld.setTile(targetX, targetY, false, this);
+	    		
+	    	}
+			
+			
+			
+			
+		}
+
+
+		public void attack(Entity target) {
+			PlayerCharacter player = ((PlayerCharacter)target);
+			if(player.getShield() == null){
+				player.defend(MAP);
+			}
+			else{
+				player.defend(MAP, player.getShield());
+			}
+			
+		}
+
+		public void changeHealth(double dmg) { 		//Get damaged or healed by a spell or an attack
+	    	HP += dmg;
+	    	//System.out.println(HP);
+	    }
+		
+		public void defend(int dmg) {				//(defend an attack)
+	    	this.changeHealth((double)(dmg * (1 - baseDefend)) * (-1));
+	    }
+
+		public String getLocation() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
+
+
+
 	    public int getMaxHP() {
 	    	return this.maxHp;
 	    }
 	    
-	    @Override
+
 	    public double getHP() {
 	    	return this.HP;
 	    }

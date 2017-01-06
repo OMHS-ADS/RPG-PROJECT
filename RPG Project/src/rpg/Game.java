@@ -117,7 +117,6 @@ public class Game {
 		do {
 			do {
 				playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
-				System.out.println(playerName);
 			} while (!containsAny(playerName,"/:*?<>|"));
 		f = new File(Game.playerDir + playerName + ".rplr");
 		deadPlayer = false;
@@ -175,6 +174,7 @@ public class Game {
 		}
 		JOptionPane.showMessageDialog(null, localPlayer.toString());
 	}
+
 	/**
 	 * A method that checks if a & b share characters
 	 * @author Morgan
@@ -573,6 +573,9 @@ public class Game {
 		}
 		if(isPlayerAdjacent(e)){
 			e.attack(localPlayer);
+		}
+		else{
+			e.move(localPlayer, currentWorld);
 		}
 	}
 
