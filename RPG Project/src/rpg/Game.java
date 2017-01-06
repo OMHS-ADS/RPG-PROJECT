@@ -115,8 +115,10 @@ public class Game {
 		String playerName;
 		File f;
 		do {
-		playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
-		f = new File(Game.playerDir + playerName + ".rplr");
+			do {
+				playerName = JOptionPane.showInputDialog("Enter your player name. If it exists, your character will be loaded. If not, a new character will be created");
+			} while (!containsAny(playerName,"/:*?<>|"));
+			f = new File(Game.playerDir + playerName + ".rplr");
 		deadPlayer = false;
 		loadedSave = false;
 		if(f.exists()) {
@@ -171,6 +173,20 @@ public class Game {
 			savePlayer(localPlayer);
 		}
 		JOptionPane.showMessageDialog(null, localPlayer.toString());
+	}
+
+	/**
+	 * A method that checks if a & b share characters
+	 * @author Morgan
+	 */
+	private static boolean containsAny(String a, String b) {
+		for (char c1 : a.toCharArray()) {
+			for (char c2 : b.toCharArray()) {
+				if (c1 == c2)
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
