@@ -149,7 +149,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		double chance = Math.random();
     		//System.out.println(chance + "  " + hitChance);
     		if (chance < hitChance){  //if the attack works, then the enemy has a chance to defend itself
-    			if(weapon == new Fist()){
+    			if(!(weapon instanceof Fist)){
     				Enemy e = (Enemy) et.getTileEntity();
     				e.defend(MAP*(weapon.getMAP()));
     				checkSPExists();
