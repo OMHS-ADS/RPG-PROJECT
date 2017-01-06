@@ -1,13 +1,18 @@
 package rpg.item;
+
+
+//Someone do comments for all of item
+//I literally touched none of these
+
 public class LargeShield extends Shield {
 
 	public LargeShield() {
-		super();
-		super.setDefense(20);
+		super("large_shield", "Large Shield");
+		super.setDefense(50);
 	}	
 	
-	public LargeShield(String name) {
-		super(name);
-		super.setDefense(20);
+	public LargeShield(String displayName) {
+		super("large_shield",displayName);
+		super.setDefense(50);
 	}
 }

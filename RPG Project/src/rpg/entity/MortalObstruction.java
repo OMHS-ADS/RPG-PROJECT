@@ -4,15 +4,26 @@ import java.awt.Graphics;
 
 import rpg.util.Damageable;
 
-//An example of this is like a breakable wall 
+/**
+ * MortalObstruction is a {@link Damageable} foreground tile. Its purpose is to block entities from passing through the tile, but it can be 
+ * destroyed by natural means.
+ * @see ImmortalObsrtuction
+ * 
+ *
+ */
 public class MortalObstruction extends StaticEntity implements Damageable {
 
 	private double hp;
 	
+	/**
+	 * Creates a {@link MoralObstruction} with a specified health.
+	 * @param hp The health for this object.
+	 */
 	public MortalObstruction(int hp) {
 		super("mortal_obstruction");
 		this.hp = hp;
 	}
+
 
 	@Override
 	public void changeHealth(double dmg) {

@@ -8,7 +8,7 @@ import rpg.util.Coordinatable;
  *
  */
 public abstract class Spell implements Coordinatable {
-	protected double vx,vy;
+	protected double vx,vy; //velocities of fired spell
 	protected int x,y;
 	public Spell(int x, int y, double vx, double vy) {
 		this.vx=vx;

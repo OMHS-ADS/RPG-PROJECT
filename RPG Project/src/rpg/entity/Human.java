@@ -3,6 +3,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The Human player class.
+ * @see PlayerCharacter
+ *
+ */
 public class Human extends PlayerCharacter {
 
 	/**

@@ -4,15 +4,15 @@ abstract public class Shield extends Item {
 		super();
 	}
 	
-	public Shield(String name){
-		super(name);
+	public Shield(String className, String displayName){
+		super(className, displayName);
 	}
 	
 	public String toString(){
-		String str = name + " : \n"
+		String str = displayName + "- "
 				   //+ "Equipped = " + equipped + "\n"
 				   //+ "In somebody's inventory = " + state + "\n"
-				   + "Defense Points : " + DHP;// + "\n"
+				   + "DP: " + DHP;// + "\n"
 				   //+ "(X,Y) position = (" + xPos + ", " + yPos + ")";
 		return str;
 	}

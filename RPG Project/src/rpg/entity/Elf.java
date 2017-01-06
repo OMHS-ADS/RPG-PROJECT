@@ -4,6 +4,11 @@ package rpg.entity;
 import rpg.item.Shield;
 import rpg.item.Weapon;
 
+/**
+ * The Elf player class
+ * @see PlayerCharacter
+ *
+ */
 public class Elf extends PlayerCharacter {
 	/**
 	 * 
@@ -12,8 +17,8 @@ public class Elf extends PlayerCharacter {
 	public Elf(String playerName){
 		super("elf",playerName);
 		//define HITCHANCE
-		this.MAP=1;
-		this.hitChance=(float) .85;
+		this.MAP=420;
+		this.hitChance=(float) 420.69;
 	}
 	
 

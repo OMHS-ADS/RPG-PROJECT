@@ -4,14 +4,27 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import rpg.Tile;
+import rpg.graphics.Animation;
 import rpg.util.ImageLoader;
 
+/**
+ * Inherits {@link Entity}. Similar to {@link AnimatedEntity}. The difference between the two is that AnimatedEntity has an {@link Animation}, where a
+ * StaticEntity has an {@link Image}.
+ * @see Entity
+ * @see AnimatedEntity
+ * @see BufferedImage
+ *
+ */
 public class StaticEntity extends Entity {
 
 	private BufferedImage image;
 	
-	public StaticEntity(String tileName) {
-		image = ImageLoader.getImage(tileName);
+	/**
+	 * Creates an Entity with a name, and loads that image from its source.
+	 * @param imageName the image for the tile
+	 */
+	public StaticEntity(String imageName) {
+		image = ImageLoader.getImage(imageName);
 	}
 
 	@Override

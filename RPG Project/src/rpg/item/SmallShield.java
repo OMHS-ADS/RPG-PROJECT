@@ -2,12 +2,12 @@ package rpg.item;
 public class SmallShield extends Shield {
 
 	public SmallShield(){
-		super();
+		super("small_shield_","Small Shield");
 		super.setDefense(10);
 	}
 	
 	public SmallShield(String name){
-		super(name);
+		super("small_shield",name);
 		super.setDefense(10);
 	}
 }

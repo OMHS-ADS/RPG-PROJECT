@@ -6,8 +6,8 @@ public class Sword extends Weapon{
 		super.setAttack(10);
 	}
 	
-	public Sword(String name){
-		super(name);
+	public Sword(String displayName){
+		super("sword", displayName);
 		super.setAttack(10);
 	}
 	// sword attack is 10

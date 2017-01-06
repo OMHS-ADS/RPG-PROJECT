@@ -6,15 +6,15 @@ abstract public class Weapon extends Item{
 		super();
 	}
 	
-	public Weapon(String name){
-		super(name);
+	public Weapon(String className, String displayName){
+		super(className, displayName);
 	}
 	
 	public String toString(){
-		String str = name + " : \n"
+		String str = displayName + "- "
 				   //+ "Equipped = " + equipped + "\n"
 				   //+ "In somebody's inventory = " + state + "\n"
-				   + "Attack Points : " + MAP;// + "\n"
+				   + "AP: " + MAP;// + "\n"
 				   //+ "(X,Y) position = (" + xPos + ", " + yPos + ")";
 		return str;
 	}		

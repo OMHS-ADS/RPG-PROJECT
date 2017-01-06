@@ -14,9 +14,12 @@ public class SoundPlayer {
 		//empty
 	}
 	
+	
+	//The only thing incorrect is the file path
+	
 	public void playAttackSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("attackSound.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResourceAsStream("/sounds/" + "attackSound.wav"));
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -28,7 +31,7 @@ public class SoundPlayer {
 	
 	public void playCriticalSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("criticalSound.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResourceAsStream("/sounds/" + "criticalSound.wav"));
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -40,7 +43,7 @@ public class SoundPlayer {
 	
 	public void playMissSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("missSound.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResourceAsStream("/sounds/" + "missSound.wav"));
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -52,7 +55,7 @@ public class SoundPlayer {
 	
 	public void playMagicSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("magicSound.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResourceAsStream("/sounds/" + "magicSound.wav"));
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -64,7 +67,7 @@ public class SoundPlayer {
 	
 	public void playBlockSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("blockSound.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResourceAsStream("/sounds/" + "blockSound.wav"));
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -76,7 +79,7 @@ public class SoundPlayer {
 	
 	public void playPickupSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("pickupSound.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResourceAsStream("/sounds/" + "pickupSound.wav"));
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -88,7 +91,7 @@ public class SoundPlayer {
 	
 	public void playDeathSound(){
 		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("deathSound.wav").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(SoundPlayer.class.getResourceAsStream("/sounds/" + "deathSound.wav"));
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
