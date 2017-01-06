@@ -95,7 +95,7 @@ public class World implements Serializable {
 	 * @return The tile at this location. If the x or y value is out of bounds, it will throw an {@link IndexOutOfBoundsException}.
 	 */
 	public Tile getBGTile(int x, int y) {
-		return foreground[x][y];
+		return background[x][y];
 	}
 	
 	/**
@@ -159,7 +159,7 @@ public class World implements Serializable {
 	public void setTile(int r, int c, boolean isBG, Entity e){
 		if(isBG){
 			background[r][c].setEntity(e);
-			knownEntities.put(e, new ArrayValue2D(r,c));
+			//knownEntities.put(e, new ArrayValue2D(r,c));
 		}
 		else{
 			foreground[r][c].setEntity(e);
@@ -276,7 +276,7 @@ public class World implements Serializable {
 		//Fix it zach
 		worlds = new World[2];
 		worlds[0] = new World();
-		worlds[0].setTile(5, 5, false, new Tree());
+		worlds[0].setTile(5, 6, false, new Tree());
 		worlds[0].setTile(8, 2, false, new Tree());
 		worlds[0].setTile(9, 8, false, new Tree());
 		worlds[0].setTile(4, 4, false, new Rabbit());
@@ -332,8 +332,8 @@ public class World implements Serializable {
 		worlds[1].setTile(5, 4, false, new ExitEntity(0));
 
 		
-		for (int r = 0; r < 16; r++) {
-			for(int c = 0; c < 9; c++) {
+		for (int c = 0; c < 9; c++) {
+			for(int r = 0; r < 16; r++) {
 				worlds[1].setTile(r, c, true, new Dirt());
 			}
 		}

@@ -10,6 +10,6 @@ import rpg.entity.StaticEntity;
 public class Dirt extends StaticEntity {
 
 	public Dirt() {
-		super("dirt"+((int)(Math.random() * 4)));
+		super("path_4_"+((int)(Math.random() * 4)));
 	}
 }
