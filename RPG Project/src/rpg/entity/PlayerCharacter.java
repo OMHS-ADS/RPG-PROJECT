@@ -42,8 +42,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		this.className = className;
 		this.MAP=1;
 		this.hitChance=(float) 0.75;
-		shield = new Arm();
-		weapon = new Fist();
+		shield = new Arm("Arm");
+		weapon = new Fist("Fist");
 		xPos = 0;
 		yPos = 0;
 		MAXHP = 20;
@@ -60,8 +60,8 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
 		this.className = className;
 		this.MAP=dmg;
 		this.hitChance=hitChance;
-		shield = new Arm();
-		weapon = new Fist();
+		shield = new Arm("Arm");
+		weapon = new Fist("Fist");
 		this.inventory = new Bag(new ArrayList<Item>());
 		sp = new SoundPlayer();
 	}
@@ -154,17 +154,18 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     		double chance = Math.random();
     		//System.out.println(chance + "  " + hitChance);
     		if (chance < hitChance){  //if the attack works, then the enemy has a chance to defend itself
-    			if(weapon == new Fist()){
+    			if(!(weapon instanceof Fist)){
     				Enemy e = (Enemy) et.getTileEntity();
     				e.defend(MAP*(weapon.getMAP()));
     				checkSPExists();
-    				sp.playAttackSound();
+    				sp.playCriticalSound();
+    				
     			}
     			else{
     				Enemy e = (Enemy) et.getTileEntity();
             		e.defend(MAP);
             		checkSPExists();
-            		sp.playCriticalSound();
+            		sp.playAttackSound();
     			}
     			
     		} else {
@@ -190,7 +191,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	sp.playBlockSound();
     }			//(defend an attack)
    	public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
-    	this.changeHealth(-1 * dmg * (1 - s.getMAP()));
+   		this.changeHealth(-1 * dmg * (1 - ((.01)*(double)shield.getDef())));
     	checkSPExists();
     	sp.playBlockSound();
     }	//		(defend an attack with an item)
@@ -224,7 +225,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	//if one is found, replace the weapon/shield as necessary, returning the old one to the inventory
     	String itemName = JOptionPane.showInputDialog("Enter an item to equip").toUpperCase();
     	for(Item i: inventory.getItems()){
-    		if(i.getName().toUpperCase().equals(itemName)){
+    		if(i.getDisplayName().toUpperCase().equals(itemName)){
     			if(i instanceof Weapon){
     				if(!(weapon instanceof Fist)){
         				inventory.addItem(weapon);

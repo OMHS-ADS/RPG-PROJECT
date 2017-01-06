@@ -512,8 +512,8 @@ public class Game {
 				//this doesn't work
 				localPlayer.getPlayerName().replaceAll(localPlayer.getPlayerName(), localPlayer.getPlayerName() + " is D E A D");
 				localPlayer.getBagContents().getItems().clear();
-				localPlayer.setShield(new Arm());
-				localPlayer.setWeapon(new Fist());
+				localPlayer.setShield(new Arm("Arm"));
+				localPlayer.setWeapon(new Fist("Fist"));
 				savePlayer(localPlayer);
 			}
 		}

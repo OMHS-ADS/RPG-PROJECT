@@ -1,8 +1,6 @@
 package rpg.item;
 abstract public class Shield extends Item {
-	public Shield(){
-		super();
-	}
+
 	
 	public Shield(String className, String displayName){
 		super(className, displayName);
@@ -19,5 +17,8 @@ abstract public class Shield extends Item {
 	
 	protected void setDefense(int defense){
 		DHP = defense;
+	}
+	public int getDef(){
+		return DHP;
 	}
 }
