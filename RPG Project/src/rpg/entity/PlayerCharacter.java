@@ -185,7 +185,7 @@ public abstract class PlayerCharacter extends AnimatedEntity implements Damageab
     	sp.playBlockSound();
     }			//(defend an attack)
    	public void defend(int dmg, Shield s) {  	//		(defend an attack with an item)
-    	this.changeHealth(-1 * dmg * (1 - s.getMAP()));
+   		this.changeHealth(-1 * dmg * (1 - ((.01)*(double)shield.getDef())));
     	checkSPExists();
     	sp.playBlockSound();
     }	//		(defend an attack with an item)

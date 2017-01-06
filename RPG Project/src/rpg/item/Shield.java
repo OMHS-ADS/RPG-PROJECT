@@ -20,4 +20,7 @@ abstract public class Shield extends Item {
 	protected void setDefense(int defense){
 		DHP = defense;
 	}
+	public int getDef(){
+		return DHP;
+	}
 }
